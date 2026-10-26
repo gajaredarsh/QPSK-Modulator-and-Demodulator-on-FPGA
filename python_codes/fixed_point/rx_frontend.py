@@ -1,14 +1,12 @@
 import os
 import sys
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import numpy as np
 from scipy import signal
 import params
 import fixedpoint
-from fixed_point import tx_nco
-
+import tx_nco
 SPS = params.SAMPLES_PER_SYMBOL
 FC_OVER_FS = params.FC_OVER_FS
 FIR_ORDER = params.FIR_ORDER
@@ -33,6 +31,22 @@ def group_delay_samples(h):
     if len(h) % 2 == 0 or not np.allclose(h, h[::-1]):
         raise ValueError("filter is not a symmetric odd-length (linear-phase type I) FIR")
     return (len(h) - 1) // 2
+
+
+def design_lpf(order=FIR_ORDER, fc=FIR_FC, window=FIR_WINDOW):
+    """
+    Windowed-sinc linear-phase FIR low-pass, in float. The taps are designed here and then
+    rounded to COEF_BITS by quantize_coeffs(). Same recipe as the floating_point design.
+
+        order  : number of taps - 1 (must be even, so the delay is a whole number of samples)
+        fc     : -6 dB cutoff in cycles per sample
+    Returns float taps h[0..order] with sum(h) = 1.
+    """
+    if order % 2 != 0:
+        raise ValueError("order must be even")
+    if not (0.0 < fc < 0.5):
+        raise ValueError("fc is in cycles/sample and must be between 0 and 0.5")
+    return signal.firwin(order + 1, fc, window=window, fs=1.0)
 
 
 def _fir(x, h, aligned):

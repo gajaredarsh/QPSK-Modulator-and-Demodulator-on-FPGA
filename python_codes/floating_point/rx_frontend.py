@@ -1,7 +1,6 @@
 import os
 import sys
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import numpy as np
 from scipy import signal
@@ -10,9 +9,8 @@ from scipy.special import erfc
 import matplotlib.pyplot as plt
 
 import params
-from floating_point import channel
-from floating_point import tx_nco
-
+import channel
+import tx_nco
 SPS = params.SAMPLES_PER_SYMBOL
 FC_OVER_FS = params.FC_OVER_FS
 FIR_ORDER = params.FIR_ORDER
@@ -203,18 +201,8 @@ def _local_carrier_float(n):
     return np.cos(2 * np.pi * FC_OVER_FS * t), np.sin(2 * np.pi * FC_OVER_FS * t)
 
 
-def _local_carrier_fixed(n):
-    """Part A's fixed-point NCO. With phase_inc = 8192 it repeats every 8 samples, so one
-    period (16 samples) tiled to length n is identical to running the NCO for n samples."""
-    from fixed_point import tx_nco
-    c, s = tx_nco.nco_fixed(SPS)
-    reps = int(np.ceil(n / SPS))
-    return np.tile(c, reps)[:n], np.tile(s, reps)[:n]
-
-
 def _tx_float(bits):
     """Part A's TX in float: bits -> (I,Q) -> s, plus the LO arrays."""
-    from floating_point import tx_nco
     I, Q = tx_nco.map_qpsk(bits)
     cos, sin = tx_nco.nco_float(len(I) * SPS, FC_OVER_FS)
     return I, Q, tx_nco.modulate(I, Q, cos, sin, SPS), cos, sin

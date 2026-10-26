@@ -1,16 +1,12 @@
 import os
 import sys
 
-sys.path.append(
-    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-)
 
 import numpy as np
 import matplotlib.pyplot as plt
 import params
 import fixedpoint
-from floating_point import channel
-
+import channel
 SPS = params.SAMPLES_PER_SYMBOL
 RX_IN_BITS = params.RX_IN_BITS
 RX_FULL_SCALE = params.RX_FULL_SCALE

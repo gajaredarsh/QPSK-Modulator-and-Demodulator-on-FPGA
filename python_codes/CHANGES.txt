@@ -1,3 +1,32 @@
+Restructure (latest)
+====================
+python_codes/ was split into two self-contained folders plus a comparison script:
+
+  floating_point/   main_float.py + params.py, fixedpoint.py, channel.py, tx_nco.py,
+                    rx_frontend.py, rx_backend_eval.py, d_outputs/ (float plots)
+  fixed_point/      main_fixed.py + the same six modules, d_outputs/ (fixed plots, golden/ hex
+                    vectors)
+  compare_results.py, compare_outputs/
+
+  ~ main_float.py and main_fixed.py moved into their own folders; imports are now flat
+    ("import channel" instead of "from floating_point import channel"); the sys.path hacks
+    were removed.
+  ~ params.py and fixedpoint.py are copied into both folders (the two copies must stay identical;
+    compare_results.py checks this).
+  ~ fixed_point no longer imports floating_point. fixed_point/rx_frontend.py got its own
+    design_lpf() (same recipe as the float one). The parts of main_fixed.py that needed the float
+    code moved to compare_results.py: the exact-BER check of the FIR curve, the integer-vs-float
+    check at 4 dB, and the LFSR-noise check against the exact prediction.
+  ~ neither main saves a results file. Each has a main() that returns the numbers the comparison
+    needs, and a SAVE_FILES flag (plots / golden hex vectors) that compare_results.py switches off.
+  - floating_point/rx_frontend.py: removed _local_carrier_fixed(), which imported fixed_point.
+  + both mains run the same 4 dB scenario (100000 symbols, bit seed 5, noise seed 11) and return the
+    result, so the comparison is between identical bits and identical noise.
+  + compare_results.py (new).
+
+Everything below is the earlier change log, paths relative to the old python_codes/.
+-----------------------------------------------------------------------------------------
+
 Changes relative to python_codes/ in the repo (everything else is untouched)
 ============================================================================
 NEW   main_float.py, main_fixed.py   replace main.py (delete main.py)

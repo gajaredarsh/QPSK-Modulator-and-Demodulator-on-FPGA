@@ -4,18 +4,21 @@ Part D of the QPSK FPGA project golden model: the FIXED-POINT (integer) end-to-e
 
 Runs the chain with the exact integer widths the RTL will use (12-bit NCO, 13-bit TX mixer,
 12-bit receiver input, 12-bit taps, 16-bit integrate-and-dump accumulator) using the
-fixed_point/ modules, and proves it still behaves like the float chain:
+modules in this folder, and proves it still behaves like the float chain:
 
     1. noiseless integer chain gives exactly 0 errors, accumulators fit 16 bits
     2. causal FIR + timing_offset = D gives IDENTICAL integers to aligned FIR + offset 0
     3. integer BER sweep, with and without the FIR, against theory and the exact curve
     4. constellation plots
-    5. integer chain matches the float chain at 4 dB (same noise, same bits)
-    6. hardware-style LFSR noise gives the predicted BER (short run)
+    5. 4 dB scenario (fixed bits and noise) saved so the integer chain can be compared with float
+    6. hardware-style LFSR noise, short run (BER saved; compared with the exact prediction later)
     7. golden hex vectors for the Part D Verilog testbench, read back and verified
 
-The floating_point/ modules are used here ONLY as the reference: the FIR taps are designed in
-float and then quantized, and the exact BER curve comes from Part C's float analysis.
+This folder is self-contained: nothing here imports the floating-point code. The FIR taps are
+designed in float inside rx_frontend.design_lpf() and then quantized. Everything that needs the
+float chain (integer vs float, comparison against the exact BER curve) lives in
+../compare_results.py, which calls main() below and takes the numbers it returns.
+This script saves no results file; it only writes the plots and golden hex vectors.
 
 Run:   python main_fixed.py            (full run)
        python main_fixed.py --quick    (smaller sweep, for a fast check)
@@ -37,15 +40,10 @@ import numpy as np
 
 import params
 import fixedpoint
-from fixed_point import channel
-from fixed_point import tx_nco
-from fixed_point import rx_frontend as F
-from fixed_point import rx_backend_eval as D
-
-# float reference (design the taps, exact BER curve, float chain for the comparison check)
-from floating_point import tx_nco as ref_tx
-from floating_point import rx_frontend as ref_rx
-from floating_point import rx_backend_eval as ref_d
+import channel
+import tx_nco
+import rx_frontend as F
+import rx_backend_eval as D
 
 SPS = params.SAMPLES_PER_SYMBOL
 QUICK = "--quick" in sys.argv
@@ -54,9 +52,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR = os.path.join(HERE, "d_outputs")
 GOLDEN_DIR = os.path.join(OUT_DIR, "golden")
 
-H = ref_rx.design_lpf()                          # float taps (reference only)
+H = F.design_lpf()                               # float taps (designed here, then quantized)
 H_INT = F.quantize_coeffs(H, F.COEF_BITS)        # 12-bit taps, DC gain exactly 1
 D_FIR = F.group_delay_samples(H_INT)             # 12 samples
+
+SAVE_FILES = True                         # plots / golden vectors (compare_results.py turns this off)
+RESULTS = {}                                     # filled by the checks, saved by save_results()
 
 
 # =======================================================================================
@@ -168,30 +169,34 @@ def sweep():
     res = D.ber_sweep(run_chunk, ebn0_list, names, min_errors=100, max_bits=max_bits)
 
     theory = [channel.theory_ber(e) for e in ebn0_list]
-    exact_no = [ref_rx.ber_semi_analytic(None, e) for e in ebn0_list]
-    exact_fir = [ref_rx.ber_semi_analytic(H, e) for e in ebn0_list]
-    print(f"{'Eb/N0':>6s} {'bits':>9s} | {'no-FIR':>9s} {'theory':>9s} {'z':>5s} | "
-          f"{'FIR':>9s} {'exact':>9s} {'z':>5s}")
+    print(f"{'Eb/N0':>6s} {'bits':>9s} | {'no-FIR':>9s} {'theory':>9s} {'z':>5s} | {'FIR':>9s}")
     for k, e in enumerate(ebn0_list):
         b0, b1 = res["no_fir"], res["fir"]
-        z0 = D.z_score(b0["errors"][k], b0["bits"][k], exact_no[k])
-        z1 = D.z_score(b1["errors"][k], b1["bits"][k], exact_fir[k])
+        z0 = D.z_score(b0["errors"][k], b0["bits"][k], theory[k])
         print(f"{e:6.1f} {b0['bits'][k]:9d} | {b0['ber'][k]:9.3e} {theory[k]:9.3e} {z0:5.1f} | "
-              f"{b1['ber'][k]:9.3e} {exact_fir[k]:9.3e} {z1:5.1f}")
+              f"{b1['ber'][k]:9.3e}")
         if not QUICK:
-            assert abs(z0) < 4 and abs(z1) < 4, "integer chain disagrees with the exact prediction"
+            assert abs(z0) < 4, "integer chain without FIR disagrees with ideal QPSK theory"
 
-    fine = np.arange(0, 8.01, 0.25)
-    path = os.path.join(OUT_DIR, "fixed_ber_curve.png")
-    D.plot_ber(
-        sim={"integer, no FIR": (ebn0_list, res["no_fir"]["ber"]),
-             "integer, FIR": (ebn0_list, res["fir"]["ber"])},
-        lines={"theory Q(sqrt(2Eb/N0))": (fine, [channel.theory_ber(e) for e in fine]),
-               "exact, FIR (Part C)": (fine, [ref_rx.ber_semi_analytic(H, e) for e in fine])},
-        path=path)
-    print("PASS: both integer curves sit on their predictions."
-          if not QUICK else "(quick mode: statistics not asserted)")
-    print(f"wrote {path}")
+    RESULTS.update(
+        ebn0=np.array(ebn0_list, dtype=float), theory=np.array(theory),
+        err_no_fir=np.array(res["no_fir"]["errors"]), bits_no_fir=np.array(res["no_fir"]["bits"]),
+        ber_no_fir=np.array(res["no_fir"]["ber"]),
+        err_fir=np.array(res["fir"]["errors"]), bits_fir=np.array(res["fir"]["bits"]),
+        ber_fir=np.array(res["fir"]["ber"]))
+
+    if SAVE_FILES:
+        fine = np.arange(0, 8.01, 0.25)
+        path = os.path.join(OUT_DIR, "fixed_ber_curve.png")
+        D.plot_ber(
+            sim={"integer, no FIR": (ebn0_list, res["no_fir"]["ber"]),
+                 "integer, FIR": (ebn0_list, res["fir"]["ber"])},
+            lines={"theory Q(sqrt(2Eb/N0))": (fine, [channel.theory_ber(e) for e in fine])},
+            path=path)
+    print("PASS: the no-FIR integer curve sits on theory (FIR curve is checked against the exact "
+          "prediction by compare_results.py)." if not QUICK else "(quick mode: statistics not asserted)")
+    if SAVE_FILES:
+        print(f"wrote {path}")
 
 
 # =======================================================================================
@@ -199,6 +204,8 @@ def sweep():
 # =======================================================================================
 
 def constellations():
+    if not SAVE_FILES:
+        return
     print("\n--- Check 4: constellation plots (integer chain, FIR, aligned) ---")
     panels = []
     for e in (0.0, 6.0, 12.0):
@@ -212,38 +219,37 @@ def constellations():
 
 
 # =======================================================================================
-# 5. Integer chain vs float chain
+# 5. Shared 4 dB scenario (the float folder runs the identical one)
 # =======================================================================================
 
-def check_fixed_vs_float():
-    print("\n--- Check 5: integer chain vs float chain at 4 dB (same bits, same noise) ---")
-    n_sym = 40_000 if QUICK else 100_000
-    bits = np.random.default_rng(5).integers(0, 2, 2 * n_sym).astype(np.uint8)
+SCENARIO_EBN0_DB = 4.0
+SCENARIO_N_SYM = 100_000      # same in both folders, in quick mode too, so the results line up
+SCENARIO_BIT_SEED = 5
+SCENARIO_NOISE_SEED = 11
 
-    I, Q = ref_tx.map_qpsk(bits)
-    cos, sin = ref_tx.nco_float(len(I) * SPS)
-    s = ref_tx.modulate(I, Q, cos, sin, SPS)
-    r_fl = channel.awgn(s, 4.0, mode="numpy", seed=11)
-    yi, yq = ref_rx.rx_frontend(r_fl, cos, sin, H, aligned=True)
-    I_fl, Q_fl = ref_d.integrate_dump(yi, yq)
-    ber_fl = ref_d.ber(bits, ref_d.decide(I_fl, Q_fl))
 
+def check_scenario():
+    print(f"\n--- Check 5: shared {SCENARIO_EBN0_DB:g} dB scenario (same bits, same noise as the float run) ---")
+    bits = np.random.default_rng(SCENARIO_BIT_SEED).integers(0, 2, 2 * SCENARIO_N_SYM).astype(np.uint8)
     I, Q, s_fix, cos_i, sin_i = tx_fixed(bits)
-    r_fx, r_int = channel_fixed(s_fix, 4.0, "numpy", seed=11)
+    r_fx, r_int = channel_fixed(s_fix, SCENARIO_EBN0_DB, "numpy", seed=SCENARIO_NOISE_SEED)
     clip = fixedpoint.clip_fraction(r_fx, F.RX_IN_BITS, F.RX_FULL_SCALE)
     yi, yq = rx_fixed(r_int, cos_i, sin_i, H_INT, aligned=True)
     I_hat, Q_hat, rx_bits = decode(yi, yq)
     ber_fx = D.ber(bits, rx_bits)
-
-    # decision values: integer vs float, each divided by its own noiseless level
-    err = np.sqrt(np.mean((I_hat[1:-1] / D.NOISELESS_LEVEL - I_fl[1:-1] / ref_d.NOISELESS_LEVEL) ** 2))
-    print(f"  input clipping fraction {clip:.2e} | max |accumulator| "
-          f"{int(max(np.abs(I_hat).max(), np.abs(Q_hat).max()))} (limit {(1 << (D.ACC_BITS - 1)) - 1})")
-    print(f"  RMS gap between integer and float decision values (noiseless level = 1): {err:.4f}")
-    print(f"  BER float {ber_fl:.5f} | BER integer {ber_fx:.5f}")
+    acc_max = int(max(np.abs(I_hat).max(), np.abs(Q_hat).max()))
+    print(f"  input clipping fraction {clip:.2e} | max |accumulator| {acc_max} "
+          f"(limit {(1 << (D.ACC_BITS - 1)) - 1})")
+    print(f"  BER integer {ber_fx:.5f}")
     assert D.fits_signed(I_hat, D.ACC_BITS) and D.fits_signed(Q_hat, D.ACC_BITS)
-    assert abs(ber_fx - ber_fl) / ber_fl < 0.05, "integer chain changes the BER"
-    print("PASS: integer chain matches the float chain, accumulator never overflows.")
+
+    RESULTS.update(
+        scen_ebn0=SCENARIO_EBN0_DB, scen_bits_tx=bits, scen_bits_rx=rx_bits, scen_ber=ber_fx,
+        scen_I=(I_hat / D.NOISELESS_LEVEL).astype(np.float32),
+        scen_Q=(Q_hat / D.NOISELESS_LEVEL).astype(np.float32),
+        clip_fraction=clip, acc_max=acc_max, acc_bits=D.ACC_BITS,
+        noiseless_level=D.NOISELESS_LEVEL)
+    print("PASS: accumulator never overflows.")
 
 
 # =======================================================================================
@@ -257,9 +263,9 @@ def check_lfsr_noise():
     _, r_int = channel_fixed(s_fix, 2.0, "lfsr", seed=3)
     yi, yq = rx_fixed(r_int, cos_i, sin_i, H_INT, aligned=True)
     measured = D.ber(bits, decode(yi, yq)[2])
-    predicted = ref_rx.ber_semi_analytic(H, 2.0)
-    print(f"  BER measured {measured:.4f} | exact prediction {predicted:.4f}")
-    assert abs(measured - predicted) / predicted < 0.20
+    print(f"  BER measured {measured:.4f}  (compared with the exact prediction by compare_results.py)")
+    assert 0.0 < measured < 0.5
+    RESULTS.update(lfsr_ebn0=2.0, lfsr_ber=measured, lfsr_bits=len(bits))
     print("PASS")
 
 
@@ -286,6 +292,11 @@ def export_golden(n_sym=128, ebn0_db=6.0):
         "d_bits_tx.hex": (bits[:2 * n], 1),      # transmitted bits         (1 bit)
         "d_bits_rx.hex": (rx_bits, 1),           # expected decisions       (1 bit)
     }
+    if not SAVE_FILES:
+        print(f"  {n} symbols, offset {D_FIR}, accumulators {D.ACC_BITS} bit, {errs} errors / {total} bits "
+              f"(hex files not written)")
+        print("PASS")
+        return
     D.write_vectors(GOLDEN_DIR, vectors)
     with open(os.path.join(GOLDEN_DIR, "info.txt"), "w") as f:
         f.write(f"samples per symbol : {SPS}\n")
@@ -310,8 +321,10 @@ def export_golden(n_sym=128, ebn0_db=6.0):
 
 # =======================================================================================
 
-if __name__ == "__main__":
-    os.makedirs(OUT_DIR, exist_ok=True)
+def main():
+    """Run every check. Returns the numbers compare_results.py needs; saves no results file."""
+    if SAVE_FILES:
+        os.makedirs(OUT_DIR, exist_ok=True)
     print("=" * 74)
     print("Part D FIXED-POINT run" + ("  (quick mode)" if QUICK else ""))
     print("=" * 74)
@@ -320,10 +333,15 @@ if __name__ == "__main__":
     check_timing()
     sweep()
     constellations()
-    check_fixed_vs_float()
+    check_scenario()
     check_lfsr_noise()
     export_golden()
 
     print("\n" + "=" * 74)
     print("All fixed-point checks completed and PASSED (every check above is an assert).")
     print("=" * 74)
+    return dict(RESULTS, kind="fixed-point", quick=QUICK, d_fir=D_FIR)
+
+
+if __name__ == "__main__":
+    main()

@@ -2,7 +2,7 @@
 main_float.py
 Part D of the QPSK FPGA project golden model: the FLOATING-POINT end-to-end runner.
 
-Uses only the floating_point/ modules (tx_nco, channel, rx_frontend, rx_backend_eval) and runs
+Uses only the modules in this folder (tx_nco, channel, rx_frontend, rx_backend_eval) and runs
 the checks that prove the ALGORITHM is right before any bit-width is chosen:
 
     1. noiseless chain gives exactly 0 errors (no FIR, FIR aligned, FIR causal)
@@ -10,8 +10,10 @@ the checks that prove the ALGORITHM is right before any bit-width is chosen:
     3. BER sweep, with and without the FIR, against theory and Part C's exact curve
     4. constellation plots
     5. hardware-style LFSR noise gives the predicted BER (short run, see note below)
+    6. the shared 4 dB scenario (fixed bits and noise), saved for the comparison with the integer chain
 
-The integer version of the same chain is in main_fixed.py.
+The integer version of the same chain is in ../fixed_point/main_fixed.py. main() returns the numbers
+that ../compare_results.py compares; no results file is saved (only the plots).
 
 Run:   python main_float.py            (full run)
        python main_float.py --quick    (smaller sweep, for a fast check)
@@ -33,10 +35,10 @@ import sys
 import numpy as np
 
 import params
-from floating_point import channel
-from floating_point import tx_nco
-from floating_point import rx_frontend as C
-from floating_point import rx_backend_eval as D
+import channel
+import tx_nco
+import rx_frontend as C
+import rx_backend_eval as D
 
 SPS = params.SAMPLES_PER_SYMBOL
 QUICK = "--quick" in sys.argv
@@ -46,6 +48,9 @@ OUT_DIR = os.path.join(HERE, "d_outputs")
 
 H = C.design_lpf()                       # float taps, order 24
 D_FIR = C.group_delay_samples(H)         # 12 samples
+
+SAVE_FILES = True                         # plots / golden vectors (compare_results.py turns this off)
+RESULTS = {}                             # filled by the checks, saved by save_results()
 
 
 # =======================================================================================
@@ -159,17 +164,27 @@ def sweep():
         if not QUICK:
             assert abs(z0) < 4 and abs(z1) < 4, "simulation disagrees with the exact prediction"
 
-    fine = np.arange(0, 8.01, 0.25)
-    path = os.path.join(OUT_DIR, "float_ber_curve.png")
-    D.plot_ber(
-        sim={"simulated, no FIR": (ebn0_list, res["no_fir"]["ber"]),
-             "simulated, FIR": (ebn0_list, res["fir"]["ber"])},
-        lines={"theory Q(sqrt(2Eb/N0))": (fine, [channel.theory_ber(e) for e in fine]),
-               "exact, FIR (Part C)": (fine, [C.ber_semi_analytic(H, e) for e in fine])},
-        path=path)
+    RESULTS.update(
+        ebn0=np.array(ebn0_list, dtype=float), theory=np.array(theory),
+        exact_no_fir=np.array(exact_no), exact_fir=np.array(exact_fir),
+        err_no_fir=np.array(res["no_fir"]["errors"]), bits_no_fir=np.array(res["no_fir"]["bits"]),
+        ber_no_fir=np.array(res["no_fir"]["ber"]),
+        err_fir=np.array(res["fir"]["errors"]), bits_fir=np.array(res["fir"]["bits"]),
+        ber_fir=np.array(res["fir"]["ber"]))
+
+    if SAVE_FILES:
+        fine = np.arange(0, 8.01, 0.25)
+        path = os.path.join(OUT_DIR, "float_ber_curve.png")
+        D.plot_ber(
+            sim={"simulated, no FIR": (ebn0_list, res["no_fir"]["ber"]),
+                 "simulated, FIR": (ebn0_list, res["fir"]["ber"])},
+            lines={"theory Q(sqrt(2Eb/N0))": (fine, [channel.theory_ber(e) for e in fine]),
+                   "exact, FIR (Part C)": (fine, [C.ber_semi_analytic(H, e) for e in fine])},
+            path=path)
     print("PASS: both simulated curves sit on their predictions."
           if not QUICK else "(quick mode: statistics not asserted)")
-    print(f"wrote {path}")
+    if SAVE_FILES:
+        print(f"wrote {path}")
 
 
 # =======================================================================================
@@ -177,6 +192,8 @@ def sweep():
 # =======================================================================================
 
 def constellations():
+    if not SAVE_FILES:
+        return
     print("\n--- Check 4: constellation plots (FIR, aligned) ---")
     panels = []
     for e in (0.0, 6.0, 12.0):
@@ -203,13 +220,43 @@ def check_lfsr_noise():
     predicted = C.ber_semi_analytic(H, 2.0)
     print(f"  BER measured {measured:.4f} | exact prediction {predicted:.4f}")
     assert abs(measured - predicted) / predicted < 0.20
+    RESULTS.update(lfsr_ebn0=2.0, lfsr_ber=measured, lfsr_bits=len(bits), lfsr_exact=predicted)
+    print("PASS")
+
+
+# =======================================================================================
+# 6. Shared 4 dB scenario (the fixed_point folder runs the identical one)
+# =======================================================================================
+
+SCENARIO_EBN0_DB = 4.0
+SCENARIO_N_SYM = 100_000      # same in both folders, in quick mode too, so the results line up
+SCENARIO_BIT_SEED = 5
+SCENARIO_NOISE_SEED = 11
+
+
+def check_scenario():
+    print(f"\n--- Check 6: shared {SCENARIO_EBN0_DB:g} dB scenario (same bits, same noise as the integer run) ---")
+    bits = np.random.default_rng(SCENARIO_BIT_SEED).integers(0, 2, 2 * SCENARIO_N_SYM).astype(np.uint8)
+    I, Q, s, cos, sin = tx_float(bits)
+    r = channel.awgn(s, SCENARIO_EBN0_DB, mode="numpy", seed=SCENARIO_NOISE_SEED)
+    yi, yq = rx_float(r, cos, sin, H, aligned=True)
+    I_hat, Q_hat, rx_bits = decode(yi, yq)
+    ber_fl = D.ber(bits, rx_bits)
+    print(f"  BER float {ber_fl:.5f}")
+    RESULTS.update(
+        scen_ebn0=SCENARIO_EBN0_DB, scen_bits_tx=bits, scen_bits_rx=rx_bits, scen_ber=ber_fl,
+        scen_I=(I_hat / D.NOISELESS_LEVEL).astype(np.float32),
+        scen_Q=(Q_hat / D.NOISELESS_LEVEL).astype(np.float32),
+        noiseless_level=D.NOISELESS_LEVEL, acc_bits=D.ACC_BITS)
     print("PASS")
 
 
 # =======================================================================================
 
-if __name__ == "__main__":
-    os.makedirs(OUT_DIR, exist_ok=True)
+def main():
+    """Run every check. Returns the numbers compare_results.py needs; saves no results file."""
+    if SAVE_FILES:
+        os.makedirs(OUT_DIR, exist_ok=True)
     print("=" * 74)
     print("Part D FLOATING-POINT run" + ("  (quick mode)" if QUICK else ""))
     print("=" * 74)
@@ -219,7 +266,13 @@ if __name__ == "__main__":
     sweep()
     constellations()
     check_lfsr_noise()
+    check_scenario()
 
     print("\n" + "=" * 74)
     print("All floating-point checks completed and PASSED (every check above is an assert).")
     print("=" * 74)
+    return dict(RESULTS, kind="floating-point", quick=QUICK, d_fir=D_FIR)
+
+
+if __name__ == "__main__":
+    main()
