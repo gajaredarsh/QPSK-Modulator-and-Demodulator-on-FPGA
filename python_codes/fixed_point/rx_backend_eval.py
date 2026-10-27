@@ -43,9 +43,7 @@ def decide(I_hat, Q_hat):
     return bits
 
 
-# =======================================================================================
 # 2. BER counter
-# =======================================================================================
 
 def count_errors(tx_bits, rx_bits, skip_first=1, skip_last=1):
     """
@@ -69,9 +67,7 @@ def ber(tx_bits, rx_bits, skip_first=1, skip_last=1):
     return errors / total
 
 
-# =======================================================================================
 # 3. Sweep bookkeeping
-# =======================================================================================
 
 def bits_needed(expected_ber, min_errors=100, max_bits=1_500_000):
     """Bits to simulate so that about `min_errors` errors are expected (~10% accuracy)."""
@@ -114,9 +110,7 @@ def ber_sweep(run_chunk, ebn0_list, names, min_errors=100, max_bits=1_500_000,
     return out
 
 
-# =======================================================================================
 # 4. Plots
-# =======================================================================================
 
 def plot_ber(sim, lines, path):
     """
@@ -157,9 +151,7 @@ def plot_constellations(panels, path, scale=NOISELESS_LEVEL):
     plt.close(fig)
 
 
-# =======================================================================================
 # 5. Hex export for the Verilog testbench
-# =======================================================================================
 
 def fits_signed(x, bits):
     x = np.asarray(x)

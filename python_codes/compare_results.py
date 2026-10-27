@@ -2,11 +2,7 @@
 compare_results.py
 Compares the FIXED-POINT chain with the FLOATING-POINT chain of the QPSK golden model.
 
-It only touches this codes folder. It runs main() of fixed_point/main_fixed.py and of
-floating_point/main_float.py one after the other (each in its own clean module namespace, since
-both folders use the same module names), takes the numbers they return and compares them.
-Nothing is saved to disk by the mains in this mode (no plots, no hex files, no results file);
-the only files written are in compare_outputs/.
+the files written are in compare_outputs/.
 
 What is compared
     1. both folders use identical params.py / fixedpoint.py
@@ -14,10 +10,6 @@ What is compared
     3. the shared 4 dB scenario (same bits, same noise): BER, bit disagreements, decision values
     4. hardware-style LFSR noise run vs the exact prediction
     5. integer datapath health: accumulator never overflows, input clipping
-
-Run:   python compare_results.py
-       python compare_results.py --quick     (quick mode: smaller sweeps, z-limits not enforced)
-       python compare_results.py --verbose   (also show everything the two mains print)
 
 Exit code 0 = every check passed, 1 = at least one failed.
 """
@@ -44,16 +36,10 @@ QUICK = "--quick" in sys.argv
 VERBOSE = "--verbose" in sys.argv
 
 FAILS = []
-REPORT = []
-
-
-def say(line=""):
-    print(line)
-    REPORT.append(line)
 
 
 def check(ok, label, detail=""):
-    say(f"  [{'PASS' if ok else 'FAIL'}] {label}" + (f"  ({detail})" if detail else ""))
+    print(f"  [{'PASS' if ok else 'FAIL'}] {label}" + (f"  ({detail})" if detail else ""))
     if not ok:
         FAILS.append(label)
 
@@ -140,12 +126,10 @@ def main():
     fl = run_main(FLT_DIR, "main_float")
     os.makedirs(OUT_DIR, exist_ok=True)
 
-    say("\n" + "=" * 78)
-    say("FIXED-POINT vs FLOATING-POINT comparison")
-    say("=" * 78)
+    print("FIXED-POINT vs FLOATING-POINT comparison")
 
     # ---- 1. same configuration -------------------------------------------------------
-    say("\n--- 1. Both folders use the same configuration ---")
+    print("\n 1. Both folders use the same configuration")
     for name in ("params.py", "fixedpoint.py"):
         a, b = os.path.join(FIX_DIR, name), os.path.join(FLT_DIR, name)
         check(sha(a) == sha(b), f"{name} identical in both folders")
@@ -155,16 +139,16 @@ def main():
     check(np.array_equal(fx["ebn0"], fl["ebn0"]), "same Eb/N0 grid", str(fx["ebn0"].tolist()))
     statistical = not (quick_fx or quick_fl)
     if not statistical:
-        say("  (quick mode: statistical z-score limits are reported but not enforced)")
+        print("  (quick mode: statistical z-score limits are reported but not enforced)")
 
     ebn0 = fx["ebn0"]
 
     # ---- 2. BER sweep ----------------------------------------------------------------
-    say("\n--- 2. BER vs Eb/N0 (sweep) ---")
-    say(f"{'Eb/N0':>6s} | {'float':>9s} {'fixed':>9s} {'ratio':>6s} {'z(f-x)':>7s} | "
+    print("\n 2. BER vs Eb/N0 (sweep)")
+    print(f"{'Eb/N0':>6s} | {'float':>9s} {'fixed':>9s} {'ratio':>6s} {'z(f-x)':>7s} | "
         f"{'theory':>9s} {'exact':>9s} | {'z fl/exact':>10s} {'z fx/exact':>10s}")
     for label, kn, ke in (("no FIR", "no_fir", "exact_no_fir"), ("FIR", "fir", "exact_fir")):
-        say(f"  [{label}]")
+        print(f"  [{label}]")
         for k, e in enumerate(ebn0):
             e_fl, n_fl = int(fl[f"err_{kn}"][k]), int(fl[f"bits_{kn}"][k])
             e_fx, n_fx = int(fx[f"err_{kn}"][k]), int(fx[f"bits_{kn}"][k])
@@ -173,38 +157,38 @@ def main():
             exact = float(fl[ke][k])
             z_fl = z_vs_expected(e_fl, n_fl, exact)
             z_fx = z_vs_expected(e_fx, n_fx, exact)
-            say(f"{e:6.1f} | {b_fl:9.3e} {b_fx:9.3e} {b_fx / b_fl:6.3f} {zff:7.2f} | "
+            print(f"{e:6.1f} | {b_fl:9.3e} {b_fx:9.3e} {b_fx / b_fl:6.3f} {zff:7.2f} | "
                 f"{fl['theory'][k]:9.3e} {exact:9.3e} | {z_fl:10.2f} {z_fx:10.2f}")
             if statistical:
                 check(abs(zff) < 4, f"{label} @ {e:g} dB: fixed and float BER agree", f"z={zff:.2f}")
                 check(abs(z_fx) < 4, f"{label} @ {e:g} dB: fixed BER matches the exact prediction",
                       f"z={z_fx:.2f}")
 
-    say("\n  Implementation loss of the integer chain (Eb/N0 shift, FIR chain):")
+    print("\n  Implementation loss of the integer chain (Eb/N0 shift, FIR chain):")
     loss = []
     for k, e in enumerate(ebn0):
         b_fl = fl["ber_fir"][k]
         b_fx = fx["ber_fir"][k]
         d = ebn0_for_ber(b_fl) - ebn0_for_ber(b_fx)
         loss.append(d)
-        say(f"    {e:4.1f} dB: {d:+.3f} dB   (positive = fixed-point is worse; both runs use the same "
+        print(f"    {e:4.1f} dB: {d:+.3f} dB   (positive = fixed-point is worse; both runs use the same "
             f"bits and noise)")
     if statistical:
         check(abs(float(np.mean(loss))) < 0.1, "mean implementation loss is below 0.1 dB",
               f"mean {np.mean(loss):+.3f} dB")
 
     # ---- 3. shared scenario ----------------------------------------------------------
-    say(f"\n--- 3. Shared scenario at {float(fl['scen_ebn0']):g} dB (same bits, same noise) ---")
+    print(f"\n 3. Shared scenario at {float(fl['scen_ebn0']):g} dB (same bits, same noise) ")
     check(np.array_equal(fl["scen_bits_tx"], fx["scen_bits_tx"]), "both chains sent the same bits")
     ber_fl, ber_fx = float(fl["scen_ber"]), float(fx["scen_ber"])
     rel = abs(ber_fx - ber_fl) / ber_fl
-    say(f"  BER float {ber_fl:.5f} | BER fixed {ber_fx:.5f} | relative difference {rel * 100:.2f}%")
+    print(f"  BER float {ber_fl:.5f} | BER fixed {ber_fx:.5f} | relative difference {rel * 100:.2f}%")
     check(rel < 0.05, "BER within 5% of each other", f"{rel * 100:.2f}%")
 
     rx_fl, rx_fx = fl["scen_bits_rx"], fx["scen_bits_rx"]
     n = min(len(rx_fl), len(rx_fx))
     disagree = int(np.sum(rx_fl[:n] != rx_fx[:n]))
-    say(f"  decoded bits that differ between the chains: {disagree} of {n} ({100 * disagree / n:.3f}%)")
+    print(f"  decoded bits that differ between the chains: {disagree} of {n} ({100 * disagree / n:.3f}%)")
 
     # decision values, each already divided by its own noiseless level, so 1.0 = clean symbol
     I_fl, Q_fl = fl["scen_I"][1:-1].astype(float), fl["scen_Q"][1:-1].astype(float)
@@ -212,30 +196,30 @@ def main():
     m = min(len(I_fl), len(I_fx))
     gap = np.concatenate([I_fl[:m] - I_fx[:m], Q_fl[:m] - Q_fx[:m]])
     corr = np.corrcoef(np.concatenate([I_fl[:m], Q_fl[:m]]), np.concatenate([I_fx[:m], Q_fx[:m]]))[0, 1]
-    say(f"  decision values (clean symbol = 1.0): RMS gap {np.sqrt(np.mean(gap ** 2)):.4f} | "
+    print(f"  decision values (clean symbol = 1.0): RMS gap {np.sqrt(np.mean(gap ** 2)):.4f} | "
         f"max |gap| {np.abs(gap).max():.4f} | correlation {corr:.6f}")
     check(np.sqrt(np.mean(gap ** 2)) < 0.05, "RMS gap of decision values below 0.05",
           f"{np.sqrt(np.mean(gap ** 2)):.4f}")
     check(corr > 0.999, "decision values correlate better than 0.999", f"{corr:.6f}")
 
     # ---- 4. LFSR noise run -----------------------------------------------------------
-    say("\n--- 4. Hardware-style LFSR noise run (2 dB, short) ---")
+    print("\n 4. Hardware-style LFSR noise run (2 dB, short)")
     exact = float(fl["lfsr_exact"])
     for name, d in (("float", fl), ("fixed", fx)):
         b = float(d["lfsr_ber"])
         r = abs(b - exact) / exact
-        say(f"  {name}: BER {b:.4f} | exact prediction {exact:.4f} | off by {r * 100:.1f}%")
+        print(f"  {name}: BER {b:.4f} | exact prediction {exact:.4f} | off by {r * 100:.1f}%")
         check(r < 0.20, f"{name} LFSR-noise BER within 20% of the exact prediction", f"{r * 100:.1f}%")
 
     # ---- 5. integer datapath health --------------------------------------------------
-    say("\n--- 5. Integer datapath health ---")
+    print("\n 5. Integer datapath health ")
     acc_bits = int(fx["acc_bits"])
     limit = (1 << (acc_bits - 1)) - 1
-    say(f"  accumulator width {acc_bits} bit | max |accumulator| seen {int(fx['acc_max'])} | limit {limit}")
+    print(f"  accumulator width {acc_bits} bit | max |accumulator| seen {int(fx['acc_max'])} | limit {limit}")
     check(int(fx["acc_max"]) <= limit, "integrate-and-dump accumulator never overflows")
-    say(f"  receiver input clipping fraction {float(fx['clip_fraction']):.2e}")
+    print(f"  receiver input clipping fraction {float(fx['clip_fraction']):.2e}")
     check(float(fx["clip_fraction"]) < 1e-3, "receiver input clipping below 0.1%")
-    say(f"  noiseless decision level: float {float(fl['noiseless_level']):g} | "
+    print(f"  noiseless decision level: float {float(fl['noiseless_level']):g} | "
         f"fixed {float(fx['noiseless_level']):g} (scaling only; decision values above are normalized)")
 
     # ---- plot ------------------------------------------------------------------------
@@ -271,14 +255,10 @@ def main():
     fig.savefig(png2, dpi=150)
     plt.close(fig)
 
-    say(f"\nwrote {png}\nwrote {png2}")
-    say("\n" + "=" * 78)
-    say("ALL COMPARISON CHECKS PASSED" if not FAILS else f"{len(FAILS)} CHECK(S) FAILED:")
+    print("\nplots saved in compare_outputs/")
+    print("ALL COMPARISON CHECKS PASSED" if not FAILS else f"{len(FAILS)} CHECK(S) FAILED:")
     for f in FAILS:
-        say(f"   - {f}")
-    say("=" * 78)
-    with open(os.path.join(OUT_DIR, "report.txt"), "w") as f:
-        f.write("\n".join(REPORT) + "\n")
+        print(f"   - {f}")
     sys.exit(1 if FAILS else 0)
 
 

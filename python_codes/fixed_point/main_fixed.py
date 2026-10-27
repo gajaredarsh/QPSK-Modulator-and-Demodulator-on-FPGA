@@ -1,10 +1,8 @@
 """
 main_fixed.py
-Part D of the QPSK FPGA project golden model: the FIXED-POINT (integer) end-to-end runner.
+the FIXED-POINT (integer) end-to-end runner.
 
-Runs the chain with the exact integer widths the RTL will use (12-bit NCO, 13-bit TX mixer,
-12-bit receiver input, 12-bit taps, 16-bit integrate-and-dump accumulator) using the
-modules in this folder, and proves it still behaves like the float chain:
+Runs the chain with the exact integer widths the RTL will use (12-bit NCO, 13-bit TX mixer, 12-bit receiver input, 12-bit taps, 16-bit integrate-and-dump accumulator) using the modules in this folder, and proves it still behaves like the float chain:
 
     1. noiseless integer chain gives exactly 0 errors, accumulators fit 16 bits
     2. causal FIR + timing_offset = D gives IDENTICAL integers to aligned FIR + offset 0
@@ -14,22 +12,10 @@ modules in this folder, and proves it still behaves like the float chain:
     6. hardware-style LFSR noise, short run (BER saved; compared with the exact prediction later)
     7. golden hex vectors for the Part D Verilog testbench, read back and verified
 
-This folder is self-contained: nothing here imports the floating-point code. The FIR taps are
-designed in float inside rx_frontend.design_lpf() and then quantized. Everything that needs the
-float chain (integer vs float, comparison against the exact BER curve) lives in
-../compare_results.py, which calls main() below and takes the numbers it returns.
-This script saves no results file; it only writes the plots and golden hex vectors.
 
-Run:   python main_fixed.py            (full run)
-       python main_fixed.py --quick    (smaller sweep, for a fast check)
-
-Author: Darsh (Part D)
-AI-assistance note: first draft written with Claude (Sonnet 5.5, Anthropic) as allowed by the
-    EE2000 AI-usage policy. The author must be able to explain and defend all of it in the viva.
 
 Notes:
-  * Sweeps use numpy noise. channel.py's LFSR noise repeats exactly every 65535 samples
-    (about 4096 symbols), so it is only used for short runs and for the golden vectors.
+  * Sweeps use numpy noise. channel.py's LFSR noise repeats exactly every 65535 samples (about 4096 symbols), so it is only used for short runs and for the golden vectors.
   * The golden vectors use the PRBS-7 source (the same LFSR the RTL will have).
 """
 
@@ -48,9 +34,8 @@ import rx_backend_eval as D
 SPS = params.SAMPLES_PER_SYMBOL
 QUICK = "--quick" in sys.argv
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-OUT_DIR = os.path.join(HERE, "d_outputs")
-GOLDEN_DIR = os.path.join(OUT_DIR, "golden")
+OUT_DIR = "d_outputs"
+GOLDEN_DIR = "d_outputs/golden"
 
 H = F.design_lpf()                               # float taps (designed here, then quantized)
 H_INT = F.quantize_coeffs(H, F.COEF_BITS)        # 12-bit taps, DC gain exactly 1
@@ -60,9 +45,7 @@ SAVE_FILES = True                         # plots / golden vectors (compare_resu
 RESULTS = {}                                     # filled by the checks, saved by save_results()
 
 
-# =======================================================================================
 # Chain building blocks
-# =======================================================================================
 
 def tx_fixed(bits):
     """Integer TX. Phase is back to 0 at every symbol (2 whole carrier cycles), so one
@@ -112,12 +95,10 @@ def run_chunk(ebn0_db, n_sym, seed):
     return out
 
 
-# =======================================================================================
 # 1. Noiseless sanity (gate: must be exactly zero errors)
-# =======================================================================================
 
 def check_noiseless():
-    print("\n--- Check 1: noiseless integer chain must give exactly 0 errors ---")
+    print("\n Check 1: noiseless integer chain must give exactly 0 errors")
     bits = np.random.default_rng(1).integers(0, 2, 4000).astype(np.uint8)
     I, Q, s_fix, cos_i, sin_i = tx_fixed(bits)
     r_int = F.quantize_rx(s_fix / params.DATAPATH_FULL_SCALE)
@@ -137,12 +118,10 @@ def check_noiseless():
     print("PASS")
 
 
-# =======================================================================================
 # 2. Causal vs aligned timing (integers, so the match must be EXACT)
-# =======================================================================================
 
 def check_timing():
-    print("\n--- Check 2: causal FIR + offset D is bit-identical to aligned FIR + offset 0 ---")
+    print("\n Check 2: causal FIR + offset D is bit-identical to aligned FIR + offset 0 ")
     bits, r_int, cos_i, sin_i = simulate(6.0, 500, seed=9)
     yi_c, yq_c = rx_fixed(r_int, cos_i, sin_i, H_INT, aligned=False)
     yi_a, yq_a = rx_fixed(r_int, cos_i, sin_i, H_INT, aligned=True)
@@ -157,12 +136,10 @@ def check_timing():
     print("PASS")
 
 
-# =======================================================================================
 # 3. BER sweep
-# =======================================================================================
 
 def sweep():
-    print("\n--- Check 3: integer BER vs Eb/N0, without and with the FIR ---")
+    print("\n Check 3: integer BER vs Eb/N0, without and with the FIR ")
     ebn0_list = [0, 2, 4, 6, 8]
     max_bits = 200_000 if QUICK else 1_500_000
     names = ["no_fir", "fir"]
@@ -199,28 +176,25 @@ def sweep():
         print(f"wrote {path}")
 
 
-# =======================================================================================
 # 4. Constellations
-# =======================================================================================
 
 def constellations():
     if not SAVE_FILES:
         return
-    print("\n--- Check 4: constellation plots (integer chain, FIR, aligned) ---")
+    print("\n Check 4: constellation plots (integer chain, FIR, aligned) ")
     panels = []
     for e in (0.0, 6.0, 12.0):
         bits, r_int, cos_i, sin_i = simulate(e, 3000, seed=21)
         yi, yq = rx_fixed(r_int, cos_i, sin_i, H_INT, aligned=True)
         I_hat, Q_hat, _ = decode(yi, yq)
         panels.append((f"Eb/N0 = {e:.0f} dB", I_hat[1:-1], Q_hat[1:-1]))
-    path = os.path.join(OUT_DIR, "fixed_constellations.png")
+    path = f"{OUT_DIR}/fixed_constellations.png"
     D.plot_constellations(panels, path, scale=D.NOISELESS_LEVEL)
     print(f"wrote {path}")
 
 
-# =======================================================================================
 # 5. Shared 4 dB scenario (the float folder runs the identical one)
-# =======================================================================================
+
 
 SCENARIO_EBN0_DB = 4.0
 SCENARIO_N_SYM = 100_000      # same in both folders, in quick mode too, so the results line up
@@ -229,7 +203,7 @@ SCENARIO_NOISE_SEED = 11
 
 
 def check_scenario():
-    print(f"\n--- Check 5: shared {SCENARIO_EBN0_DB:g} dB scenario (same bits, same noise as the float run) ---")
+    print(f"\nCheck 5: shared {SCENARIO_EBN0_DB:g} dB scenario (same bits, same noise as the float run) ")
     bits = np.random.default_rng(SCENARIO_BIT_SEED).integers(0, 2, 2 * SCENARIO_N_SYM).astype(np.uint8)
     I, Q, s_fix, cos_i, sin_i = tx_fixed(bits)
     r_fx, r_int = channel_fixed(s_fix, SCENARIO_EBN0_DB, "numpy", seed=SCENARIO_NOISE_SEED)
@@ -252,12 +226,10 @@ def check_scenario():
     print("PASS: accumulator never overflows.")
 
 
-# =======================================================================================
 # 6. LFSR (hardware-style) noise, short run
-# =======================================================================================
 
 def check_lfsr_noise():
-    print("\n--- Check 6: hardware-style LFSR noise, 4000 symbols at 2 dB ---")
+    print("\n Check 6: hardware-style LFSR noise, 4000 symbols at 2 dB ")
     bits = tx_nco.gen_bits(2 * 4000)
     I, Q, s_fix, cos_i, sin_i = tx_fixed(bits)
     _, r_int = channel_fixed(s_fix, 2.0, "lfsr", seed=3)
@@ -269,12 +241,10 @@ def check_lfsr_noise():
     print("PASS")
 
 
-# =======================================================================================
 # 7. Golden vectors for the Verilog testbench
-# =======================================================================================
 
 def export_golden(n_sym=128, ebn0_db=6.0):
-    print("\n--- Check 7: golden vectors for the integrate-and-dump + decision RTL ---")
+    print("\n Check 7: golden vectors for the integrate-and-dump + decision RTL ")
     bits = tx_nco.gen_bits(2 * n_sym)                       # PRBS-7, same as the RTL source
     I, Q, s_fix, cos_i, sin_i = tx_fixed(bits)
     _, r_int = channel_fixed(s_fix, ebn0_db, "lfsr", seed=3)
@@ -319,15 +289,12 @@ def export_golden(n_sym=128, ebn0_db=6.0):
     print("PASS")
 
 
-# =======================================================================================
 
 def main():
     """Run every check. Returns the numbers compare_results.py needs; saves no results file."""
     if SAVE_FILES:
         os.makedirs(OUT_DIR, exist_ok=True)
-    print("=" * 74)
-    print("Part D FIXED-POINT run" + ("  (quick mode)" if QUICK else ""))
-    print("=" * 74)
+    print("FIXED-POINT run" + ("  (quick mode)" if QUICK else ""))
 
     check_noiseless()
     check_timing()
@@ -337,9 +304,7 @@ def main():
     check_lfsr_noise()
     export_golden()
 
-    print("\n" + "=" * 74)
     print("All fixed-point checks completed and PASSED (every check above is an assert).")
-    print("=" * 74)
     return dict(RESULTS, kind="fixed-point", quick=QUICK, d_fir=D_FIR)
 
 
