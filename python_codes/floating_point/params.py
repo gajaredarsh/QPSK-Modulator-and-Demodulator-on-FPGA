@@ -1,9 +1,3 @@
-# Es/Eb for the AWGN channel (float domain, unscaled):
-#    Over a symbol the carrier cross term averages to zero, so
-#    E[s^2] = I^2/2 + Q^2/2 = 1.0 per sample.
-#    Es = 1.0 * 16 = 16,  Eb = Es / 2 = 8  (2 bits per symbol).
-#    Fixed-point outputs are scaled by DATAPATH_FULL_SCALE
-
 import numpy as np
 
 # ---------------- Timing ----------------
