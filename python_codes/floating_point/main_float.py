@@ -39,7 +39,6 @@ H = C.design_lpf()                       # float taps, order 24
 D_FIR = C.group_delay_samples(H)         # 12 samples
 
 SAVE_FILES = True                         # plots / golden vectors (compare_results.py turns this off)
-RESULTS = {}                             # filled by the checks, saved by save_results()
 
 
 # Chain building blocks
@@ -145,14 +144,8 @@ def sweep():
         if not QUICK:
             assert abs(z0) < 4 and abs(z1) < 4, "simulation disagrees with the exact prediction"
 
-    RESULTS.update(
-        ebn0=np.array(ebn0_list, dtype=float), theory=np.array(theory),
-        exact_no_fir=np.array(exact_no), exact_fir=np.array(exact_fir),
-        err_no_fir=np.array(res["no_fir"]["errors"]), bits_no_fir=np.array(res["no_fir"]["bits"]),
-        ber_no_fir=np.array(res["no_fir"]["ber"]),
-        err_fir=np.array(res["fir"]["errors"]), bits_fir=np.array(res["fir"]["bits"]),
-        ber_fir=np.array(res["fir"]["ber"]))
-
+    print("PASS: both simulated curves sit on their predictions."
+          if not QUICK else "(quick mode: statistics not asserted)")
     if SAVE_FILES:
         fine = np.arange(0, 8.01, 0.25)
         path = os.path.join(OUT_DIR, "float_ber_curve.png")
@@ -162,10 +155,17 @@ def sweep():
             lines={"theory Q(sqrt(2Eb/N0))": (fine, [channel.theory_ber(e) for e in fine]),
                    "exact, FIR (Part C)": (fine, [C.ber_semi_analytic(H, e) for e in fine])},
             path=path)
-    print("PASS: both simulated curves sit on their predictions."
-          if not QUICK else "(quick mode: statistics not asserted)")
-    if SAVE_FILES:
         print(f"wrote {path}")
+
+    results = {"ebn0": np.array(ebn0_list, dtype=float)}
+    for n in names:
+        results[f"err_{n}"] = np.array(res[n]["errors"])
+        results[f"bits_{n}"] = np.array(res[n]["bits"])
+        results[f"ber_{n}"] = np.array(res[n]["ber"])
+    results["theory"] = np.array(theory)
+    results["exact_no_fir"] = np.array(exact_no)
+    results["exact_fir"] = np.array(exact_fir)
+    return results
 
 
 # 4. Constellations
@@ -197,8 +197,8 @@ def check_lfsr_noise():
     predicted = C.ber_semi_analytic(H, 2.0)
     print(f"  BER measured {measured:.4f} | exact prediction {predicted:.4f}")
     assert abs(measured - predicted) / predicted < 0.20
-    RESULTS.update(lfsr_ebn0=2.0, lfsr_ber=measured, lfsr_bits=len(bits), lfsr_exact=predicted)
     print("PASS")
+    return dict(lfsr_ber=measured, lfsr_exact=predicted)
 
 
 # 6. Shared 4 dB scenario (the fixed_point folder runs the identical one)
@@ -218,12 +218,12 @@ def check_scenario():
     I_hat, Q_hat, rx_bits = decode(yi, yq)
     ber_fl = D.ber(bits, rx_bits)
     print(f"  BER float {ber_fl:.5f}")
-    RESULTS.update(
+    print("PASS")
+    return dict(
         scen_ebn0=SCENARIO_EBN0_DB, scen_bits_tx=bits, scen_bits_rx=rx_bits, scen_ber=ber_fl,
         scen_I=(I_hat / D.NOISELESS_LEVEL).astype(np.float32),
         scen_Q=(Q_hat / D.NOISELESS_LEVEL).astype(np.float32),
-        noiseless_level=D.NOISELESS_LEVEL, acc_bits=D.ACC_BITS)
-    print("PASS")
+        noiseless_level=D.NOISELESS_LEVEL)
 
 
 def main():
@@ -234,13 +234,13 @@ def main():
 
     check_noiseless()
     check_timing()
-    sweep()
+    results = sweep()
     constellations()
-    check_lfsr_noise()
-    check_scenario()
+    results.update(check_lfsr_noise())
+    results.update(check_scenario())
 
     print("All floating-point checks completed and PASSED (every check above is an assert).")
-    return dict(RESULTS, kind="floating-point", quick=QUICK, d_fir=D_FIR)
+    return results
 
 
 if __name__ == "__main__":

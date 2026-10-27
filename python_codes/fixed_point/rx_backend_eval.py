@@ -1,12 +1,11 @@
 import os
-import sys
-
 
 import numpy as np
 import matplotlib.pyplot as plt
 import params
 import fixedpoint
 import channel
+
 SPS = params.SAMPLES_PER_SYMBOL
 RX_IN_BITS = params.RX_IN_BITS
 RX_FULL_SCALE = params.RX_FULL_SCALE
@@ -25,9 +24,7 @@ def integrate_dump(yi, yq, timing_offset=0, sps=SPS):
     if n_sym == 0:
         raise ValueError("not enough samples for a single symbol")
     if np.issubdtype(yi.dtype, np.integer):
-        yi = yi.astype(np.int64)
-    if np.issubdtype(yq.dtype, np.integer):
-        yq = yq.astype(np.int64)
+        yi, yq = yi.astype(np.int64), yq.astype(np.int64)
     I_hat = yi[:n_sym * sps].reshape(n_sym, sps).sum(axis=1)
     Q_hat = yq[:n_sym * sps].reshape(n_sym, sps).sum(axis=1)
     return I_hat, Q_hat
@@ -35,11 +32,9 @@ def integrate_dump(yi, yq, timing_offset=0, sps=SPS):
 
 def decide(I_hat, Q_hat):
     """Sign -> bit (negative = 1). Returns a flat uint8 array [b0, b1, b0, b1, ...]."""
-    I_hat = np.asarray(I_hat)
-    Q_hat = np.asarray(Q_hat)
     bits = np.empty(2 * len(I_hat), dtype=np.uint8)
-    bits[0::2] = I_hat < 0
-    bits[1::2] = Q_hat < 0
+    bits[0::2] = np.asarray(I_hat) < 0
+    bits[1::2] = np.asarray(Q_hat) < 0
     return bits
 
 
@@ -95,18 +90,14 @@ def ber_sweep(run_chunk, ebn0_list, names, min_errors=100, max_bits=1_500_000,
     for idx, e in enumerate(ebn0_list):
         target = bits_needed(size_ber(e), min_errors, max_bits)
         n_chunks = max(1, int(np.ceil(target / (2 * chunk_sym))))
-        errs = {n: 0 for n in names}
-        tot = {n: 0 for n in names}
-        for k in range(n_chunks):
-            res = run_chunk(e, chunk_sym, seed0 + 1000 * idx + k)
-            for n in names:
-                errs[n] += res[n][0]
-                tot[n] += res[n][1]
+        chunks = [run_chunk(e, chunk_sym, seed0 + 1000 * idx + k) for k in range(n_chunks)]
         for n in names:
+            errs = sum(c[n][0] for c in chunks)
+            bits = sum(c[n][1] for c in chunks)
             out[n]["ebn0"].append(e)
-            out[n]["errors"].append(errs[n])
-            out[n]["bits"].append(tot[n])
-            out[n]["ber"].append(errs[n] / tot[n])
+            out[n]["errors"].append(errs)
+            out[n]["bits"].append(bits)
+            out[n]["ber"].append(errs / bits)
     return out
 
 
@@ -163,5 +154,3 @@ def write_vectors(out_dir, vectors):
     os.makedirs(out_dir, exist_ok=True)
     for name, (codes, bits) in vectors.items():
         fixedpoint.write_hex(os.path.join(out_dir, name), codes, bits)
-
-

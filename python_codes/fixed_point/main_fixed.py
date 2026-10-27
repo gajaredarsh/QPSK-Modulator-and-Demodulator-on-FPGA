@@ -42,14 +42,12 @@ H_INT = F.quantize_coeffs(H, F.COEF_BITS)        # 12-bit taps, DC gain exactly 
 D_FIR = F.group_delay_samples(H_INT)             # 12 samples
 
 SAVE_FILES = True                         # plots / golden vectors (compare_results.py turns this off)
-RESULTS = {}                                     # filled by the checks, saved by save_results()
 
 
 # Chain building blocks
 
 def tx_fixed(bits):
-    """Integer TX. Phase is back to 0 at every symbol (2 whole carrier cycles), so one
-    symbol of NCO output tiled n_sym times equals running the NCO for the whole run."""
+    #Integer TX. Phase is back to 0 at every symbol (2 whole carrier cycles), so one symbol of NCO output tiled n_sym times equals running the NCO for the whole run.
     I, Q = tx_nco.map_qpsk(bits)
     n_sym = len(I)
     c1, s1 = tx_nco.nco_fixed(SPS)
@@ -60,13 +58,13 @@ def tx_fixed(bits):
 
 
 def channel_fixed(s_fix, ebn0_db, mode="numpy", seed=0):
-    """Float AWGN on the TX word (rescaled to unit amplitude), then the receiver's ADC step."""
+    #Float AWGN on the TX word (rescaled to unit amplitude), then the receiver's ADC step.
     r = channel.awgn(s_fix / params.DATAPATH_FULL_SCALE, ebn0_db, mode=mode, seed=seed)
     return r, F.quantize_rx(r)
 
 
 def rx_fixed(r_int, cos_int, sin_int, h_int, aligned=True):
-    """h_int=None means no FIR: mixer output goes straight to integrate-and-dump."""
+    # h_int=None means no FIR: mixer output goes straight to integrate-and-dump.
     if h_int is None:
         return F.downconvert_fixed(r_int, cos_int, sin_int)
     return F.rx_frontend_fixed(r_int, cos_int, sin_int, h_int, aligned=aligned)
@@ -86,7 +84,7 @@ def simulate(ebn0_db, n_sym, seed, noise_mode="numpy"):
 
 
 def run_chunk(ebn0_db, n_sym, seed):
-    """One chunk of the sweep: the same noisy r_int decoded without and with the FIR."""
+    # One chunk of the sweep: the same noisy r_int decoded without and with the FIR.
     bits, r_int, cos_i, sin_i = simulate(ebn0_db, n_sym, seed)
     out = {}
     for name, h_int in (("no_fir", None), ("fir", H_INT)):
@@ -155,13 +153,8 @@ def sweep():
         if not QUICK:
             assert abs(z0) < 4, "integer chain without FIR disagrees with ideal QPSK theory"
 
-    RESULTS.update(
-        ebn0=np.array(ebn0_list, dtype=float), theory=np.array(theory),
-        err_no_fir=np.array(res["no_fir"]["errors"]), bits_no_fir=np.array(res["no_fir"]["bits"]),
-        ber_no_fir=np.array(res["no_fir"]["ber"]),
-        err_fir=np.array(res["fir"]["errors"]), bits_fir=np.array(res["fir"]["bits"]),
-        ber_fir=np.array(res["fir"]["ber"]))
-
+    print("PASS: the no-FIR integer curve sits on theory (FIR curve is checked against the exact "
+          "prediction by compare_results.py)." if not QUICK else "(quick mode: statistics not asserted)")
     if SAVE_FILES:
         fine = np.arange(0, 8.01, 0.25)
         path = os.path.join(OUT_DIR, "fixed_ber_curve.png")
@@ -170,10 +163,14 @@ def sweep():
                  "integer, FIR": (ebn0_list, res["fir"]["ber"])},
             lines={"theory Q(sqrt(2Eb/N0))": (fine, [channel.theory_ber(e) for e in fine])},
             path=path)
-    print("PASS: the no-FIR integer curve sits on theory (FIR curve is checked against the exact "
-          "prediction by compare_results.py)." if not QUICK else "(quick mode: statistics not asserted)")
-    if SAVE_FILES:
         print(f"wrote {path}")
+
+    results = {"ebn0": np.array(ebn0_list, dtype=float)}
+    for n in names:
+        results[f"err_{n}"] = np.array(res[n]["errors"])
+        results[f"bits_{n}"] = np.array(res[n]["bits"])
+        results[f"ber_{n}"] = np.array(res[n]["ber"])
+    return results
 
 
 # 4. Constellations
@@ -217,13 +214,13 @@ def check_scenario():
     print(f"  BER integer {ber_fx:.5f}")
     assert D.fits_signed(I_hat, D.ACC_BITS) and D.fits_signed(Q_hat, D.ACC_BITS)
 
-    RESULTS.update(
+    print("PASS: accumulator never overflows.")
+    return dict(
         scen_ebn0=SCENARIO_EBN0_DB, scen_bits_tx=bits, scen_bits_rx=rx_bits, scen_ber=ber_fx,
         scen_I=(I_hat / D.NOISELESS_LEVEL).astype(np.float32),
         scen_Q=(Q_hat / D.NOISELESS_LEVEL).astype(np.float32),
         clip_fraction=clip, acc_max=acc_max, acc_bits=D.ACC_BITS,
         noiseless_level=D.NOISELESS_LEVEL)
-    print("PASS: accumulator never overflows.")
 
 
 # 6. LFSR (hardware-style) noise, short run
@@ -237,8 +234,8 @@ def check_lfsr_noise():
     measured = D.ber(bits, decode(yi, yq)[2])
     print(f"  BER measured {measured:.4f}  (compared with the exact prediction by compare_results.py)")
     assert 0.0 < measured < 0.5
-    RESULTS.update(lfsr_ebn0=2.0, lfsr_ber=measured, lfsr_bits=len(bits))
     print("PASS")
+    return dict(lfsr_ber=measured)
 
 
 # 7. Golden vectors for the Verilog testbench
@@ -262,50 +259,45 @@ def export_golden(n_sym=128, ebn0_db=6.0):
         "d_bits_tx.hex": (bits[:2 * n], 1),      # transmitted bits         (1 bit)
         "d_bits_rx.hex": (rx_bits, 1),           # expected decisions       (1 bit)
     }
-    if not SAVE_FILES:
-        print(f"  {n} symbols, offset {D_FIR}, accumulators {D.ACC_BITS} bit, {errs} errors / {total} bits "
-              f"(hex files not written)")
-        print("PASS")
-        return
-    D.write_vectors(GOLDEN_DIR, vectors)
-    with open(os.path.join(GOLDEN_DIR, "info.txt"), "w") as f:
-        f.write(f"samples per symbol : {SPS}\n")
-        f.write(f"timing offset      : {D_FIR} samples (causal FIR group delay)\n")
-        f.write(f"input width        : {F.RX_IN_BITS} bits signed\n")
-        f.write(f"accumulator width  : {D.ACC_BITS} bits signed\n")
-        f.write(f"symbols exported   : {n}\n")
-        f.write(f"channel            : lfsr noise, Eb/N0 = {ebn0_db} dB\n")
-        f.write(f"errors (edges skipped): {errs} / {total}\n")
-
-    # read every file back: what the testbench will load must equal what we computed
-    for name, (codes, width) in vectors.items():
-        back = fixedpoint.read_hex(os.path.join(GOLDEN_DIR, name), width)
-        want = np.asarray(codes, dtype=np.int64)
-        if width == 1:                           # 1-bit words are unsigned bits here
-            back = back & 1
-        assert np.array_equal(back, want), f"{name}: hex file does not read back to the same values"
-    print(f"  wrote 6 hex files + info.txt to {GOLDEN_DIR} and read them all back identical")
     print(f"  {n} symbols, offset {D_FIR}, accumulators {D.ACC_BITS} bit, {errs} errors / {total} bits")
+    if SAVE_FILES:
+        D.write_vectors(GOLDEN_DIR, vectors)
+        with open(os.path.join(GOLDEN_DIR, "info.txt"), "w") as f:
+            f.write(f"samples per symbol : {SPS}\n")
+            f.write(f"timing offset      : {D_FIR} samples (causal FIR group delay)\n")
+            f.write(f"input width        : {F.RX_IN_BITS} bits signed\n")
+            f.write(f"accumulator width  : {D.ACC_BITS} bits signed\n")
+            f.write(f"symbols exported   : {n}\n")
+            f.write(f"channel            : lfsr noise, Eb/N0 = {ebn0_db} dB\n")
+            f.write(f"errors (edges skipped): {errs} / {total}\n")
+
+        # read every file back: what the testbench will load must equal what we computed
+        for name, (codes, width) in vectors.items():
+            back = fixedpoint.read_hex(os.path.join(GOLDEN_DIR, name), width)
+            want = np.asarray(codes, dtype=np.int64)
+            if width == 1:                           # 1-bit words are unsigned bits here
+                back = back & 1
+            assert np.array_equal(back, want), f"{name}: hex file does not read back to the same values"
+        print(f"  wrote 6 hex files + info.txt to {GOLDEN_DIR} and read them all back identical")
     print("PASS")
 
 
-
 def main():
-    """Run every check. Returns the numbers compare_results.py needs; saves no results file."""
+    #Run every check. Returns the numbers compare_results.py needs; saves no results file.
     if SAVE_FILES:
         os.makedirs(OUT_DIR, exist_ok=True)
     print("FIXED-POINT run" + ("  (quick mode)" if QUICK else ""))
 
     check_noiseless()
     check_timing()
-    sweep()
+    results = sweep()
     constellations()
-    check_scenario()
-    check_lfsr_noise()
+    results.update(check_scenario())
+    results.update(check_lfsr_noise())
     export_golden()
 
     print("All fixed-point checks completed and PASSED (every check above is an assert).")
-    return dict(RESULTS, kind="fixed-point", quick=QUICK, d_fir=D_FIR)
+    return results
 
 
 if __name__ == "__main__":
