@@ -46,14 +46,16 @@ def check(ok, label, detail=""):
 # small statistics helpers (no imports from the simulation code)
 
 def z_vs_expected(errors, bits, p):
-    # Binomial z-score of a measured error count against an expected BER.
+# Calculate the z-score to measure how far the observed error count
+# differs from the expected count for the given BER.
     mean = bits * p
     sd = math.sqrt(bits * p * (1 - p))
     return (errors - mean) / sd
 
 
 def z_two_sample(e1, n1, e2, n2):
-    # Unpaired two-proportion z-score (conservative: the two runs share bits and noise).
+# Compare two measured BERs using a two-proportion z-score.
+# The runs share inputs, so the independence assumption is approximate.
     p1, p2 = e1 / n1, e2 / n2
     p = (e1 + e2) / (n1 + n2)
     sd = math.sqrt(p * (1 - p) * (1 / n1 + 1 / n2))
@@ -61,11 +63,13 @@ def z_two_sample(e1, n1, e2, n2):
 
 
 def theory_ber(ebn0_db):
+# Calculate the theoretical BER of QPSK in AWGN for the given Eb/N0.
     return 0.5 * math.erfc(math.sqrt(10 ** (ebn0_db / 10)))      # Q(sqrt(2 Eb/N0))
 
 
 def ebn0_for_ber(ber):
-    # Eb/N0 (dB) at which ideal QPSK theory gives this BER (bisection).
+# Estimate the Eb/N0 corresponding to a target BER using bisection
+# on the theoretical QPSK BER curve.
     lo, hi = -10.0, 30.0
     for _ in range(80):
         mid = 0.5 * (lo + hi)
@@ -77,6 +81,7 @@ def ebn0_for_ber(ber):
 
 
 def same_file(a, b):
+# Check whether two files contain exactly the same bytes.
     with open(a, "rb") as fa, open(b, "rb") as fb:
         return fa.read() == fb.read()
 
@@ -88,7 +93,8 @@ LOCAL_MODULES = ("params", "fixedpoint", "channel", "tx_nco", "rx_frontend", "rx
 
 
 def run_main(folder, module):
-    # Import `module` from `folder` in a clean namespace, run main() and return its numbers.
+# Import the selected simulation module, run main(), and return its results.
+# Catch assertion failures and report which validation check failed.
     for k in LOCAL_MODULES:
         sys.modules.pop(k, None)
     sys.path.insert(0, folder)
@@ -119,6 +125,7 @@ def main():
     print("FIXED-POINT vs FLOATING-POINT comparison")
 
     # 1. same configuration 
+    # Verify that both implementations use the same configuration and evaluate performance over the same Eb/N0 values.
     print("\n 1. Both folders use the same configuration")
     for name in ("params.py", "fixedpoint.py"):
         a, b = os.path.join(FIX_DIR, name), os.path.join(FLT_DIR, name)
@@ -131,6 +138,7 @@ def main():
     ebn0 = fx["ebn0"]
 
     # 2. BER sweep
+    # Compare floating-point and fixed-point BER results against each other, theoretical QPSK performance, and the exact BER prediction.
     print("\n 2. BER vs Eb/N0 (sweep)")
     print(f"{'Eb/N0':>6s} | {'float':>9s} {'fixed':>9s} {'ratio':>6s} {'z(f-x)':>7s} | "
         f"{'theory':>9s} {'exact':>9s} | {'z fl/exact':>10s} {'z fx/exact':>10s}")
@@ -150,7 +158,7 @@ def main():
                 check(abs(zff) < 4, f"{label} @ {e:g} dB: fixed and float BER agree", f"z={zff:.2f}")
                 check(abs(z_fx) < 4, f"{label} @ {e:g} dB: fixed BER matches the exact prediction",
                       f"z={z_fx:.2f}")
-
+# Estimate the Eb/N0 difference between the two implementations at their measured BER values to assess fixed-point performance loss.
     print("\n  Implementation loss of the integer chain (Eb/N0 shift, FIR chain):")
     loss = []
     for k, e in enumerate(ebn0):
@@ -163,6 +171,7 @@ def main():
               f"mean {np.mean(loss):+.3f} dB")
 
     # 3. shared scenario 
+    # Compare both implementations using the shared 4 dB test scenario, examining BER, decoded-bit disagreements, and decision-value differences.
     print(f"\n 3. Shared scenario at {fl['scen_ebn0']:g} dB (same bits, same noise) ")
     check(np.array_equal(fl["scen_bits_tx"], fx["scen_bits_tx"]), "both chains sent the same bits")
     ber_fl, ber_fx = fl["scen_ber"], fx["scen_ber"]
@@ -175,19 +184,21 @@ def main():
     disagree = int(np.sum(rx_fl[:n] != rx_fx[:n]))
     print(f"  decoded bits that differ between the chains: {disagree} of {n} ({100 * disagree / n:.3f}%)")
 
-    # decision values, each already divided by its own noiseless level, so 1.0 = clean symbol
+# Compare normalized I/Q decision values to quantify numerical differences between the fixed-point and floating-point receiver outputs.
     I_fl, Q_fl = fl["scen_I"][1:-1].astype(float), fl["scen_Q"][1:-1].astype(float)
     I_fx, Q_fx = fx["scen_I"][1:-1].astype(float), fx["scen_Q"][1:-1].astype(float)
     m = min(len(I_fl), len(I_fx))
     gap = np.concatenate([I_fl[:m] - I_fx[:m], Q_fl[:m] - Q_fx[:m]])
     corr = np.corrcoef(np.concatenate([I_fl[:m], Q_fl[:m]]), np.concatenate([I_fx[:m], Q_fx[:m]]))[0, 1]
     rms = np.sqrt(np.mean(gap ** 2))
+    # Compare normalized I/Q decision values to quantify numerical differences between the fixed-point and floating-point receiver outputs.
     print(f"  decision values (clean symbol = 1.0): RMS gap {rms:.4f} | "
         f"max |gap| {np.abs(gap).max():.4f} | correlation {corr:.6f}")
     check(rms < 0.05, "RMS gap of decision values below 0.05", f"{rms:.4f}")
     check(corr > 0.999, "decision values correlate better than 0.999", f"{corr:.6f}")
 
     # 4. LFSR noise run
+    # Compare the measured BER under hardware-style LFSR noise with the exact predicted BER for both implementations.
     print("\n 4. Hardware-style LFSR noise run (2 dB, short)")
     exact = fl["lfsr_exact"]
     for name, d in (("float", fl), ("fixed", fx)):
@@ -197,6 +208,7 @@ def main():
         check(r < 0.20, f"{name} LFSR-noise BER within 20% of the exact prediction", f"{r * 100:.1f}%")
 
     # 5. integer datapath health 
+    # Check accumulator range and receiver input clipping to identify potential fixed-point overflow or input saturation.
     print("\n 5. Integer datapath health ")
     acc_bits = fx["acc_bits"]
     limit = (1 << (acc_bits - 1)) - 1
@@ -208,6 +220,7 @@ def main():
         f"fixed {fx['noiseless_level']:g} (scaling only; decision values above are normalized)")
 
     # plot
+    # Plot theoretical, exact-prediction, floating-point, and fixed-point BER results for comparison across the tested Eb/N0 range.
     fine = np.arange(ebn0.min(), ebn0.max() + 0.01, 0.25)
     fig, ax = plt.subplots(figsize=(7, 5))
     ax.semilogy(fine, [theory_ber(e) for e in fine], "k-", lw=1, label="theory Q(sqrt(2Eb/N0))")
@@ -224,7 +237,7 @@ def main():
     fig.tight_layout()
     fig.savefig(os.path.join(OUT_DIR, "ber_comparison.png"), dpi=150)
     plt.close(fig)
-
+# Visualize the normalized receiver outputs and their numerical differences using constellation scatter plots and a histogram.
     fig, axes = plt.subplots(1, 2, figsize=(9, 4))
     k = min(2000, m)
     axes[0].scatter(I_fl[:k], Q_fl[:k], s=3, alpha=0.5, label="float")
