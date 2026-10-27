@@ -18,8 +18,7 @@ codes/
   compare_outputs/           ber_comparison.png, scenario_comparison.png, report.txt
 ```
 
-Neither folder imports anything from the other. `params.py` and `fixedpoint.py` are copies in
-both folders; `compare_results.py` checks that the two copies are identical, so edit both
+ `compare_results.py` checks that the two copies are identical, so edit both
 together.
 
 ## Requirements
