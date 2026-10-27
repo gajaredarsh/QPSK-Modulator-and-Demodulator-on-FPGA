@@ -1,22 +1,21 @@
 """
 main_fixed.py
-the FIXED-POINT (integer) end-to-end runner.
+Fixed-point (integer) end-to-end QPSK simulation runner.
 
-Runs the chain with the exact integer widths the RTL will use (12-bit NCO, 13-bit TX mixer, 12-bit receiver input, 12-bit taps, 16-bit integrate-and-dump accumulator) using the modules in this folder, and proves it still behaves like the float chain:
+Runs the QPSK transmitter, channel, and receiver using the integer widths selected for the hardware implementation. Validates the chain through the following checks:
 
-    1. noiseless integer chain gives exactly 0 errors, accumulators fit 16 bits
-    2. causal FIR + timing_offset = D gives IDENTICAL integers to aligned FIR + offset 0
-    3. integer BER sweep, with and without the FIR, against theory and the exact curve
-    4. constellation plots
-    5. 4 dB scenario (fixed bits and noise) saved so the integer chain can be compared with float
-    6. hardware-style LFSR noise, short run (BER saved; compared with the exact prediction later)
-    7. golden hex vectors for the Part D Verilog testbench, read back and verified
-
-
+    1. Noiseless decoding produces zero bit errors and accumulator values remain within the signed 16-bit range.
+    2. Causal FIR filtering with timing offset D matches aligned FIR filtering with zero timing offset.
+    3. BER sweeps with and without FIR filtering are compared against theoretical QPSK performance.
+    4. Receiver constellation plots are generated at selected Eb/N0 values.
+    5. A shared 4 dB scenario is saved for comparison with the floating-point implementation.
+    6. A short hardware-style LFSR noise test checks the measured BER.
+    7. Golden hexadecimal vectors are generated and verified for the Verilog testbench.
 
 Notes:
-  * Sweeps use numpy noise. channel.py's LFSR noise repeats exactly every 65535 samples (about 4096 symbols), so it is only used for short runs and for the golden vectors.
-  * The golden vectors use the PRBS-7 source (the same LFSR the RTL will have).
+    - BER sweeps use NumPy-generated noise. The LFSR noise sequence is periodic, so it is reserved for short tests and golden vectors.
+    - Golden vectors use a PRBS-7 bit source to match the RTL testbench.
+    - Passing these checks validates the implementation under the tested conditions; it does not guarantee equivalence for every input.
 """
 
 import os
@@ -47,7 +46,8 @@ SAVE_FILES = True                         # plots / golden vectors (compare_resu
 # Chain building blocks
 
 def tx_fixed(bits):
-    #Integer TX. Phase is back to 0 at every symbol (2 whole carrier cycles), so one symbol of NCO output tiled n_sym times equals running the NCO for the whole run.
+# Generate the integer TX signal. The carrier completes two cycles per
+# symbol, allowing the one-symbol carrier sequence to be repeated.
     I, Q = tx_nco.map_qpsk(bits)
     n_sym = len(I)
     c1, s1 = tx_nco.nco_fixed(SPS)
@@ -84,7 +84,7 @@ def simulate(ebn0_db, n_sym, seed, noise_mode="numpy"):
 
 
 def run_chunk(ebn0_db, n_sym, seed):
-    # One chunk of the sweep: the same noisy r_int decoded without and with the FIR.
+   # Process the same received samples with and without FIR filtering.
     bits, r_int, cos_i, sin_i = simulate(ebn0_db, n_sym, seed)
     out = {}
     for name, h_int in (("no_fir", None), ("fir", H_INT)):
@@ -127,7 +127,7 @@ def check_timing():
     Ia, Qa, _ = decode(yi_a, yq_a, timing_offset=0)
     n = len(Ic)
     assert np.array_equal(Ic, Ia[:n]) and np.array_equal(Qc, Qa[:n])
-    print(f"  {n} of {len(Ia)} symbols compared, accumulators identical integer for integer.")
+    print(f"  {n} of {len(Ia)} symbols compared, aligned accumulators match exactly.")
     wrong = decode(yi_c, yq_c, timing_offset=0)[0]
     assert not np.array_equal(wrong[:n], Ia[:n])
     print("  and timing_offset = 0 on the causal stream does NOT match, so the offset matters.")

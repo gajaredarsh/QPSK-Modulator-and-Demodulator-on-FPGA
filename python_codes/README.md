@@ -4,7 +4,7 @@ The code is split into two completely separate, self-contained folders, plus one
 compares their results.
 
 ```
-codes/
+python_codes/
   floating_point/            ideal float chain (algorithm check, no bit widths)
     main_float.py            <- run this
     params.py  fixedpoint.py channel.py  tx_nco.py  rx_frontend.py  rx_backend_eval.py

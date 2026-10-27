@@ -1,22 +1,22 @@
 """
 main_float.py
-the FLOATING-POINT end-to-end runner.
+Floating-point end-to-end QPSK simulation runner.
 
-Uses only the modules in this folder (tx_nco, channel, rx_frontend, rx_backend_eval) and runs the checks that prove the ALGORITHM is right before any bit-width is chosen:
+Runs the QPSK transmitter, channel, and receiver using floating-point arithmetic to establish a reference for evaluating the algorithm and comparing it with the fixed-point implementation.
 
-    1. noiseless chain gives exactly 0 errors (no FIR, FIR aligned, FIR causal)
-    2. causal FIR + timing_offset = D gives the same decisions as aligned FIR + offset 0
-    3. BER sweep, with and without the FIR, against theory and Part C's exact curve
-    4. constellation plots
-    5. hardware-style LFSR noise gives the predicted BER (short run, see note below)
-    6. the shared 4 dB scenario (fixed bits and noise), saved for the comparison with the integer chain
+The simulation performs the following checks:
 
+    1. Noiseless decoding produces zero bit errors with and without FIR filtering, including causal and aligned configurations.
+    2. Causal FIR filtering with timing offset D is compared against aligned FIR filtering with zero timing offset.
+    3. BER sweeps with and without FIR filtering are compared against theoretical QPSK performance and the exact prediction.
+    4. Receiver constellation plots are generated at selected Eb/N0 values.
+    5. A short hardware-style LFSR noise test checks the measured BER.
+    6. A shared 4 dB scenario is saved for comparison with the fixed-point implementation.
 
 Notes:
-  * Sweeps use numpy noise. channel.py's LFSR noise repeats exactly every 65535 samples
-    (about 4096 symbols at 16 samples/symbol), so it is only used for short runs.
-  * Sweep bits are numpy random, not the PRBS-7 (period 127 bits), so the statistics are not
-    tied to one short repeating pattern.
+    - BER sweeps use NumPy-generated noise. The LFSR noise sequence is periodic, so it is reserved for short tests.
+    - Sweep bits are generated using NumPy rather than PRBS-7, avoiding dependence on a short repeating bit pattern.
+    - The floating-point results serve as a reference; agreement with theoretical results is assessed under the tested conditions.
 """
 
 import os
@@ -44,6 +44,7 @@ SAVE_FILES = True                         # plots / golden vectors (compare_resu
 # Chain building blocks
 
 def tx_float(bits):
+    # Map input bits to QPSK symbols and generate the modulated carrier signal.
     I, Q = tx_nco.map_qpsk(bits)
     cos, sin = tx_nco.nco_float(len(I) * SPS)
     s = tx_nco.modulate(I, Q, cos, sin, SPS)
@@ -51,7 +52,7 @@ def tx_float(bits):
 
 
 def rx_float(r, cos, sin, h, aligned=True):
-    """h=None means no FIR: mixer output goes straight to integrate-and-dump."""
+    #h=None means no FIR: mixer output goes straight to integrate-and-dump.
     if h is None:
         return C.downconvert(r, cos, sin)
     return C.rx_frontend(r, cos, sin, h, aligned=aligned)
