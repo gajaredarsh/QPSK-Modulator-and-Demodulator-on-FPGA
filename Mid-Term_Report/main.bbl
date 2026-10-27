@@ -1,0 +1,63 @@
+\begin{thebibliography}{10}\itemsep=-1pt
+
+\bibitem{7777861}
+Amean Al~Safi and Bradley Bazuin.
+\newblock Fpga based implementation of bpsk and qpsk modulators using address
+  reverse accumulators.
+\newblock In {\em 2016 IEEE 7th Annual Ubiquitous Computing, Electronics \&
+  Mobile Communication Conference (UEMCON)}, pages 1--6, 2016.
+
+\bibitem{qpsk_nptel}
+{ECE, IIT Kharagpur}.
+\newblock Quaternary phase shift keying (qpsk) modulation.
+\newblock NPTEL, Module 5, Lesson 25.
+\newblock Version 2.
+
+\bibitem{mandadkar2014qpsk}
+Mukesh Mandadkar, Abhishek Lokhande, and R.~R. Bhambare.
+\newblock Qpsk modulator and demodulator using fpga for sdr.
+\newblock {\em International Journal of Engineering Research and Applications
+  (IJERA)}, 4(4):394--397, April 2014.
+
+\bibitem{7509346}
+Vishakha Pareek.
+\newblock A novel implementation of qpsk modulator on fpga.
+\newblock In {\em 2016 IEEE Students' Conference on Electrical, Electronics and
+  Computer Science (SCEECS)}, pages 1--4, 2016.
+
+\bibitem{6034354}
+S.O. Popescu, A.S. Gontean, and D. Ianchis.
+\newblock Implementation of a qpsk system on fpga.
+\newblock In {\em 2011 IEEE 9th International Symposium on Intelligent Systems
+  and Informatics}, pages 365--370, 2011.
+
+\bibitem{proakis2002communication}
+John~G. Proakis and Masoud Salehi.
+\newblock {\em Communication Systems Engineering}.
+\newblock Prentice Hall / Pearson Education, 2nd edition, 2002.
+
+\bibitem{9019948}
+Deepika R., Sourabh K.S., and Manikandan J.
+\newblock Design and implementation of a novel qpsk demodulator for fpga based
+  system design.
+\newblock In {\em 2019 IEEE International WIE Conference on Electrical and
+  Computer Engineering (WIECON-ECE)}, pages 1--4, 2019.
+
+\bibitem{sakran2025qpsk}
+Rawaa~Kadhim Sakran, Riham~Ali Zubaid, and Ahmed~Abdulredha Ali.
+\newblock Design and implementation of {QPSK} modulator using {FPGA} based on
+  {DDS} algorithm.
+\newblock {\em University of Thi-Qar Journal for Engineering Sciences}, 15(1),
+  2025.
+
+\bibitem{song2010qpsk}
+Wenmiao Song and Qiongqiong Yao.
+\newblock Design and implement of qpsk modem based on fpga.
+\newblock volume~9, pages 599 -- 601, 08 2010.
+
+\bibitem{inproceedings}
+Huiying Zhang, Ting Zhao, and Ruijing Xie.
+\newblock Research of all digital demodulation technology for qpsk.
+\newblock 01 2015.
+
+\end{thebibliography}

@@ -1,0 +1,49 @@
+This is BibTeX, Version 0.99d (TeX Live 2025/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: ieee_fullname.bst
+Database file #1: references.bib
+Warning--empty booktitle in song2010qpsk
+Warning--empty booktitle in inproceedings
+You've used 10 entries,
+            2120 wiz_defined-function locations,
+            555 strings with 5433 characters,
+and the built_in function-call counts, 3486 in all, are:
+= -- 328
+> -- 143
+< -- 6
++ -- 57
+- -- 46
+* -- 210
+:= -- 546
+add.period$ -- 31
+call.type$ -- 10
+change.case$ -- 53
+chr.to.int$ -- 0
+cite$ -- 12
+duplicate$ -- 157
+empty$ -- 304
+format.name$ -- 46
+if$ -- 774
+int.to.chr$ -- 0
+int.to.str$ -- 10
+missing$ -- 10
+newline$ -- 54
+num.names$ -- 20
+pop$ -- 78
+preamble$ -- 1
+purify$ -- 43
+quote$ -- 0
+skip$ -- 121
+stack$ -- 0
+substring$ -- 176
+swap$ -- 50
+text.length$ -- 6
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 38
+warning$ -- 2
+while$ -- 32
+width$ -- 12
+write$ -- 110
+(There were 2 warnings)
