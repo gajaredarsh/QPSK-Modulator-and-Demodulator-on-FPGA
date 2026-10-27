@@ -1,9 +1,8 @@
 """
 main_float.py
-Part D of the QPSK FPGA project golden model: the FLOATING-POINT end-to-end runner.
+the FLOATING-POINT end-to-end runner.
 
-Uses only the modules in this folder (tx_nco, channel, rx_frontend, rx_backend_eval) and runs
-the checks that prove the ALGORITHM is right before any bit-width is chosen:
+Uses only the modules in this folder (tx_nco, channel, rx_frontend, rx_backend_eval) and runs the checks that prove the ALGORITHM is right before any bit-width is chosen:
 
     1. noiseless chain gives exactly 0 errors (no FIR, FIR aligned, FIR causal)
     2. causal FIR + timing_offset = D gives the same decisions as aligned FIR + offset 0
@@ -12,15 +11,6 @@ the checks that prove the ALGORITHM is right before any bit-width is chosen:
     5. hardware-style LFSR noise gives the predicted BER (short run, see note below)
     6. the shared 4 dB scenario (fixed bits and noise), saved for the comparison with the integer chain
 
-The integer version of the same chain is in ../fixed_point/main_fixed.py. main() returns the numbers
-that ../compare_results.py compares; no results file is saved (only the plots).
-
-Run:   python main_float.py            (full run)
-       python main_float.py --quick    (smaller sweep, for a fast check)
-
-Author: Darsh (Part D)
-AI-assistance note: first draft written with Claude (Sonnet 5.5, Anthropic) as allowed by the
-    EE2000 AI-usage policy. The author must be able to explain and defend all of it in the viva.
 
 Notes:
   * Sweeps use numpy noise. channel.py's LFSR noise repeats exactly every 65535 samples
@@ -43,8 +33,7 @@ import rx_backend_eval as D
 SPS = params.SAMPLES_PER_SYMBOL
 QUICK = "--quick" in sys.argv
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-OUT_DIR = os.path.join(HERE, "d_outputs")
+OUT_DIR = "d_outputs"
 
 H = C.design_lpf()                       # float taps, order 24
 D_FIR = C.group_delay_samples(H)         # 12 samples
@@ -53,9 +42,7 @@ SAVE_FILES = True                         # plots / golden vectors (compare_resu
 RESULTS = {}                             # filled by the checks, saved by save_results()
 
 
-# =======================================================================================
 # Chain building blocks
-# =======================================================================================
 
 def tx_float(bits):
     I, Q = tx_nco.map_qpsk(bits)
@@ -94,12 +81,10 @@ def run_chunk(ebn0_db, n_sym, seed):
     return out
 
 
-# =======================================================================================
 # 1. Noiseless sanity (gate: must be exactly zero errors)
-# =======================================================================================
 
 def check_noiseless():
-    print("\n--- Check 1: noiseless float chain must give exactly 0 errors ---")
+    print("\nCheck 1: noiseless float chain must give exactly 0 errors")
     bits = np.random.default_rng(1).integers(0, 2, 4000).astype(np.uint8)
     I, Q, s, cos, sin = tx_float(bits)
 
@@ -118,12 +103,10 @@ def check_noiseless():
     print("PASS")
 
 
-# =======================================================================================
 # 2. Causal vs aligned timing
-# =======================================================================================
 
 def check_timing():
-    print("\n--- Check 2: causal FIR + offset D equals aligned FIR + offset 0 ---")
+    print("\nCheck 2: causal FIR + offset D equals aligned FIR + offset 0 ")
     bits, r, cos, sin = simulate(6.0, 500, seed=9)
     yi_c, yq_c = rx_float(r, cos, sin, H, aligned=False)
     yi_a, yq_a = rx_float(r, cos, sin, H, aligned=True)
@@ -138,12 +121,10 @@ def check_timing():
     print("PASS")
 
 
-# =======================================================================================
 # 3. BER sweep
-# =======================================================================================
 
 def sweep():
-    print("\n--- Check 3: BER vs Eb/N0, without and with the FIR ---")
+    print("\nCheck 3: BER vs Eb/N0, without and with the FIR")
     ebn0_list = [0, 2, 4, 6, 8]
     max_bits = 200_000 if QUICK else 1_500_000
     names = ["no_fir", "fir"]
@@ -187,14 +168,12 @@ def sweep():
         print(f"wrote {path}")
 
 
-# =======================================================================================
 # 4. Constellations
-# =======================================================================================
 
 def constellations():
     if not SAVE_FILES:
         return
-    print("\n--- Check 4: constellation plots (FIR, aligned) ---")
+    print("\nCheck 4: constellation plots (FIR, aligned)")
     panels = []
     for e in (0.0, 6.0, 12.0):
         bits, r, cos, sin = simulate(e, 3000, seed=21)
@@ -206,12 +185,10 @@ def constellations():
     print(f"wrote {path}")
 
 
-# =======================================================================================
 # 5. LFSR (hardware-style) noise, short run
-# =======================================================================================
 
 def check_lfsr_noise():
-    print("\n--- Check 5: hardware-style LFSR noise, 4000 symbols at 2 dB ---")
+    print("\nCheck 5: hardware-style LFSR noise, 4000 symbols at 2 dB")
     bits = tx_nco.gen_bits(2 * 4000)
     I, Q, s, cos, sin = tx_float(bits)
     r = channel.awgn(s, 2.0, mode="lfsr", seed=3)
@@ -224,9 +201,7 @@ def check_lfsr_noise():
     print("PASS")
 
 
-# =======================================================================================
 # 6. Shared 4 dB scenario (the fixed_point folder runs the identical one)
-# =======================================================================================
 
 SCENARIO_EBN0_DB = 4.0
 SCENARIO_N_SYM = 100_000      # same in both folders, in quick mode too, so the results line up
@@ -235,7 +210,7 @@ SCENARIO_NOISE_SEED = 11
 
 
 def check_scenario():
-    print(f"\n--- Check 6: shared {SCENARIO_EBN0_DB:g} dB scenario (same bits, same noise as the integer run) ---")
+    print(f"\nCheck 6: shared {SCENARIO_EBN0_DB:g} dB scenario (same bits, same noise as the integer run)")
     bits = np.random.default_rng(SCENARIO_BIT_SEED).integers(0, 2, 2 * SCENARIO_N_SYM).astype(np.uint8)
     I, Q, s, cos, sin = tx_float(bits)
     r = channel.awgn(s, SCENARIO_EBN0_DB, mode="numpy", seed=SCENARIO_NOISE_SEED)
@@ -251,15 +226,11 @@ def check_scenario():
     print("PASS")
 
 
-# =======================================================================================
-
 def main():
     """Run every check. Returns the numbers compare_results.py needs; saves no results file."""
     if SAVE_FILES:
         os.makedirs(OUT_DIR, exist_ok=True)
-    print("=" * 74)
-    print("Part D FLOATING-POINT run" + ("  (quick mode)" if QUICK else ""))
-    print("=" * 74)
+    print("FLOATING-POINT run" + ("  (quick mode)" if QUICK else ""))
 
     check_noiseless()
     check_timing()
@@ -268,9 +239,7 @@ def main():
     check_lfsr_noise()
     check_scenario()
 
-    print("\n" + "=" * 74)
     print("All floating-point checks completed and PASSED (every check above is an assert).")
-    print("=" * 74)
     return dict(RESULTS, kind="floating-point", quick=QUICK, d_fir=D_FIR)
 
 
