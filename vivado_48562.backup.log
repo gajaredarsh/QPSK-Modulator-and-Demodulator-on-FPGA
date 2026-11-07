@@ -1,0 +1,123 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 02-sep-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:01:26 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Sat Nov  7 19:40:48 2026
+# Process ID         : 48562
+# Current directory  : /home/darsh/EE2000-Signal-Processing
+# Command line       : vivado -source fpga/scripts/create_project.tcl
+# Log file           : /home/darsh/EE2000-Signal-Processing/vivado.log
+# Journal file       : /home/darsh/EE2000-Signal-Processing/vivado.jou
+# Running On         : darsh-Victus-by-HP-Gaming-Laptop-15-fb2xxx
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 26.04.1 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 1928.562 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 15405 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 19700 MB
+# Available Virtual  : 6170 MB
+#-----------------------------------------------------------
+start_gui
+source fpga/scripts/create_project.tcl
+couldn't read file "fpga/scripts/create_project.tcl": no such file or directory
+create_project QPSK /home/darsh/SignalProcessing/QPSK -part xc7s50csga324-1
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/darsh/Xilinx/2026.1/data/ip'.
+close_project
+open_project /home/darsh/vivado/qpsk_old/qpsk.xpr
+INFO: [Project 1-313] Project file moved from '/home/darsh/EE2000-Signal-Processing/fpga/qpsk' since last save.
+INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory '/home/darsh/vivado/qpsk_old/qpsk.gen/sources_1'.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/qpsk_rx_params.vh'; using path '/home/darsh/Downloads/part_c/rtl/qpsk_rx_params.vh' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/fir_lpf.v'; using path '/home/darsh/Downloads/part_c/rtl/fir_lpf.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/qpsk_params.vh'; using path '/home/darsh/Downloads/part_b/rtl/qpsk_params.vh' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/rx_mixer.v'; using path '/home/darsh/Downloads/part_c/rtl/rx_mixer.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/rx_nco.v'; using path '/home/darsh/Downloads/part_c/rtl/rx_nco.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/symbol_sampler.v'; using path '/home/darsh/Downloads/part_c/rtl/symbol_sampler.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/rx_frontend_top.v'; using path '/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/awgn_channel.v'; using path '/home/darsh/Downloads/part_b/rtl/awgn_channel.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/awgn_core.v'; using path '/home/darsh/Downloads/part_b/rtl/awgn_core.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/gauss_noise.v'; using path '/home/darsh/Downloads/part_b/rtl/gauss_noise.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/lfsr_byte.v'; using path '/home/darsh/Downloads/part_b/rtl/lfsr_byte.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/noise_gain_rom.v'; using path '/home/darsh/Downloads/part_b/rtl/noise_gain_rom.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/noise_scale.v'; using path '/home/darsh/Downloads/part_b/rtl/noise_scale.v' instead.
+CRITICAL WARNING: [Project 1-311] Could not find the file '/home/darsh/vivado/qpsk_old/qpsk.srcs/sources_1/new/ber_counter.v', nor could it be found using path '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v'.
+CRITICAL WARNING: [Project 1-311] Could not find the file '/home/darsh/vivado/qpsk_old/qpsk.srcs/sources_1/new/packetizer.v', nor could it be found using path '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v'.
+CRITICAL WARNING: [Project 1-311] Could not find the file '/home/darsh/vivado/qpsk_old/qpsk.srcs/sources_1/new/symbol_decision.v', nor could it be found using path '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v'.
+CRITICAL WARNING: [Project 1-311] Could not find the file '/home/darsh/vivado/qpsk_old/qpsk.srcs/sources_1/new/uart_tx.v', nor could it be found using path '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v'.
+CRITICAL WARNING: [Project 1-311] Could not find the file '/home/darsh/vivado/qpsk_old/qpsk.srcs/sources_1/new/qpsk_top.v', nor could it be found using path '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/qpsk_top.v'.
+CRITICAL WARNING: [Project 1-311] Could not find the file '/home/darsh/vivado/qpsk_old/qpsk.srcs/constrs_1/imports/Downloads/boolean.xdc', nor could it be found using path '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/constrs_1/imports/Downloads/boolean.xdc'.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/qpsk_rx_params.vh'; using path '/home/darsh/Downloads/part_c/rtl/qpsk_rx_params.vh' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/qpsk_params.vh'; using path '/home/darsh/Downloads/part_b/rtl/qpsk_params.vh' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/tb/tb_chain.v'; using path '/home/darsh/Downloads/part_c/tb/tb_chain.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/tb/tb_awgn_channel.v'; using path '/home/darsh/Downloads/part_b/tb/tb_awgn_channel.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/tb/tb_awgn_core.v'; using path '/home/darsh/Downloads/part_b/tb/tb_awgn_core.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/tb/tb_awgn_gainchange.v'; using path '/home/darsh/Downloads/part_b/tb/tb_awgn_gainchange.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/tb/tb_awgn_rates.v'; using path '/home/darsh/Downloads/part_b/tb/tb_awgn_rates.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/tb/tb_gauss_noise.v'; using path '/home/darsh/Downloads/part_b/tb/tb_gauss_noise.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/tb/tb_noise_scale.v'; using path '/home/darsh/Downloads/part_b/tb/tb_noise_scale.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/tb/tb_rx_frontend.v'; using path '/home/darsh/Downloads/part_c/tb/tb_rx_frontend.v' instead.
+CRITICAL WARNING: [Project 1-311] Could not find the file '/home/darsh/vivado/qpsk_old/qpsk.srcs/sim_1/new/tb_qpsk.v', nor could it be found using path '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v'.
+CRITICAL WARNING: [Project 1-311] Could not find the file '/home/darsh/vivado/qpsk_old/qpsk.srcs/sim_1/new/tb_uart.v', nor could it be found using path '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_uart.v'.
+CRITICAL WARNING: [Project 1-311] Could not find the file '/home/darsh/vivado/qpsk_old/qpsk.srcs/sim_1/new/tb_decision_ber.v', nor could it be found using path '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_decision_ber.v'.
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/qpsk_params.vh'; using path '/home/darsh/Downloads/part_b/rtl/qpsk_params.vh' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/awgn_channel.v'; using path '/home/darsh/Downloads/part_b/rtl/awgn_channel.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/awgn_core.v'; using path '/home/darsh/Downloads/part_b/rtl/awgn_core.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/qpsk_rx_params.vh'; using path '/home/darsh/Downloads/part_c/rtl/qpsk_rx_params.vh' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/fir_lpf.v'; using path '/home/darsh/Downloads/part_c/rtl/fir_lpf.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/gauss_noise.v'; using path '/home/darsh/Downloads/part_b/rtl/gauss_noise.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/lfsr_byte.v'; using path '/home/darsh/Downloads/part_b/rtl/lfsr_byte.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/noise_gain_rom.v'; using path '/home/darsh/Downloads/part_b/rtl/noise_gain_rom.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/noise_scale.v'; using path '/home/darsh/Downloads/part_b/rtl/noise_scale.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/rx_frontend_top.v'; using path '/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/rx_mixer.v'; using path '/home/darsh/Downloads/part_c/rtl/rx_mixer.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/rx_nco.v'; using path '/home/darsh/Downloads/part_c/rtl/rx_nco.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/symbol_sampler.v'; using path '/home/darsh/Downloads/part_c/rtl/symbol_sampler.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/qpsk_params.vh'; using path '/home/darsh/Downloads/part_b/rtl/qpsk_params.vh' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/awgn_channel.v'; using path '/home/darsh/Downloads/part_b/rtl/awgn_channel.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/awgn_core.v'; using path '/home/darsh/Downloads/part_b/rtl/awgn_core.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/qpsk_rx_params.vh'; using path '/home/darsh/Downloads/part_c/rtl/qpsk_rx_params.vh' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/fir_lpf.v'; using path '/home/darsh/Downloads/part_c/rtl/fir_lpf.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/gauss_noise.v'; using path '/home/darsh/Downloads/part_b/rtl/gauss_noise.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/lfsr_byte.v'; using path '/home/darsh/Downloads/part_b/rtl/lfsr_byte.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/noise_gain_rom.v'; using path '/home/darsh/Downloads/part_b/rtl/noise_gain_rom.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_b/rtl/noise_scale.v'; using path '/home/darsh/Downloads/part_b/rtl/noise_scale.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/rx_frontend_top.v'; using path '/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/rx_mixer.v'; using path '/home/darsh/Downloads/part_c/rtl/rx_mixer.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/rx_nco.v'; using path '/home/darsh/Downloads/part_c/rtl/rx_nco.v' instead.
+WARNING: [Project 1-312] File not found as '/home/Downloads/part_c/rtl/symbol_sampler.v'; using path '/home/darsh/Downloads/part_c/rtl/symbol_sampler.v' instead.
+WARNING: [Project 1-5713] Board part '' set for the project  is not found. BoardPart property will be unset. Please select board from latest repo build 
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/darsh/Xilinx/2026.1/data/ip'.
+update_compile_order -fileset sources_1
+source /home/darsh/EE2000-Signal-Processing/fpga/scripts/create_project.tcl
+# set script_dir [file dirname [file normalize [info script]]]
+# set fpga_dir   [file normalize "$script_dir/.."]
+# set proj_dir   [file normalize "$::env(HOME)/vivado/qpsk"]
+# create_project qpsk $proj_dir -part xc7s50csga324-1 -force
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/darsh/Xilinx/2026.1/data/ip'.
+# add_files -norecurse [glob $fpga_dir/rtl/*/*.v]
+no files matched glob pattern "/home/darsh/EE2000-Signal-Processing/fpga/rtl/include/*.vh"
+    while executing
+"glob $fpga_dir/rtl/include/*.vh"
+    invoked from within
+"add_files -norecurse [glob $fpga_dir/rtl/include/*.vh]"
+    (file "/home/darsh/EE2000-Signal-Processing/fpga/scripts/create_project.tcl" line 11)
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+current_project qpsk
+close_project
+add_files -norecurse -scan_for_includes {/home/darsh/EE2000-Signal-Processing/fpga/rtl/include/qpsk_rx_params.vh /home/darsh/EE2000-Signal-Processing/fpga/rtl/include/qpsk_params.vh}
+update_compile_order -fileset sources_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun Nov  8 02:04:01 2026...
