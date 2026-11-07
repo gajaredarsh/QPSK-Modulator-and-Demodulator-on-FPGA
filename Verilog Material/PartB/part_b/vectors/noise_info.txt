@@ -1,0 +1,6 @@
+samples exported    : 70000
+noise_raw.hex       : 11-bit signed, six-byte sum minus 765
+noise_scaled.hex    : 16-bit signed, (raw*gain + 128) >> 8
+gain used           : 2902 (Eb/N0 = 6.0 dB, realized 5.999 dB)
+noise_gain_table.hex: 16 entries, 13-bit UNSIGNED, Eb/N0 = 0..15 dB
+noise_seeds.hex     : six 16-bit LFSR initial states
