@@ -1,0 +1,10 @@
+-------------------------------------
+| Tool Version : Vivado v.2026.1
+| Date         : Wed Nov  4 19:08:04 2026
+| Host         : darsh-Victus-by-HP-Gaming-Laptop-15-fb2xxx
+| Design       : design_1
+| Device       : xc7s50-csga324-1--
+-------------------------------------
+
+For more information on clockInfo.txt clock routing debug file see https://support.xilinx.com/s/article/000035660?language=en_US
+

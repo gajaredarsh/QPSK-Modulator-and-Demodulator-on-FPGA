@@ -1,0 +1,97 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (lin64) Build 6511674 Tue Jun 16 11:01:26 MDT 2026
+| Date         : Wed Nov  4 19:08:06 2026
+| Host         : darsh-Victus-by-HP-Gaming-Laptop-15-fb2xxx running 64-bit Ubuntu 26.04.1 LTS
+| Command      : report_control_sets -verbose -file qpsk_top_control_sets_placed.rpt
+| Design       : qpsk_top
+| Device       : xc7s50
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    19 |
+|    Minimum number of control sets                        |    19 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    60 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    19 |
+| >= 0 to < 4        |     1 |
+| >= 4 to < 6        |     3 |
+| >= 6 to < 8        |     1 |
+| >= 8 to < 10       |     3 |
+| >= 10 to < 12      |     1 |
+| >= 12 to < 14      |     1 |
+| >= 14 to < 16      |     1 |
+| >= 16              |     8 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              65 |           23 |
+| No           | No                    | Yes                    |               0 |            0 |
+| No           | Yes                   | No                     |              91 |           25 |
+| Yes          | No                    | No                     |             114 |           35 |
+| Yes          | No                    | Yes                    |               0 |            0 |
+| Yes          | Yes                   | No                     |             878 |          230 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++----------------+--------------------------------+--------------------------------+------------------+----------------+--------------+
+|  Clock Signal  |          Enable Signal         |        Set/Reset Signal        | Slice Load Count | Bel Load Count | Bels / Slice |
++----------------+--------------------------------+--------------------------------+------------------+----------------+--------------+
+|  clk_IBUF_BUFG | channel/u_core/out_valid_reg_0 | rst                            |                1 |              3 |         3.00 |
+|  clk_IBUF_BUFG | rx/u_fir_i/E[0]                | rst                            |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG | packet/index[3]_i_2_n_0        | packet/index[3]_i_1_n_0        |                1 |              4 |         4.00 |
+|  clk_IBUF_BUFG | serial_tx/bit_index[3]_i_2_n_0 | serial_tx/bit_index[3]_i_1_n_0 |                2 |              4 |         2.00 |
+|  clk_IBUF_BUFG | serial_tx/frame[7]_i_1_n_0     |                                |                2 |              7 |         3.50 |
+|  clk_IBUF_BUFG | packet/packet[127]_i_1_n_0     | packet/packet[14]_i_1_n_0      |                1 |              8 |         8.00 |
+|  clk_IBUF_BUFG | decision/bits_valid_reg_0[0]   | rst                            |                3 |              8 |         2.67 |
+|  clk_IBUF_BUFG | tx/u_prbs/E[0]                 | rst                            |                3 |              9 |         3.00 |
+|  clk_IBUF_BUFG | serial_tx/busy_reg_0           | serial_tx/bit_index[3]_i_1_n_0 |                3 |             10 |         3.33 |
+|  clk_IBUF_BUFG | packet/packet[127]_i_1_n_0     | packet/packet[119]_i_1_n_0     |                2 |             13 |         6.50 |
+|  clk_IBUF_BUFG | channel/u_core/u_scale/E[0]    | rst                            |                4 |             15 |         3.75 |
+|  clk_IBUF_BUFG | rx/u_smp/i_hat[15]_i_1_n_0     | rst                            |                9 |             32 |         3.56 |
+|  clk_IBUF_BUFG | rx/u_fir_i/out_valid_reg_1[0]  | rst                            |               10 |             36 |         3.60 |
+|  clk_IBUF_BUFG | decision/E[0]                  | rst                            |               16 |             63 |         3.94 |
+|  clk_IBUF_BUFG |                                |                                |               23 |             79 |         3.43 |
+|  clk_IBUF_BUFG |                                | rst                            |               25 |             91 |         3.64 |
+|  clk_IBUF_BUFG | packet/packet[127]_i_1_n_0     |                                |               33 |            107 |         3.24 |
+|  clk_IBUF_BUFG | tx/E[0]                        | rst                            |               33 |            141 |         4.27 |
+|  clk_IBUF_BUFG | rx/u_mix/out_valid_reg_0       | rst                            |              141 |            528 |         3.74 |
++----------------+--------------------------------+--------------------------------+------------------+----------------+--------------+
+
+

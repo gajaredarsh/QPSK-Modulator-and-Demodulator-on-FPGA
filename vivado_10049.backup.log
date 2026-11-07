@@ -1,0 +1,677 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 02-sep-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:01:26 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Wed Nov  4 16:30:06 2026
+# Process ID         : 10049
+# Current directory  : /home/darsh/EE2000-Signal-Processing
+# Command line       : vivado
+# Log file           : /home/darsh/EE2000-Signal-Processing/vivado.log
+# Journal file       : /home/darsh/EE2000-Signal-Processing/vivado.jou
+# Running On         : darsh-Victus-by-HP-Gaming-Laptop-15-fb2xxx
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 26.04.1 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 1100.980 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 15405 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 19700 MB
+# Available Virtual  : 15025 MB
+#-----------------------------------------------------------
+start_gui
+open_project /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.xpr
+INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.gen/sources_1'.
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-5713] Board part '' set for the project  is not found. BoardPart property will be unset. Please select board from latest repo build 
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/darsh/Xilinx/2026.1/data/ip'.
+update_compile_order -fileset sources_1
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+close [ open /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v w ]
+add_files -fileset sim_1 /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+update_compile_order -fileset sim_1
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+set_property top tb_qpsk [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+INFO: [Common 17-14] Message 'filemgmt 56-199' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+update_compile_order -fileset sim_1
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/Downloads/part_b/rtl/awgn_channel.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+WARNING: [filemgmt 56-199] Attempt to get parsing info during refresh. "On-the-fly" syntax checking information may be incorrect. [/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v:]
+launch_simulation
+Command: launch_simulation  -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Project 1-5737] Running on host darsh-Victus-by-HP-Gaming-Laptop-15-fb2xxx (64) - Ubuntu 26.04.1 LTS
+INFO: [Vivado 12-28535] Process started - Wed Nov  4 16:44:53 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'tb_qpsk'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from '/home/darsh/Xilinx/2026.1/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_qpsk' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj tb_qpsk_vlog.prj
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/Downloads/part_b/rtl/awgn_channel.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module awgn_channel
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/Downloads/part_b/rtl/awgn_core.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module awgn_core
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/Downloads/part_c/rtl/fir_lpf.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fir_lpf
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/Downloads/part_b/rtl/gauss_noise.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module gauss_noise
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/Downloads/part_b/rtl/lfsr_byte.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module lfsr_byte
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/nco.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module nco
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/Downloads/part_b/rtl/noise_gain_rom.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module noise_gain_rom
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/Downloads/part_b/rtl/noise_scale.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module noise_scale
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/prbs7_gen.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module prbs7_gen
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/qpsk_mapper.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module qpsk_mapper
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/Downloads/part_c/rtl/rx_frontend_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rx_frontend_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/Downloads/part_c/rtl/rx_mixer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rx_mixer
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/Downloads/part_c/rtl/rx_nco.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rx_nco
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/Downloads/part_c/rtl/symbol_sampler.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module symbol_sampler
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_mixer.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tx_mixer
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/imports/rtl/tx_top.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tx_top
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_qpsk
+Waiting for jobs to finish...
+No pending jobs, compilation finished.
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.sim/sim_1/behav/xsim'
+xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_qpsk_behav xil_defaultlib.tb_qpsk xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator v2026.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /home/darsh/Xilinx/2026.1/Vivado/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_qpsk_behav xil_defaultlib.tb_qpsk xil_defaultlib.glbl -log elaborate.log 
+INFO: [XSIM 43-3493] Using 8 slave threads.
+WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by AMD, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
+    LIBRARY_PATH
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.prbs7_gen
+Compiling module xil_defaultlib.qpsk_mapper
+Compiling module xil_defaultlib.nco
+Compiling module xil_defaultlib.tx_mixer
+Compiling module xil_defaultlib.tx_top
+Compiling module xil_defaultlib.noise_gain_rom
+Compiling module xil_defaultlib.lfsr_byte
+Compiling module xil_defaultlib.gauss_noise
+Compiling module xil_defaultlib.noise_scale
+Compiling module xil_defaultlib.awgn_core
+Compiling module xil_defaultlib.awgn_channel
+Compiling module xil_defaultlib.rx_nco
+Compiling module xil_defaultlib.rx_mixer_default
+Compiling module xil_defaultlib.fir_lpf_default
+Compiling module xil_defaultlib.symbol_sampler_default
+Compiling module xil_defaultlib.rx_frontend_top
+Compiling module xil_defaultlib.symbol_decision
+Compiling module xil_defaultlib.ber_counter_default
+Compiling module xil_defaultlib.tb_qpsk
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_qpsk_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_qpsk_behav -key {Behavioral:sim_1:Functional:tb_qpsk} -tclbatch {tb_qpsk.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_qpsk.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+WARNING: File lut_cos.hex referenced on /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v at line 27 cannot be opened for reading. Please ensure that this file is available in the current working directory or parent directory of xsim.dir location specified via -xsimdir switch.
+WARNING: File lut_sin.hex referenced on /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v at line 27 cannot be opened for reading. Please ensure that this file is available in the current working directory or parent directory of xsim.dir location specified via -xsimdir switch.
+WARNING: File lut_cos.hex referenced on /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v at line 27 cannot be opened for reading. Please ensure that this file is available in the current working directory or parent directory of xsim.dir location specified via -xsimdir switch.
+WARNING: File lut_sin.hex referenced on /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v at line 27 cannot be opened for reading. Please ensure that this file is available in the current working directory or parent directory of xsim.dir location specified via -xsimdir switch.
+WARNING: File fir_coeffs.hex referenced on /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v at line 27 cannot be opened for reading. Please ensure that this file is available in the current working directory or parent directory of xsim.dir location specified via -xsimdir switch.
+WARNING: File fir_coeffs.hex referenced on /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v at line 27 cannot be opened for reading. Please ensure that this file is available in the current working directory or parent directory of xsim.dir location specified via -xsimdir switch.
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_qpsk_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 10702.348 ; gain = 55.230 ; free physical = 1491 ; free virtual = 12206
+run all
+FAIL: noise-free chain, x errors out of 1024 bits
+$finish called at time : 82440 ns : File "/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v" Line 101
+run all
+The current simulation has finished. Please use 'restart' to begin a new simulation.
+$finish called at time : 82440 ns : File "/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v" Line 101
+close_sim
+INFO: xsimkernel Simulation Memory Usage: 354852 KB (Peak: 420388 KB), Simulation CPU Usage: 770 ms
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+Command: launch_simulation  -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Project 1-5737] Running on host darsh-Victus-by-HP-Gaming-Laptop-15-fb2xxx (64) - Ubuntu 26.04.1 LTS
+INFO: [Vivado 12-28535] Process started - Wed Nov  4 16:50:15 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'tb_qpsk'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from '/home/darsh/Xilinx/2026.1/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_qpsk' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj tb_qpsk_vlog.prj
+Waiting for jobs to finish...
+No pending jobs, compilation finished.
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.sim/sim_1/behav/xsim'
+xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_qpsk_behav xil_defaultlib.tb_qpsk xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator v2026.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /home/darsh/Xilinx/2026.1/Vivado/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_qpsk_behav xil_defaultlib.tb_qpsk xil_defaultlib.glbl -log elaborate.log 
+INFO: [XSIM 43-3493] Using 8 slave threads.
+WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by AMD, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
+    LIBRARY_PATH
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_qpsk_behav -key {Behavioral:sim_1:Functional:tb_qpsk} -tclbatch {tb_qpsk.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_qpsk.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+WARNING: File lut_cos.hex referenced on /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v at line 27 cannot be opened for reading. Please ensure that this file is available in the current working directory or parent directory of xsim.dir location specified via -xsimdir switch.
+WARNING: File lut_sin.hex referenced on /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v at line 27 cannot be opened for reading. Please ensure that this file is available in the current working directory or parent directory of xsim.dir location specified via -xsimdir switch.
+WARNING: File lut_cos.hex referenced on /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v at line 27 cannot be opened for reading. Please ensure that this file is available in the current working directory or parent directory of xsim.dir location specified via -xsimdir switch.
+WARNING: File lut_sin.hex referenced on /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v at line 27 cannot be opened for reading. Please ensure that this file is available in the current working directory or parent directory of xsim.dir location specified via -xsimdir switch.
+WARNING: File fir_coeffs.hex referenced on /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v at line 27 cannot be opened for reading. Please ensure that this file is available in the current working directory or parent directory of xsim.dir location specified via -xsimdir switch.
+WARNING: File fir_coeffs.hex referenced on /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v at line 27 cannot be opened for reading. Please ensure that this file is available in the current working directory or parent directory of xsim.dir location specified via -xsimdir switch.
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_qpsk_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+run all
+FAIL: noise-free chain, x errors out of 1024 bits
+$finish called at time : 82440 ns : File "/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v" Line 101
+close_sim
+INFO: xsimkernel Simulation Memory Usage: 289320 KB (Peak: 346852 KB), Simulation CPU Usage: 750 ms
+INFO: [Simtcl 6-16] Simulation closed
+exit
+INFO: [Common 17-206] Exiting Vivado at Wed Nov  4 16:51:37 2026...

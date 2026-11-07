@@ -1,0 +1,4 @@
+Time resolution is 1 ps
+Eb/N0 = 4 dB: errors=0, bits=100000, BER=0.000000
+$finish called at time : 8000520 ns : File "/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v" Line 99
+INFO: xsimkernel Simulation Memory Usage: 354868 KB (Peak: 420404 KB), Simulation CPU Usage: 7200 ms
