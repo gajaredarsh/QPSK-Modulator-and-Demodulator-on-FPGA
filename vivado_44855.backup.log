@@ -1,0 +1,48 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 02-sep-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:01:26 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Sat Nov  7 19:19:53 2026
+# Process ID         : 44855
+# Current directory  : /home/darsh/EE2000-Signal-Processing
+# Command line       : vivado
+# Log file           : /home/darsh/EE2000-Signal-Processing/vivado.log
+# Journal file       : /home/darsh/EE2000-Signal-Processing/vivado.jou
+# Running On         : darsh-Victus-by-HP-Gaming-Laptop-15-fb2xxx
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 26.04.1 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 1964.727 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 15405 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 19700 MB
+# Available Virtual  : 6386 MB
+#-----------------------------------------------------------
+start_gui
+open_project /home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.xpr
+INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.gen/sources_1'.
+CRITICAL WARNING: [Project 1-19] Could not find the file '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/ber_counter.v'.
+CRITICAL WARNING: [Project 1-19] Could not find the file '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/packetizer.v'.
+CRITICAL WARNING: [Project 1-19] Could not find the file '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/symbol_decision.v'.
+CRITICAL WARNING: [Project 1-19] Could not find the file '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/uart_tx.v'.
+CRITICAL WARNING: [Project 1-19] Could not find the file '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sources_1/new/qpsk_top.v'.
+CRITICAL WARNING: [Project 1-19] Could not find the file '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/constrs_1/imports/Downloads/boolean.xdc'.
+CRITICAL WARNING: [Project 1-19] Could not find the file '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_qpsk.v'.
+CRITICAL WARNING: [Project 1-19] Could not find the file '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_uart.v'.
+CRITICAL WARNING: [Project 1-19] Could not find the file '/home/darsh/EE2000-Signal-Processing/fpga/qpsk/qpsk.srcs/sim_1/new/tb_decision_ber.v'.
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-5713] Board part '' set for the project  is not found. BoardPart property will be unset. Please select board from latest repo build 
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/darsh/Xilinx/2026.1/data/ip'.
+update_compile_order -fileset sim_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Sat Nov  7 19:33:59 2026...
