@@ -23,7 +23,7 @@ module tb_decision_ber;
     ber_counter #(.START_SYMBOL(0)) counter (
         .clk(clk), .rst(rst), .clear(clear),
         .rx_valid(bits_valid), .compare_en(compare_en),
-        .rx_bits(bits_out), .total_bits(total_bits),
+        .rx_bits(bits_out), .pat_en(1'b0), .pat(8'h00), .total_bits(total_bits),
         .error_bits(error_bits)
     );
 

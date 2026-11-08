@@ -1,0 +1,375 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 02-sep-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:01:26 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Sun Nov  8 10:18:38 2026
+# Process ID         : 142920
+# Current directory  : /home/darsh/EE2000-Signal-Processing
+# Command line       : vivado
+# Log file           : /home/darsh/EE2000-Signal-Processing/vivado.log
+# Journal file       : /home/darsh/EE2000-Signal-Processing/vivado.jou
+# Running On         : darsh-Victus-by-HP-Gaming-Laptop-15-fb2xxx
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 26.04.1 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4913.096 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 15405 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 19700 MB
+# Available Virtual  : 4550 MB
+#-----------------------------------------------------------
+start_gui
+open_project /home/darsh/vivado/qpsk/qpsk.xpr
+INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory '/home/darsh/vivado/qpsk/qpsk.gen/sources_1'.
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-5713] Board part '' set for the project  is not found. BoardPart property will be unset. Please select board from latest repo build 
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/darsh/Xilinx/2026.1/data/ip'.
+update_compile_order -fileset sources_1
+synth_design -top qpsk_top -part xc7s50csga324-1 -lint 
+Command: synth_design -top qpsk_top -part xc7s50csga324-1 -lint
+Starting synth_design
+Attempting to get a license for feature 'Vivado_Synthesis' and/or device 'xc7s50'
+INFO: [Common 17-349] Got license for feature 'Vivado_Synthesis' and/or device 'xc7s50'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 143479
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 10634.402 ; gain = 391.852 ; free physical = 178 ; free virtual = 2914
+---------------------------------------------------------------------------------
+Clean up Linter database...
+INFO: [Synth 8-6157] synthesizing module 'qpsk_top' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/top/qpsk_top.v:4]
+INFO: [Synth 8-6157] synthesizing module 'tx_top' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/tx_top.v:12]
+	Parameter COS_FILE bound to: lut_cos.hex - type: string 
+	Parameter SIN_FILE bound to: lut_sin.hex - type: string 
+INFO: [Synth 8-6157] synthesizing module 'prbs7_gen' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/prbs7_gen.v:8]
+INFO: [Synth 8-6155] done synthesizing module 'prbs7_gen' (1#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/prbs7_gen.v:8]
+INFO: [Synth 8-6157] synthesizing module 'qpsk_mapper' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/qpsk_mapper.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'qpsk_mapper' (2#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/qpsk_mapper.v:4]
+INFO: [Synth 8-6157] synthesizing module 'nco' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:7]
+	Parameter COS_FILE bound to: lut_cos.hex - type: string 
+	Parameter SIN_FILE bound to: lut_sin.hex - type: string 
+CRITICAL WARNING: [Synth 8-4445] could not open $readmem data file 'lut_cos.hex'; please make sure the file is added to project and has read permission, ignoring [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:24]
+CRITICAL WARNING: [Synth 8-4445] could not open $readmem data file 'lut_sin.hex'; please make sure the file is added to project and has read permission, ignoring [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:25]
+INFO: [Synth 8-6155] done synthesizing module 'nco' (3#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:7]
+INFO: [Synth 8-6157] synthesizing module 'tx_mixer' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/tx_mixer.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'tx_mixer' (4#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/tx_mixer.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'tx_top' (5#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/tx_top.v:12]
+INFO: [Synth 8-6157] synthesizing module 'awgn_channel' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/awgn_channel.v:19]
+INFO: [Synth 8-6157] synthesizing module 'noise_gain_rom' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/noise_gain_rom.v:7]
+INFO: [Synth 8-226] default block is never used [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/noise_gain_rom.v:12]
+INFO: [Synth 8-6155] done synthesizing module 'noise_gain_rom' (6#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/noise_gain_rom.v:7]
+INFO: [Synth 8-6157] synthesizing module 'awgn_core' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/awgn_core.v:21]
+INFO: [Synth 8-6157] synthesizing module 'gauss_noise' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/gauss_noise.v:15]
+INFO: [Synth 8-6157] synthesizing module 'lfsr_byte' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+	Parameter SEED bound to: 16'b0101110011011111 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr_byte' (7#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+INFO: [Synth 8-6157] synthesizing module 'lfsr_byte__parameterized0' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+	Parameter SEED bound to: 16'b0110011000001010 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr_byte__parameterized0' (7#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+INFO: [Synth 8-6157] synthesizing module 'lfsr_byte__parameterized1' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+	Parameter SEED bound to: 16'b1001100010000100 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr_byte__parameterized1' (7#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+INFO: [Synth 8-6157] synthesizing module 'lfsr_byte__parameterized2' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+	Parameter SEED bound to: 16'b1101010110111001 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr_byte__parameterized2' (7#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+INFO: [Synth 8-6157] synthesizing module 'lfsr_byte__parameterized3' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+	Parameter SEED bound to: 16'b0100001001110110 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr_byte__parameterized3' (7#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+INFO: [Synth 8-6157] synthesizing module 'lfsr_byte__parameterized4' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+	Parameter SEED bound to: 16'b0011001101011001 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr_byte__parameterized4' (7#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+INFO: [Synth 8-6155] done synthesizing module 'gauss_noise' (8#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/gauss_noise.v:15]
+INFO: [Synth 8-6157] synthesizing module 'noise_scale' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/noise_scale.v:15]
+INFO: [Synth 8-6155] done synthesizing module 'noise_scale' (9#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/noise_scale.v:15]
+INFO: [Synth 8-6155] done synthesizing module 'awgn_core' (10#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/awgn_core.v:21]
+INFO: [Synth 8-6155] done synthesizing module 'awgn_channel' (11#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/awgn_channel.v:19]
+INFO: [Synth 8-6157] synthesizing module 'rx_frontend_top' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/rx_frontend_top.v:21]
+	Parameter COS_FILE bound to: lut_cos.hex - type: string 
+	Parameter SIN_FILE bound to: lut_sin.hex - type: string 
+	Parameter COEF_FILE bound to: fir_coeffs.hex - type: string 
+INFO: [Synth 8-6157] synthesizing module 'rx_nco' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/rx_nco.v:17]
+	Parameter COS_FILE bound to: lut_cos.hex - type: string 
+	Parameter SIN_FILE bound to: lut_sin.hex - type: string 
+INFO: [Synth 8-6157] synthesizing module 'nco__parameterized0' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:7]
+	Parameter ACC bound to: 16 - type: integer 
+	Parameter LUTB bound to: 8 - type: integer 
+	Parameter W bound to: 12 - type: integer 
+	Parameter INC bound to: 8192 - type: integer 
+	Parameter COS_FILE bound to: lut_cos.hex - type: string 
+	Parameter SIN_FILE bound to: lut_sin.hex - type: string 
+CRITICAL WARNING: [Synth 8-4445] could not open $readmem data file 'lut_cos.hex'; please make sure the file is added to project and has read permission, ignoring [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:24]
+CRITICAL WARNING: [Synth 8-4445] could not open $readmem data file 'lut_sin.hex'; please make sure the file is added to project and has read permission, ignoring [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:25]
+INFO: [Synth 8-6155] done synthesizing module 'nco__parameterized0' (11#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:7]
+INFO: [Synth 8-6155] done synthesizing module 'rx_nco' (12#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/rx_nco.v:17]
+INFO: [Synth 8-6157] synthesizing module 'rx_mixer' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/rx_mixer.v:14]
+INFO: [Synth 8-6155] done synthesizing module 'rx_mixer' (13#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/rx_mixer.v:14]
+INFO: [Synth 8-6157] synthesizing module 'fir_lpf' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:22]
+	Parameter COEF_FILE bound to: fir_coeffs.hex - type: string 
+CRITICAL WARNING: [Synth 8-4445] could not open $readmem data file 'fir_coeffs.hex'; please make sure the file is added to project and has read permission, ignoring [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:47]
+WARNING: [Synth 8-6014] Unused sequential element tmp_reg was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:90]
+WARNING: [Synth 8-6014] Unused sequential element tmp2_reg was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:102]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[0] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[1] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[2] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[3] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[4] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[5] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[6] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[7] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[8] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[9] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[10] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[11] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[12] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[13] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[14] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[15] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[16] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[17] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[18] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[19] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[20] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[21] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[22] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[23] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[24] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[0] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[1] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[2] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[3] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[4] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[5] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[6] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[7] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[8] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[9] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[10] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[11] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[12] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pm_reg[0] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:80]
+WARNING: [Synth 8-6014] Unused sequential element pm_reg[1] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:80]
+WARNING: [Synth 8-6014] Unused sequential element pm_reg[2] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:80]
+WARNING: [Synth 8-6014] Unused sequential element pm_reg[3] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:80]
+WARNING: [Synth 8-6014] Unused sequential element pm_reg[4] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:80]
+WARNING: [Synth 8-6014] Unused sequential element pm_reg[5] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:80]
+WARNING: [Synth 8-6014] Unused sequential element pm_reg[6] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:80]
+WARNING: [Synth 8-6014] Unused sequential element pm_reg[7] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:80]
+WARNING: [Synth 8-6014] Unused sequential element pm_reg[8] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:80]
+WARNING: [Synth 8-6014] Unused sequential element pm_reg[9] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:80]
+WARNING: [Synth 8-6014] Unused sequential element pm_reg[10] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:80]
+WARNING: [Synth 8-6014] Unused sequential element pm_reg[11] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:80]
+WARNING: [Synth 8-3848] Net p_0_out in module/entity fir_lpf does not have driver.
+INFO: [Synth 8-6155] done synthesizing module 'fir_lpf' (14#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:22]
+INFO: [Synth 8-6157] synthesizing module 'symbol_sampler' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/symbol_sampler.v:19]
+INFO: [Synth 8-6155] done synthesizing module 'symbol_sampler' (15#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/symbol_sampler.v:19]
+INFO: [Synth 8-6155] done synthesizing module 'rx_frontend_top' (16#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/rx_frontend_top.v:21]
+INFO: [Synth 8-6157] synthesizing module 'symbol_decision' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/symbol_decision.v:7]
+	Parameter W bound to: 16 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'symbol_decision' (17#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/symbol_decision.v:7]
+INFO: [Synth 8-6157] synthesizing module 'ber_counter' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/ber_counter.v:8]
+	Parameter START_SYMBOL bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'ber_counter' (18#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/ber_counter.v:8]
+INFO: [Synth 8-6157] synthesizing module 'packetizer' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/packetizer.v:10]
+	Parameter W bound to: 16 - type: integer 
+WARNING: [Synth 8-693] zero replication count - replication ignored [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/packetizer.v:36]
+WARNING: [Synth 8-693] zero replication count - replication ignored [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/packetizer.v:39]
+INFO: [Synth 8-6155] done synthesizing module 'packetizer' (19#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/packetizer.v:10]
+INFO: [Synth 8-6157] synthesizing module 'uart_tx' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/uart_tx.v:5]
+	Parameter CLK_HZ bound to: 100000000 - type: integer 
+	Parameter BAUD bound to: 115200 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'uart_tx' (20#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/uart_tx.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'qpsk_top' (21#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/top/qpsk_top.v:4]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 10729.371 ; gain = 486.820 ; free physical = 199 ; free virtual = 2823
+---------------------------------------------------------------------------------
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (lin64) Build 6511674 Tue Jun 16 11:01:26 MDT 2026
+| Date         : Sun Nov  8 10:21:43 2026
+| Host         : darsh-Victus-by-HP-Gaming-Laptop-15-fb2xxx running 64-bit Ubuntu 26.04.1 LTS
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+RTL Linter Report
+
+Table of Contents
+-----------------
+1. Summary
+
+1. Summary
+----------
+
++---------+----------+--------------+----------+
+| Rule ID | Severity | # Violations | # Waived |
++---------+----------+--------------+----------+
+
+
+INFO: [Synth 37-85] Total of 0 linter message(s) generated.
+INFO: [Synth 37-45] Linter Run Finished!
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 10741.246 ; gain = 498.695 ; free physical = 203 ; free virtual = 2827
+INFO: [Common 17-83] Releasing license: Vivado_Synthesis
+62 Infos, 55 Warnings, 5 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+launch_runs synth_1 -jobs 8
+[Sun Nov  8 10:21:51 2026] Launched synth_1...
+Run output will be captured here: /home/darsh/vivado/qpsk/qpsk.runs/synth_1/runme.log
+launch_runs impl_1 -jobs 8
+[Sun Nov  8 10:22:22 2026] Launched impl_1...
+Run output will be captured here: /home/darsh/vivado/qpsk/qpsk.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+[Sun Nov  8 10:23:01 2026] Launched impl_1...
+Run output will be captured here: /home/darsh/vivado/qpsk/qpsk.runs/impl_1/runme.log
+open_hw_manager
+connect_hw_server -allow_non_jtag
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2026.1
+  **** Build date : May 29 2026 at 20:56:35
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+
+
+INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
+INFO: [Labtools 27-3417] Launching cs_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx cs_server v2026.1
+  **** Build Info : #60 | 2026-06-15 19:15 UTC | a9691a9
+    ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+
+
+
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+current_hw_device [get_hw_devices xc7s50_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7s50_0] 0]
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+[Sun Nov  8 10:24:53 2026] Launched impl_1...
+Run output will be captured here: /home/darsh/vivado/qpsk/qpsk.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7s50_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7s50_0]
+set_property PROGRAM.FILE {/home/darsh/vivado/qpsk/qpsk.runs/impl_1/qpsk_top.bit} [get_hw_devices xc7s50_0]
+program_hw_devices [get_hw_devices xc7s50_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7s50_0] 0]
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+reset_run impl_1 -prev_step 
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+[Sun Nov  8 10:30:05 2026] Launched impl_1...
+Run output will be captured here: /home/darsh/vivado/qpsk/qpsk.runs/impl_1/runme.log
+set_property PROBES.FILE {} [get_hw_devices xc7s50_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7s50_0]
+set_property PROGRAM.FILE {/home/darsh/vivado/qpsk/qpsk.runs/impl_1/qpsk_top.bit} [get_hw_devices xc7s50_0]
+program_hw_devices [get_hw_devices xc7s50_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7s50_0] 0]
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7s50_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7s50_0]
+set_property PROGRAM.FILE {/home/darsh/vivado/qpsk/qpsk.runs/impl_1/qpsk_top.bit} [get_hw_devices xc7s50_0]
+program_hw_devices [get_hw_devices xc7s50_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7s50_0] 0]
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+set vec /home/darsh/EE2000-Signal-Processing/fpga/vectors
+/home/darsh/EE2000-Signal-Processing/fpga/vectors
+set gen [list COS_FILE=\"$vec/lut_cos.hex\" SIN_FILE=\"$vec/lut_sin.hex\" COEF_FILE=\"$vec/fir_coeffs.hex\"]
+COS_FILE=\"/home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_cos.hex\" SIN_FILE=\"/home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_sin.hex\" COEF_FILE=\"/home/darsh/EE2000-Signal-Processing/fpga/vectors/fir_coeffs.hex\"
+set_property generic $gen [get_filesets sources_1]
+set_property generic $gen [get_filesets sim_1]
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+[Sun Nov  8 10:55:38 2026] Launched synth_1...
+Run output will be captured here: /home/darsh/vivado/qpsk/qpsk.runs/synth_1/runme.log
+launch_runs impl_1 -jobs 8
+[Sun Nov  8 10:56:33 2026] Launched impl_1...
+Run output will be captured here: /home/darsh/vivado/qpsk/qpsk.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+[Sun Nov  8 10:57:28 2026] Launched impl_1...
+Run output will be captured here: /home/darsh/vivado/qpsk/qpsk.runs/impl_1/runme.log
+open_run impl_1
+INFO: [Device 21-403] Loading part xc7s50csga324-1
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 10849.047 ; gain = 0.000 ; free physical = 1828 ; free virtual = 2987
+INFO: [Netlist 29-17] Analyzing 135 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2026.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 10873.926 ; gain = 0.000 ; free physical = 1738 ; free virtual = 2908
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 11360.168 ; gain = 0.000 ; free physical = 1280 ; free virtual = 2465
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 11360.168 ; gain = 0.000 ; free physical = 1280 ; free virtual = 2465
+Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 11360.168 ; gain = 0.000 ; free physical = 1280 ; free virtual = 2465
+Read placeStorage: Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 11379.246 ; gain = 19.078 ; free physical = 1280 ; free virtual = 2465
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 11379.246 ; gain = 0.000 ; free physical = 1280 ; free virtual = 2465
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.01 . Memory (MB): peak = 11379.246 ; gain = 0.000 ; free physical = 1279 ; free virtual = 2465
+Read Physdb Files: Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.04 . Memory (MB): peak = 11379.246 ; gain = 19.078 ; free physical = 1279 ; free virtual = 2465
+Restored from archive | CPU: 0.060000 secs | Memory: 2.015930 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.04 . Memory (MB): peak = 11379.246 ; gain = 19.078 ; free physical = 1279 ; free virtual = 2465
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 11379.246 ; gain = 0.000 ; free physical = 1279 ; free virtual = 2465
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+open_run: Time (s): cpu = 00:00:11 ; elapsed = 00:00:07 . Memory (MB): peak = 11758.820 ; gain = 909.773 ; free physical = 861 ; free virtual = 2122
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7s50_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7s50_0]
+set_property PROGRAM.FILE {/home/darsh/vivado/qpsk/qpsk.runs/impl_1/qpsk_top.bit} [get_hw_devices xc7s50_0]
+program_hw_devices [get_hw_devices xc7s50_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7s50_0] 0]
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+INFO: [Labtools 27-1434] Device xc7s50 (JTAG device index = 0) is programmed with a design that has no supported soft debug core(s) in it.
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Xilinx/88723825010BA
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun Nov  8 17:11:32 2026...

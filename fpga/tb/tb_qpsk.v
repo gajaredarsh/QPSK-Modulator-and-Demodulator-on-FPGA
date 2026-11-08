@@ -30,7 +30,9 @@ module tb_qpsk;
         .s_out(s_tx),
         .s_stb(tx_valid),
         .tx_bits(),
-        .sym_stb()
+        .sym_stb(),
+        .pat_en(1'b0),
+        .pat(8'h00)
     );
 
     awgn_channel channel (
@@ -81,6 +83,8 @@ module tb_qpsk;
         .rx_valid(bits_valid),
         .compare_en(seen_first),
         .rx_bits(rx_bits),
+        .pat_en(1'b0),
+        .pat(8'h00),
         .total_bits(total_bits),
         .error_bits(error_bits)
     );

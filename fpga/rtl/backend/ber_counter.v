@@ -18,6 +18,8 @@ module ber_counter #(
     input  wire        rx_valid,
     input  wire        compare_en,
     input  wire [1:0]  rx_bits,
+    input  wire        pat_en,      // 1: expected bits come from pat[] (same pattern as tx_top)
+    input  wire [7:0]  pat,
 
     output reg  [31:0] total_bits,
     output reg  [31:0] error_bits
@@ -48,7 +50,12 @@ module ber_counter #(
     wire [L-1:0] after_one = step(state);
     wire [L-1:0] after_two = step(after_one);
 
-    wire [1:0] expected_bits = {state[0], after_one[0]};
+    reg [1:0] pidx;
+    always @(posedge clk)
+        if (rst)           pidx <= 2'd0;
+        else if (rx_valid) pidx <= pidx + 1'b1;
+    wire [1:0] pat_bits = {pat[{pidx, 1'b0}], pat[{pidx, 1'b1}]};
+    wire [1:0] expected_bits = pat_en ? pat_bits : {state[0], after_one[0]};
     wire [1:0] mismatch = rx_bits ^ expected_bits;
 
     // Explicitly widen before adding: two errors must produce 2.

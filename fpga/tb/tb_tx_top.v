@@ -18,7 +18,7 @@ module tb_tx_top;
     wire s_stb, sym_stb;
     wire [1:0] tx_bits;
     tx_top dut (.clk(clk), .rst(rst), .sample_en(sample_en),
-                .s_out(s_out), .s_stb(s_stb), .tx_bits(tx_bits), .sym_stb(sym_stb));
+                .s_out(s_out), .s_stb(s_stb), .tx_bits(tx_bits), .sym_stb(sym_stb), .pat_en(1'b0), .pat(8'h00));
 
     reg [`MIXER_OUT_BITS-1:0] gold_s [0:NSAMP-1];
     reg [1:0]                 gold_b [0:NS-1];

@@ -19,7 +19,9 @@ module tx_top #(
     output wire signed [`MIXER_OUT_BITS-1:0] s_out,    // modulated sample
     output reg                               s_stb,    // s_out holds a new sample
     output reg  [1:0]                        tx_bits,  // {b0,b1} of current symbol (for BER)
-    output reg                               sym_stb   // tx_bits holds a new symbol
+    output reg                               sym_stb,  // tx_bits holds a new symbol
+    input  wire                              pat_en,   // 1: send pat[] repeatedly instead of the PRBS
+    input  wire [7:0]                        pat       // 8-bit user pattern = 4 symbols, symbol k = {pat[2k], pat[2k+1]}
 );
     localparam CW = (`SPS > 1) ? $clog2(`SPS) : 1;
     reg [CW-1:0] cnt;                                  // sample index within symbol
@@ -29,8 +31,16 @@ module tx_top #(
         if (rst)            cnt <= 0;
         else if (sample_en) cnt <= (cnt == `SPS-1) ? 0 : cnt + 1'b1;
 
-    wire [1:0] bits;
-    prbs7_gen u_prbs (.clk(clk), .rst(rst), .sym_en(sym_start), .bits(bits));
+    wire [1:0] prbs_bits;
+    prbs7_gen u_prbs (.clk(clk), .rst(rst), .sym_en(sym_start), .bits(prbs_bits));
+
+    // User-pattern mode: symbol k of the stream uses pattern symbol (k mod 4).
+    reg [1:0] pidx;
+    always @(posedge clk)
+        if (rst)            pidx <= 2'd0;
+        else if (sym_start) pidx <= pidx + 1'b1;
+    wire [1:0] pat_bits = {pat[{pidx, 1'b0}], pat[{pidx, 1'b1}]};   // {b0, b1}
+    wire [1:0] bits = pat_en ? pat_bits : prbs_bits;
 
     wire i_neg_w, q_neg_w;
     qpsk_mapper u_map (.bits(bits), .i_neg(i_neg_w), .q_neg(q_neg_w));

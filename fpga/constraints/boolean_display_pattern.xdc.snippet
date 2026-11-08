@@ -1,0 +1,18 @@
+## Add these to boolean.xdc. Copy the PACKAGE_PIN values from the official Boolean board master XDC
+## (do not guess them). IOSTANDARD is LVCMOS33 for all of them.
+## Port names below; if the master XDC uses different names, rename the port in qpsk_top.v instead.
+
+## Seven-segment bank 0 (shows the noise setting) and bank 1 (shows the error-bit count)
+# set_property -dict {PACKAGE_PIN <..> IOSTANDARD LVCMOS33} [get_ports {D0_AN[0]}]   ... D0_AN[3:0]
+# set_property -dict {PACKAGE_PIN <..> IOSTANDARD LVCMOS33} [get_ports {D0_SEG[0]}]  ... D0_SEG[7:0]
+# set_property -dict {PACKAGE_PIN <..> IOSTANDARD LVCMOS33} [get_ports {D1_AN[0]}]   ... D1_AN[3:0]
+# set_property -dict {PACKAGE_PIN <..> IOSTANDARD LVCMOS33} [get_ports {D1_SEG[0]}]  ... D1_SEG[7:0]
+
+## LEDs: led[7:0] = received pattern, led[15:8] = error mask (1 = bit in error)
+# set_property -dict {PACKAGE_PIN <..> IOSTANDARD LVCMOS33} [get_ports {led[0]}]     ... led[15:0]
+
+## Switches (switches 0-4 stay as they are: noise level and noise-off)
+# switch 5       -> mode_sw        (1 = send the pattern, 0 = PRBS)
+# switches 8..15 -> pat_sw[0..7]   (the 8-bit pattern)
+# set_property -dict {PACKAGE_PIN <sw5 pin>  IOSTANDARD LVCMOS33} [get_ports {mode_sw}]
+# set_property -dict {PACKAGE_PIN <sw8 pin>  IOSTANDARD LVCMOS33} [get_ports {pat_sw[0]}]  ... pat_sw[7] = switch 15
