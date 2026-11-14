@@ -33,12 +33,4 @@
 `define TAP_A     0
 `define TAP_B     6
 
-`define SPS 16
-`define NCO_ACC_BITS 16
-`define NCO_LUT_BITS 8
-`define NCO_PHASE_INC 8192
-`define DATAPATH_BITS 12
-`define MIXER_OUT_BITS 13
-`define PRBS_SEED 7'h7F
-`define TB_N_SYMBOLS 512
 `endif

@@ -40,7 +40,7 @@ module tb_qpsk;
         .rst(rst),
         .in_valid(tx_valid),
         .s_tx(s_tx),
-        .level(4'd12),
+        .level(4'd4),
         .noise_off(1'b0),
         .out_valid(channel_valid),
         .r_rx(r_rx),
