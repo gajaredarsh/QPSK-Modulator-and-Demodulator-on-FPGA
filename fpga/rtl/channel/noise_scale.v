@@ -1,14 +1,7 @@
-// noise_scale.v  (Part B)
-// Scales the raw noise with the gain. The gain sets the Eb/N0 (bigger gain = more noise).
-//   noise = (raw * gain + 128) >>> 8      (the +128 makes the shift round to nearest)
-//
-// Mirrors:  channel.noise_int(n, gain)
-// Ports  :  raw_valid, raw (signed 11 bit), gain (unsigned 13 bit, 0 = no noise)
-//           noise (signed 16 bit), noise_valid
-// Latency:  2 clocks
-//
-// The gain must not change while samples are going through (take it from a ROM or a
-// synchronised switch). Worst case |raw * gain| = 765 * 8191, which fits in 24 bits signed.
+// Scales the generated noise using the selected gain value.
+// The multiplication result is rounded and shifted.
+// The final output is used by the AWGN channel.
+
 `timescale 1ns/1ps
 `include "qpsk_params.vh"
 
@@ -21,9 +14,7 @@ module noise_scale (
     output reg  signed [`NOISE_BITS-1:0]      noise,
     output reg                                noise_valid
 );
-    // Both operands are extended to the full product width first: raw is sign-extended and the
-    // unsigned gain is zero-extended. The product is then taken at double width and only the
-    // low NOISE_PROD_BITS bits are kept (the worst case 765 * 8191 fits, see the note above).
+    // Extend both values before multiplication.
     localparam PROD_FULL = 2 * `NOISE_PROD_BITS;
 
     wire signed [`NOISE_PROD_BITS-1:0] raw_ext =
@@ -43,11 +34,12 @@ module noise_scale (
             noise       <= 0;
             noise_valid <= 1'b0;
         end else begin
-            // stage 1: multiply
+            // Multiply the raw noise by the selected gain.
             prod_valid <= raw_valid;
             if (raw_valid)
                 prod <= prod_next;
-            // stage 2: add half an LSB and shift right (arithmetic shift keeps the sign)
+
+            // Round the result and shift it to get the final noise value.
             noise_valid <= prod_valid;
             if (prod_valid)
                 noise <= (prod + (1 << (`NOISE_GAIN_SHIFT - 1))) >>> `NOISE_GAIN_SHIFT;
