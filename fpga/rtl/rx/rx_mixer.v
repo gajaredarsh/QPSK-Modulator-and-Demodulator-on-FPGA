@@ -1,5 +1,4 @@
 // rx_mixer.v  (Part C)
-// Author: [FILL IN YOUR NAME] (Part C)  |  AI-assistance: drafted with Claude (Anthropic) for EE2000; cite per course AI-usage policy.
 // Down-conversion to baseband:   xi = r * cos,   xq = -(r * sin)
 // each product is scaled back by 2^(LO_BITS-1) with rounding, then clipped to the RX word width.
 //
