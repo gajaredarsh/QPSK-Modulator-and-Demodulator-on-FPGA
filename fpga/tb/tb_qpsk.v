@@ -47,11 +47,7 @@ module tb_qpsk;
         .rst(rst),
         .in_valid(tx_valid),
         .s_tx(s_tx),
-<<<<<<< HEAD
         .level(LEVEL_DB),
-=======
-        .level(4'd12),
->>>>>>> 4f1d25400340bbbb790b68cb85fbf85925f53f9d
         .noise_off(1'b0),
         .out_valid(channel_valid),
         .r_rx(r_rx),
@@ -112,12 +108,8 @@ module tb_qpsk;
         wait (total_bits == 2 * N_COMPARE);
         @(negedge clk);
 
-<<<<<<< HEAD
-        $display(" errors=%0d, bits=%0d, BER=%f",
-=======
-        $display("Eb/N0 = 12 dB: errors=%0d, bits=%0d, BER=%f",
->>>>>>> 4f1d25400340bbbb790b68cb85fbf85925f53f9d
-                 error_bits, total_bits,
+        $display("Eb/N0 = %0d dB: errors=%0d, bits=%0d, BER=%f",
+                 LEVEL_DB, error_bits, total_bits,
                  $itor(error_bits) / $itor(total_bits));
 
         $finish;
@@ -156,11 +148,7 @@ packetizer #(.W(`RXC_ACC_BITS)) packet (
     .q_symbol(q_hat),
     .total_bits(total_bits),
     .error_bits(error_bits),
-<<<<<<< HEAD
     .noise_level({4'b0000,LEVEL_DB}),
-=======
-    .noise_level(8'd12),
->>>>>>> 4f1d25400340bbbb790b68cb85fbf85925f53f9d
     .byte_data(uart_data),
     .byte_valid(uart_valid),
     .byte_ready(uart_ready)
