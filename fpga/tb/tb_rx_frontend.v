@@ -1,20 +1,17 @@
-// tb_rx_frontend.v  (Part C)  --  self-checking, bit-exact against the Python model.
-// Author: [FILL IN YOUR NAME] (Part C)  |  AI-assistance: drafted with Claude (Anthropic) for EE2000; cite per course AI-usage policy.
+// Tests rx_frontend_top with six input sets and compares every sample at three points:
+//   Mixer output (xi, xq)       vs rx_frontend.downconvert_fixed (sets 0-4)
+//   FIR output (y_i, y_q)       vs rx_frontend.lpf_fixed(aligned=False)
+//   Symbol values (i_hat,q_hat) vs rx_backend_eval.integrate_dump(timing_offset=12)
+// Sets 0-4: Part B channel outputs at five noise gains (gain 0 = no noise ... gain 0x1FFF = high noise, with
+//           12-bit saturation), 16000 samples each (500 QPSK symbols and 8000 random full-range test words).
+// Set 5: The team's golden files (d_yi, d_yq, d_acc_i, d_acc_q from d_outputs/golden), generated from the
+//        LFSR-noise run at 6 dB.
+// Also checks the pipeline delay of every output flag.
 //
-// Drives rx_frontend_top with six input sets and compares EVERY sample at three points:
-//   mixer output (xi, xq)      vs rx_frontend.downconvert_fixed      (sets 0-4)
-//   FIR output   (y_i, y_q)    vs rx_frontend.lpf_fixed(aligned=False)
-//   symbol value (i_hat,q_hat) vs rx_backend_eval.integrate_dump(timing_offset=12)
-// Sets 0-4: the Part B channel output at five noise gains (gain 0 = noise free ... gain 0x1FFF = very noisy, with
-//           12 bit saturation), 16000 samples each (500 QPSK symbols, then 8000 random full-range words as a stress test).
-// Set 5   : the team's own golden file set (d_yi, d_yq, d_acc_i, d_acc_q from d_outputs/golden), reproduced from the
-//           LFSR-noise run at 6 dB.
-// It also checks the pipeline latency of every output flag.
-//
-// MODE selects the spacing of the input samples:   0 = one sample every clock (fastest possible)
-//                                                  1 = one sample every 4 clocks
-//                                                  2 = random gaps of 0..6 clocks (r_rx carries random junk in the gaps)
-// Run from a folder that contains vectors/, lut_cos.hex, lut_sin.hex  (run_sim.sh does this).
+// MODE controls the gap between input samples: 0 = one sample every clock
+//                                             1 = one sample every 4 clocks
+//                                             2 = random gaps of 0..6 clocks (r_rx has random values in the gaps)
+// Run from a folder containing vectors/, lut_cos.hex, and lut_sin.hex (run_sim.sh does this).
 `timescale 1ns/1ps
 `include "qpsk_rx_params.vh"
 
@@ -28,7 +25,7 @@ module tb_rx_frontend;
     localparam NTS  = 127;
     localparam NIN  = 5*M + NT;
     localparam NACC = 5*NSYM + NTS;
-    localparam LAT_X = 2, LAT_Y = 8, LAT_S = 9;         // clocks after the edge that samples in_valid
+    localparam LAT_X = 2, LAT_Y = 8, LAT_S = 9;         // Delay after the input sample is accepted
 
     reg clk = 1'b0;
     always #5 clk = ~clk;
@@ -52,6 +49,7 @@ module tb_rx_frontend;
     reg [`RXC_ACC_BITS-1:0] ai_mem [0:NACC-1];
     reg [`RXC_ACC_BITS-1:0] aq_mem [0:NACC-1];
 
+    // Load the reference input and output values
     initial begin
         $readmemh("vectors/rx_in_all.hex",    in_mem, 0, 5*M-1);
         $readmemh("vectors/rx_xi_all.hex",    xi_mem, 0, 5*M-1);
@@ -67,7 +65,7 @@ module tb_rx_frontend;
         $readmemh("vectors/team_acc_q.hex",   aq_mem, 5*NSYM, NACC-1);
     end
 
-    // ---- per-set bookkeeping -------------------------------------------------------------------------------
+    // Track sample counts, errors, and input timing for each set
     integer set_i, base_in, len_in, base_acc, n_acc, check_x;
     integer cyc = 0;
     integer n_in, n_x, n_y, n_s;
@@ -77,6 +75,7 @@ module tb_rx_frontend;
     integer win_end;
     reg     active = 1'b0;
 
+    // Check output values and pipeline delays
     always @(posedge clk) begin
         cyc = cyc + 1;
         if (active && !rst) begin
@@ -116,7 +115,7 @@ module tb_rx_frontend;
                     if (err_s <= 5) $display("MISMATCH set %0d symbol %0d: i_hat %0d/%0d q_hat %0d/%0d", set_i, n_s,
                         i_hat, $signed(ai_mem[base_acc + n_s]), q_hat, $signed(aq_mem[base_acc + n_s]));
                 end
-                win_end = `RXC_OFFSET + `RXC_SPS*n_s + `RXC_SPS - 1;           // input sample that closes this window
+                win_end = `RXC_OFFSET + `RXC_SPS*n_s + `RXC_SPS - 1;           // Input sample that completes this symbol
                 if (cyc - in_cyc[win_end] - 1 !== LAT_S) begin
                     err_lat = err_lat + 1;
                     if (err_lat <= 5) $display("LATENCY set %0d sym_valid symbol %0d: %0d clocks, expected %0d", set_i, n_s,
@@ -127,7 +126,7 @@ module tb_rx_frontend;
         end
     end
 
-    // ---- stimulus -----------------------------------------------------------------------------------------
+    // Send input samples using the selected MODE
     integer q, gap, seed = 7;
     task send;
         input [`RXC_X_BITS-1:0] v;
@@ -146,6 +145,7 @@ module tb_rx_frontend;
         end
     endtask
 
+    // Run all six test sets and report the results
     integer n;
     initial begin
         tot_err = 0;
@@ -178,5 +178,6 @@ module tb_rx_frontend;
         $finish;
     end
 
+    // Stop the test if it takes too long
     initial begin #(10*20_000_000); $display("FAIL: timeout"); $finish; end
 endmodule
