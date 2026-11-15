@@ -1,16 +1,15 @@
-// tb_awgn_rates.v  (Part B)
-// Checks awgn_core at the sample rates it will really see, with gain 5790 (0 dB):
-//   mode 0: a sample on every clock (the fastest possible, 100 Msamples/s)
-//   mode 1: one sample every 100 clocks (1 Msample/s on a 100 MHz clock, the rate in the plan)
-//   mode 2: bursts of 10 back to back samples with a gap of 7 clocks
-// Results are compared with the same Python vectors as tb_awgn_core.
-// Run from the tb folder, so that the ../vectors path works.
+// Tests awgn_core at different sample rates using gain 5790 (0 dB).
+// Mode 0: One sample every clock.
+// Mode 1: One sample every 100 clocks.
+// Mode 2: Bursts of 10 samples with a gap of 7 clocks.
+// Results are checked against the Python reference vectors.
+// Run from the tb folder so the ../vectors path works.
 `timescale 1ns/1ps
 `include "qpsk_params.vh"
 
 module tb_awgn_rates;
     localparam M       = 16000;
-    localparam GAIN_IX = 1;                         // index of gain 5790 in vectors/core_gains.hex
+    localparam GAIN_IX = 1;                         // Position of gain 5790 in the gain file
     localparam LATENCY = 6;
 
     reg clk = 1'b0;
@@ -33,6 +32,7 @@ module tb_awgn_rates;
     integer got, errors, lat_errors;
     reg [LATENCY-1:0] vpipe;
 
+    // Check output values and latency
     always @(posedge clk) begin
         if (rst) vpipe <= 0;
         else     vpipe <= {vpipe[LATENCY-2:0], in_valid};
@@ -48,7 +48,7 @@ module tb_awgn_rates;
         end
     end
 
-    // mode: 0 every clock, 1 one sample per 100 clocks, 2 bursts of 10 with a gap of 7
+    // Run the test with the selected sample rate
     task run;
         input integer mode;
         input integer nsamp;
@@ -88,9 +88,9 @@ module tb_awgn_rates;
         $readmemh("../vectors/core_gains.hex", gains_mem);
         errors = 0; lat_errors = 0; got = 0;
         gain <= gains_mem[GAIN_IX];
-        run(0, 4000);        // every clock
-        run(1, 300);         // one sample per 100 clocks
-        run(2, 4000);        // bursts
+        run(0, 4000);        // Test one sample every clock
+        run(1, 300);         // Test one sample every 100 clocks
+        run(2, 4000);        // Test bursts of samples
         if (errors == 0 && lat_errors == 0) $display("PASS tb_awgn_rates: every clock, 1 Msample/s and bursts all match, latency exactly %0d clocks", LATENCY);
         else                                $display("FAIL tb_awgn_rates: %0d value errors, %0d latency errors", errors, lat_errors);
         $finish;
