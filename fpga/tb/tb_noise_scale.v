@@ -1,13 +1,13 @@
-// tb_noise_scale.v  (Part B)
-// Checks noise_scale against vectors/scale_exp_all.hex (channel.noise_int) for four gains:
-// 0 (no noise), 2902 (6 dB), 5790 (0 dB) and 8191 (the largest value the gain register can hold).
-// Run from the tb folder, so that the ../vectors path works.
+// Tests noise_scale against the Python reference vectors for four gain values.
+// Gains: 0 (no noise), 2902 (6 dB), 5790 (0 dB), and 8191 (maximum gain).
+// Random gaps are added between input samples to test the pipeline.
+// Run from the tb folder so the ../vectors path works.
 `timescale 1ns/1ps
 `include "qpsk_params.vh"
 
 module tb_noise_scale;
     localparam NS = 4096;
-    localparam NRAW = 70000;                       // length of vectors/noise_raw.hex
+    localparam NRAW = 70000;                       // Number of raw noise samples
     localparam NG = 4;
 
     reg clk = 1'b0;
@@ -26,10 +26,10 @@ module tb_noise_scale;
     reg [`NOISE_BITS-1:0]       exp_mem   [0:NG*NS-1];
     reg [`NOISE_GAIN_BITS-1:0]  gains_mem [0:NG-1];
     integer t, sent, got, base, errors, seed, lat_errors;
-    localparam LATENCY = 2;                       // clocks from raw_valid to noise_valid
+    localparam LATENCY = 2;                       // Delay from raw_valid to noise_valid
     reg [LATENCY-1:0] vpipe;
 
-    // valid timing: noise_valid must be exactly raw_valid delayed by LATENCY clocks
+    // Check that noise_valid has the correct delay
     always @(posedge clk) begin
         if (rst) vpipe <= 0;
         else begin
@@ -38,7 +38,7 @@ module tb_noise_scale;
         end
     end
 
-    // checker
+    // Compare the output noise with the expected values
     always @(posedge clk) begin
         if (!rst && noise_valid) begin
             if (noise !== exp_mem[base + got]) begin
@@ -61,7 +61,7 @@ module tb_noise_scale;
             rst <= 1'b1; raw_valid <= 1'b0;
             gain <= gains_mem[t];
             repeat (3) @(posedge clk);
-            got = 0; base = t * NS;                  // still in reset, nothing is being checked
+            got = 0; base = t * NS;                  // Reset is active, so outputs are not checked
             rst <= 1'b0;
             sent = 0;
             while (sent < NS) begin
@@ -75,7 +75,7 @@ module tb_noise_scale;
             end
             @(posedge clk);
             raw_valid <= 1'b0;
-            repeat (10) @(posedge clk);              // let the pipeline empty
+            repeat (10) @(posedge clk);              // Wait for all pending outputs
             if (got != NS) begin
                 errors = errors + 1;
                 $display("gain %0d: got %0d outputs, expected %0d", gains_mem[t], got, NS);
