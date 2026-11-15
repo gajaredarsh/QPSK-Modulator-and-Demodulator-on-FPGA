@@ -1,8 +1,7 @@
-// tb_awgn_gainchange.v  (Part B)
-// Proves that the gain travels with its sample: the gain changes every 1..7 samples (random value
-// from the ROM table or 0 = noise off), and on clocks WITHOUT in_valid the gain input is set to
-// random junk. Every output must still equal channel.awgn_int(s, gain=per-sample gain array).
-// Run from the tb folder, so that the ../vectors path works.
+// Tests whether each sample uses its own gain value.
+// Gain changes after 1 to 7 samples, and random values are used when there is no input sample.
+// Checks every output against the Python model.
+// Run from the tb folder so the ../vectors path works.
 `timescale 1ns/1ps
 `include "qpsk_params.vh"
 
@@ -17,8 +16,8 @@ module tb_awgn_gainchange;
     reg  signed [`TX_BITS-1:0]         s_tx     = 0;
     reg         [`NOISE_GAIN_BITS-1:0] gain     = 0;
     wire                               out_valid;
-    wire signed [`RX_BITS-1:0]         r_rx;
-    wire signed [`SUM_BITS-1:0]        wide;
+    wire signed [`RX_BITS-1:0]        r_rx;
+    wire signed [`SUM_BITS-1:0]       wide;
 
     awgn_core dut (.clk(clk), .rst(rst), .in_valid(in_valid), .s_tx(s_tx), .gain(gain),
                    .out_valid(out_valid), .r_rx(r_rx), .wide(wide));
@@ -30,6 +29,7 @@ module tb_awgn_gainchange;
     integer sent, got, errors, seed, distinct;
     reg [`NOISE_GAIN_BITS-1:0] last_g;
 
+    // Compare each output with its expected value
     always @(posedge clk) begin
         if (!rst && out_valid) begin
             if (got < M && (r_rx !== exp_r[got] || wide !== exp_w[got])) begin
@@ -52,14 +52,14 @@ module tb_awgn_gainchange;
         rst <= 1'b0;
         while (sent < M) begin
             @(posedge clk);
-            if (($random(seed) & 3) != 0) begin               // sample with its own gain
+            if (($random(seed) & 3) != 0) begin               // Send a sample with its gain
                 in_valid <= 1'b1;
                 s_tx     <= in_mem[sent];
                 gain     <= gain_mem[sent];
                 if (gain_mem[sent] !== last_g) distinct = distinct + 1;
                 last_g = gain_mem[sent];
                 sent = sent + 1;
-            end else begin                                      // no sample: junk on the gain input
+            end else begin                                      // No sample, so use a random gain
                 in_valid <= 1'b0;
                 gain     <= $random(seed);
             end
