@@ -11,12 +11,12 @@ module prbs7_gen (
     input  wire       sym_en,     // advance by one symbol (two PRBS bits)
     output wire [1:0] bits        // {b0, b1}
 );
-    reg  [6:0] lfsr;
-    wire fb0 = lfsr[0] ^ lfsr[6];
+    reg  [6:0] lfsr;                    // 7-bit shift register
+    wire fb0 = lfsr[0] ^ lfsr[6];       // feedback of the first step (taps 7,1)
     wire fb1 = lfsr[1] ^ fb0;           // feedback of the second step
-    assign bits = {lfsr[0], lfsr[1]};
+    assign bits = {lfsr[0], lfsr[1]};   // next two PRBS bits
 
     always @(posedge clk)
-        if (rst)         lfsr <= `PRBS_SEED;
-        else if (sym_en) lfsr <= {fb1, fb0, lfsr[6:2]};
+        if (rst)         lfsr <= `PRBS_SEED;              // load seed
+        else if (sym_en) lfsr <= {fb1, fb0, lfsr[6:2]};   // shift by two bits
 endmodule
