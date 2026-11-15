@@ -7,18 +7,18 @@
 module symbol_decision #(
     parameter integer W = `RXC_ACC_BITS
 )(
-    input  wire                clk,
-    input  wire                rst,
-    input  wire                symbol_en,
+    input  wire clk,
+    input  wire rst,
+    input  wire symbol_en,
     input  wire signed [W-1:0] i_symbol,
     input  wire signed [W-1:0] q_symbol,
-    output reg  [1:0]          bits_out,
-    output reg                 bits_valid
+    output reg [1:0] bits_out,
+    output reg bits_valid
 );
 
     always @(posedge clk) begin
         if (rst) begin
-            bits_out   <= 2'b00;
+            bits_out <= 2'b00;
             bits_valid <= 1'b0;
         end else begin
             bits_valid <= symbol_en;

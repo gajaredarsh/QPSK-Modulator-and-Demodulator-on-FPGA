@@ -8,18 +8,18 @@ module qpsk_top #(
     parameter SNAP_BITS = 24,           // LED snapshot period = 2^SNAP_BITS clocks (~0.17 s at 100 MHz)
     parameter REFRESH_BITS = 17         // 7-seg digit scan period = 2^REFRESH_BITS clocks (lower only in simulation)
 )(
-    input  wire        clk,
-    input  wire        reset_btn,
-    input  wire [3:0]  noise_switches,
-    input  wire        noise_off_switch,
-    input  wire        mode_sw,         // 1 = send the 8-bit pattern from pat_sw, 0 = PRBS (latched while reset is held)
-    input  wire [7:0]  pat_sw,          // user pattern, 4 QPSK symbols (latched while reset is held)
+    input  wire clk,
+    input  wire reset_btn,
+    input  wire [3:0] noise_switches,
+    input  wire noise_off_switch,
+    input  wire mode_sw,         // 1 = send the 8-bit pattern from pat_sw, 0 = PRBS (latched while reset is held)
+    input  wire [7:0] pat_sw,          // user pattern, 4 QPSK symbols (latched while reset is held)
     output wire [15:0] led,             // [7:0] received pattern, [15:8] error mask (1 = bit in error)
-    output wire [3:0]  D0_AN,           // bank 0: noise setting
-    output wire [7:0]  D0_SEG,
-    output wire [3:0]  D1_AN,           // bank 1: error-bit count (decimal, saturates at 9999)
-    output wire [7:0]  D1_SEG,
-    output wire        uart_tx_pin
+    output wire [3:0] D0_AN,           // bank 0: noise setting
+    output wire [7:0] D0_SEG,
+    output wire [3:0] D1_AN,           // bank 1: error-bit count (decimal, saturates at 9999)
+    output wire [7:0] D1_SEG,
+    output wire uart_tx_pin
 );
 
     // Synchronize external controls to the FPGA clock.

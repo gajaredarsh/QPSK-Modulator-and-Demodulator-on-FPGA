@@ -1,0 +1,329 @@
+INFO: [Common 17-3922] A valid Vivado Design Suite BASIC license has been detected. Your current license is active and will expire on 02-sep-2027.
+#-----------------------------------------------------------
+# Vivado v2026.1 (64-bit)
+# SW Build 6511674 on Tue Jun 16 11:01:26 MDT 2026
+# IP Build 6504888 on Tue Jun 09 09:05:25 MDT 2026
+# SharedData Build 6501428 on Mon Jun 08 17:34:18 MDT 2026
+# Start of session at: Sun Nov 15 11:31:41 2026
+# Process ID         : 7569
+# Current directory  : /home/darsh/EE2000-Signal-Processing
+# Command line       : vivado
+# Log file           : /home/darsh/EE2000-Signal-Processing/vivado.log
+# Journal file       : /home/darsh/EE2000-Signal-Processing/vivado.jou
+# Running On         : darsh-Victus-by-HP-Gaming-Laptop-15-fb2xxx
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 26.04.1 LTS
+# Processor Detail   : AMD Ryzen 7 8845HS w/ Radeon 780M Graphics
+# CPU Frequency      : 4892.536 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 15405 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 19700 MB
+# Available Virtual  : 16588 MB
+#-----------------------------------------------------------
+start_gui
+open_project /home/darsh/vivado/qpsk/qpsk.xpr
+INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory '/home/darsh/vivado/qpsk/qpsk.gen/sources_1'.
+Scanning sources...
+Finished scanning sources
+WARNING: [Project 1-5713] Board part '' set for the project  is not found. BoardPart property will be unset. Please select board from latest repo build 
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/darsh/Xilinx/2026.1/data/ip'.
+update_compile_order -fileset sources_1
+launch_simulation
+Command: launch_simulation  -mode behavioral
+INFO: [Vivado 12-25911] Executing simulation for 'XSim' simulator
+INFO: [Project 1-5737] Running on host darsh-Victus-by-HP-Gaming-Laptop-15-fb2xxx (64) - Ubuntu 26.04.1 LTS
+INFO: [Vivado 12-28535] Process started - Sun Nov 15 11:32:11 2026
+
+INFO: [Vivado 12-12493] Simulation top is 'tb_qpsk'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/home/darsh/vivado/qpsk/qpsk.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from '/home/darsh/Xilinx/2026.1/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_qpsk' in fileset 'sim_1'...
+INFO: [SIM-utils-43] Exported '/home/darsh/vivado/qpsk/qpsk.sim/sim_1/behav/xsim/lut_cos.hex'
+INFO: [SIM-utils-43] Exported '/home/darsh/vivado/qpsk/qpsk.sim/sim_1/behav/xsim/lut_sin.hex'
+INFO: [SIM-utils-43] Exported '/home/darsh/vivado/qpsk/qpsk.sim/sim_1/behav/xsim/fir_coeffs.hex'
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/home/darsh/vivado/qpsk/qpsk.sim/sim_1/behav/xsim'
+xvlog --incr --relax -prj tb_qpsk_vlog.prj
+Waiting for jobs to finish...
+No pending jobs, compilation finished.
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/home/darsh/vivado/qpsk/qpsk.sim/sim_1/behav/xsim'
+xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_qpsk_behav xil_defaultlib.tb_qpsk xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator v2026.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /home/darsh/Xilinx/2026.1/Vivado/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_qpsk_behav xil_defaultlib.tb_qpsk xil_defaultlib.glbl -log elaborate.log 
+INFO: [XSIM 43-3493] Using 8 slave threads.
+WARNING: [XSIM 43-3431] One or more environment variables have been detected which affect the operation of the C compiler. These are typically not set in standard installations and are not tested by AMD, however they may be appropriate for your system, so the flow will attempt to continue.  If errors occur, try running xelab with the "-mt off -v 1" switches to see more information from the C compiler. The following environment variables have been detected:
+    LIBRARY_PATH
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/home/darsh/vivado/qpsk/qpsk.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_qpsk_behav -key {Behavioral:sim_1:Functional:tb_qpsk} -tclbatch {tb_qpsk.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_qpsk.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_qpsk_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:06 ; elapsed = 00:00:05 . Memory (MB): peak = 10290.293 ; gain = 38.270 ; free physical = 5656 ; free virtual = 14055
+run all
+Eb/N0 = 4 dB: errors=1491, bits=100000, BER=0.014910
+$finish called at time : 8000520 ns : File "/home/darsh/EE2000-Signal-Processing/fpga/tb/tb_qpsk.v" Line 103
+run: Time (s): cpu = 00:00:03 ; elapsed = 00:00:07 . Memory (MB): peak = 10311.293 ; gain = 21.000 ; free physical = 5592 ; free virtual = 14129
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+[Sun Nov 15 11:54:29 2026] Launched synth_1...
+Run output will be captured here: /home/darsh/vivado/qpsk/qpsk.runs/synth_1/runme.log
+launch_runs impl_1 -jobs 8
+[Sun Nov 15 12:02:51 2026] Launched impl_1...
+Run output will be captured here: /home/darsh/vivado/qpsk/qpsk.runs/impl_1/runme.log
+launch_runs impl_1 -to_step write_bitstream -jobs 8
+[Sun Nov 15 12:03:28 2026] Launched impl_1...
+Run output will be captured here: /home/darsh/vivado/qpsk/qpsk.runs/impl_1/runme.log
+open_run impl_1
+INFO: [Device 21-403] Loading part xc7s50csga324-1
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 10474.527 ; gain = 0.000 ; free physical = 1753 ; free virtual = 10383
+INFO: [Netlist 29-17] Analyzing 151 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2026.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Read ShapeDB Complete: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 10544.402 ; gain = 1.000 ; free physical = 1642 ; free virtual = 10272
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+INFO: [Designutils 20-5722] Start Reading Physical Databases.
+Reading placement.
+Read Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 11028.645 ; gain = 0.000 ; free physical = 1227 ; free virtual = 9857
+Reading placer database...
+Read Device Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 11028.645 ; gain = 0.000 ; free physical = 1227 ; free virtual = 9857
+Read PlaceDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 11028.645 ; gain = 0.000 ; free physical = 1227 ; free virtual = 9857
+Read placeStorage: Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.02 . Memory (MB): peak = 11047.723 ; gain = 19.078 ; free physical = 1227 ; free virtual = 9857
+Read PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 11047.723 ; gain = 0.000 ; free physical = 1227 ; free virtual = 9857
+Reading routing.
+Read RouteStorage: Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.01 . Memory (MB): peak = 11047.723 ; gain = 0.000 ; free physical = 1223 ; free virtual = 9853
+Read Physdb Files: Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.05 . Memory (MB): peak = 11047.723 ; gain = 19.078 ; free physical = 1223 ; free virtual = 9853
+Restored from archive | CPU: 0.070000 secs | Memory: 2.330933 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:00.06 ; elapsed = 00:00:00.05 . Memory (MB): peak = 11047.723 ; gain = 19.078 ; free physical = 1223 ; free virtual = 9853
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 11047.723 ; gain = 0.000 ; free physical = 1228 ; free virtual = 9858
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+open_run: Time (s): cpu = 00:00:11 ; elapsed = 00:00:07 . Memory (MB): peak = 11451.527 ; gain = 1072.348 ; free physical = 813 ; free virtual = 9450
+close_design
+open_run synth_1 -name synth_1
+Design is defaulting to impl run constrset: constrs_1
+Design is defaulting to synth run part: xc7s50csga324-1
+INFO: [Project 1-5699] Read binary netlist with skipMacroContent - 1
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 11502.648 ; gain = 0.000 ; free physical = 783 ; free virtual = 9421
+INFO: [Netlist 29-17] Analyzing 151 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2026.1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [/home/darsh/EE2000-Signal-Processing/fpga/constraints/boolean.xdc]
+Finished Parsing XDC File [/home/darsh/EE2000-Signal-Processing/fpga/constraints/boolean.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 11534.664 ; gain = 0.000 ; free physical = 791 ; free virtual = 9430
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+close_design
+synth_design -rtl -rtl_skip_mlo -name rtl_1
+Command: synth_design -rtl -rtl_skip_mlo -name rtl_1
+Starting synth_design
+Using part: xc7s50csga324-1
+Top: qpsk_top
+INFO: [Designutils 20-5008] Incremental synthesis strategy default
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 48708
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 11570.672 ; gain = 0.000 ; free physical = 646 ; free virtual = 9285
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'qpsk_top' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/top/qpsk_top.v:4]
+	Parameter COS_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_cos.hex - type: string 
+	Parameter SIN_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_sin.hex - type: string 
+	Parameter COEF_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/fir_coeffs.hex - type: string 
+INFO: [Synth 8-6157] synthesizing module 'tx_top' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/tx_top.v:12]
+	Parameter COS_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_cos.hex - type: string 
+	Parameter SIN_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_sin.hex - type: string 
+INFO: [Synth 8-6157] synthesizing module 'prbs7_gen' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/prbs7_gen.v:8]
+INFO: [Synth 8-6155] done synthesizing module 'prbs7_gen' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/prbs7_gen.v:8]
+INFO: [Synth 8-6157] synthesizing module 'qpsk_mapper' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/qpsk_mapper.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'qpsk_mapper' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/qpsk_mapper.v:4]
+INFO: [Synth 8-6157] synthesizing module 'nco' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:7]
+	Parameter COS_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_cos.hex - type: string 
+	Parameter SIN_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_sin.hex - type: string 
+INFO: [Synth 8-3876] $readmem data file '/home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_cos.hex' is read successfully [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:24]
+INFO: [Synth 8-3876] $readmem data file '/home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_sin.hex' is read successfully [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:25]
+INFO: [Synth 8-6155] done synthesizing module 'nco' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:7]
+INFO: [Synth 8-6157] synthesizing module 'tx_mixer' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/tx_mixer.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'tx_mixer' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/tx_mixer.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'tx_top' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/tx_top.v:12]
+INFO: [Synth 8-6157] synthesizing module 'awgn_channel' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/awgn_channel.v:19]
+INFO: [Synth 8-6157] synthesizing module 'noise_gain_rom' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/noise_gain_rom.v:7]
+INFO: [Synth 8-226] default block is never used [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/noise_gain_rom.v:12]
+INFO: [Synth 8-6155] done synthesizing module 'noise_gain_rom' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/noise_gain_rom.v:7]
+INFO: [Synth 8-6157] synthesizing module 'awgn_core' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/awgn_core.v:21]
+INFO: [Synth 8-6157] synthesizing module 'gauss_noise' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/gauss_noise.v:15]
+INFO: [Synth 8-6157] synthesizing module 'lfsr_byte' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+	Parameter SEED bound to: 16'b0101110011011111 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr_byte' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+INFO: [Synth 8-6157] synthesizing module 'lfsr_byte__parameterized0' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+	Parameter SEED bound to: 16'b0110011000001010 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr_byte__parameterized0' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+INFO: [Synth 8-6157] synthesizing module 'lfsr_byte__parameterized1' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+	Parameter SEED bound to: 16'b1001100010000100 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr_byte__parameterized1' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+INFO: [Synth 8-6157] synthesizing module 'lfsr_byte__parameterized2' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+	Parameter SEED bound to: 16'b1101010110111001 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr_byte__parameterized2' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+INFO: [Synth 8-6157] synthesizing module 'lfsr_byte__parameterized3' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+	Parameter SEED bound to: 16'b0100001001110110 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr_byte__parameterized3' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+INFO: [Synth 8-6157] synthesizing module 'lfsr_byte__parameterized4' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+	Parameter SEED bound to: 16'b0011001101011001 
+INFO: [Synth 8-6155] done synthesizing module 'lfsr_byte__parameterized4' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/lfsr_byte.v:14]
+INFO: [Synth 8-6155] done synthesizing module 'gauss_noise' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/gauss_noise.v:15]
+INFO: [Synth 8-6157] synthesizing module 'noise_scale' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/noise_scale.v:15]
+INFO: [Synth 8-6155] done synthesizing module 'noise_scale' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/noise_scale.v:15]
+INFO: [Synth 8-6155] done synthesizing module 'awgn_core' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/awgn_core.v:21]
+INFO: [Synth 8-6155] done synthesizing module 'awgn_channel' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/channel/awgn_channel.v:19]
+INFO: [Synth 8-6157] synthesizing module 'rx_frontend_top' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/rx_frontend_top.v:21]
+	Parameter COS_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_cos.hex - type: string 
+	Parameter SIN_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_sin.hex - type: string 
+	Parameter COEF_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/fir_coeffs.hex - type: string 
+INFO: [Synth 8-6157] synthesizing module 'rx_nco' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/rx_nco.v:17]
+	Parameter COS_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_cos.hex - type: string 
+	Parameter SIN_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_sin.hex - type: string 
+INFO: [Synth 8-6157] synthesizing module 'nco__parameterized0' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:7]
+	Parameter ACC bound to: 16 - type: integer 
+	Parameter LUTB bound to: 8 - type: integer 
+	Parameter W bound to: 12 - type: integer 
+	Parameter INC bound to: 8192 - type: integer 
+	Parameter COS_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_cos.hex - type: string 
+	Parameter SIN_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_sin.hex - type: string 
+INFO: [Synth 8-3876] $readmem data file '/home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_cos.hex' is read successfully [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:24]
+INFO: [Synth 8-3876] $readmem data file '/home/darsh/EE2000-Signal-Processing/fpga/vectors/lut_sin.hex' is read successfully [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:25]
+INFO: [Synth 8-6155] done synthesizing module 'nco__parameterized0' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/tx/nco.v:7]
+INFO: [Synth 8-6155] done synthesizing module 'rx_nco' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/rx_nco.v:17]
+INFO: [Synth 8-6157] synthesizing module 'rx_mixer' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/rx_mixer.v:14]
+INFO: [Synth 8-6155] done synthesizing module 'rx_mixer' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/rx_mixer.v:14]
+INFO: [Synth 8-6157] synthesizing module 'fir_lpf' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:22]
+	Parameter COEF_FILE bound to: /home/darsh/EE2000-Signal-Processing/fpga/vectors/fir_coeffs.hex - type: string 
+INFO: [Synth 8-3876] $readmem data file '/home/darsh/EE2000-Signal-Processing/fpga/vectors/fir_coeffs.hex' is read successfully [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:47]
+INFO: [Synth 8-6155] done synthesizing module 'fir_lpf' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:22]
+INFO: [Synth 8-6157] synthesizing module 'symbol_sampler' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/symbol_sampler.v:19]
+INFO: [Synth 8-6155] done synthesizing module 'symbol_sampler' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/symbol_sampler.v:19]
+INFO: [Synth 8-6155] done synthesizing module 'rx_frontend_top' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/rx_frontend_top.v:21]
+INFO: [Synth 8-6157] synthesizing module 'symbol_decision' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/symbol_decision.v:7]
+	Parameter W bound to: 16 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'symbol_decision' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/symbol_decision.v:7]
+INFO: [Synth 8-6157] synthesizing module 'ber_counter' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/ber_counter.v:8]
+	Parameter START_SYMBOL bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'ber_counter' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/ber_counter.v:8]
+INFO: [Synth 8-6157] synthesizing module 'bin2bcd14' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/bin2bcd14.v:4]
+INFO: [Synth 8-6155] done synthesizing module 'bin2bcd14' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/bin2bcd14.v:4]
+INFO: [Synth 8-6157] synthesizing module 'seg7_display' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/seg7_display.v:8]
+	Parameter REFRESH_BITS bound to: 17 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'seg7_display' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/seg7_display.v:8]
+INFO: [Synth 8-6157] synthesizing module 'packetizer' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/packetizer.v:10]
+	Parameter W bound to: 16 - type: integer 
+WARNING: [Synth 8-693] zero replication count - replication ignored [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/packetizer.v:36]
+WARNING: [Synth 8-693] zero replication count - replication ignored [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/packetizer.v:39]
+INFO: [Synth 8-6155] done synthesizing module 'packetizer' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/packetizer.v:10]
+INFO: [Synth 8-6157] synthesizing module 'uart_tx' [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/uart_tx.v:5]
+	Parameter CLK_HZ bound to: 100000000 - type: integer 
+	Parameter BAUD bound to: 115200 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'uart_tx' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/backend/uart_tx.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'qpsk_top' (0#1) [/home/darsh/EE2000-Signal-Processing/fpga/rtl/top/qpsk_top.v:4]
+WARNING: [Synth 8-6014] Unused sequential element tmp_reg was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:90]
+WARNING: [Synth 8-6014] Unused sequential element tmp2_reg was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:102]
+WARNING: [Synth 8-6014] Unused sequential element x_reg[24] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:56]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[0] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[4] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-6014] Unused sequential element pa_reg[8] was removed.  [/home/darsh/EE2000-Signal-Processing/fpga/rtl/rx/fir_lpf.v:71]
+WARNING: [Synth 8-7129] Port i_symbol[14] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[13] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[12] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[11] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[10] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[9] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[8] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[7] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[6] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[5] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[4] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[3] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[2] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[1] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port i_symbol[0] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[14] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[13] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[12] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[11] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[10] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[9] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[8] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[7] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[6] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[5] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[4] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[3] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[2] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[1] in module symbol_decision is either unconnected or has no load
+WARNING: [Synth 8-7129] Port q_symbol[0] in module symbol_decision is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 11570.672 ; gain = 0.000 ; free physical = 604 ; free virtual = 9244
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 11570.672 ; gain = 0.000 ; free physical = 604 ; free virtual = 9244
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 11570.672 ; gain = 0.000 ; free physical = 604 ; free virtual = 9244
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 11570.672 ; gain = 0.000 ; free physical = 679 ; free virtual = 9318
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/darsh/EE2000-Signal-Processing/fpga/constraints/boolean.xdc]
+Finished Parsing XDC File [/home/darsh/EE2000-Signal-Processing/fpga/constraints/boolean.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 11570.672 ; gain = 0.000 ; free physical = 692 ; free virtual = 9332
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+RTL Elaboration Complete:  : Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 11608.941 ; gain = 38.270 ; free physical = 607 ; free virtual = 9250
+70 Infos, 38 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 11608.941 ; gain = 38.270 ; free physical = 607 ; free virtual = 9250
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2905.986; main = 2846.821; forked = 59.165
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 11955.473; main = 11608.910; forked = 346.562

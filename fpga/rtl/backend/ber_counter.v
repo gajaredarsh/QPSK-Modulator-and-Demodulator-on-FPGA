@@ -12,17 +12,17 @@ module ber_counter #(
     parameter integer TAP_B = `TAP_B,
     parameter integer START_SYMBOL = 0
 )(
-    input  wire        clk,
-    input  wire        rst,
-    input  wire        clear,
-    input  wire        rx_valid,
-    input  wire        compare_en,
-    input  wire [1:0]  rx_bits,
-    input  wire        pat_en,      // 1: expected bits come from pat[] (same pattern as tx_top)
-    input  wire [7:0]  pat,
+    input  wire clk,
+    input  wire rst,
+    input  wire clear,
+    input  wire rx_valid,
+    input  wire compare_en,
+    input  wire [1:0] rx_bits,
+    input  wire pat_en,      // 1: expected bits come from pat[] (same pattern as tx_top)
+    input  wire [7:0] pat,
 
-    output reg  [31:0] total_bits,
-    output reg  [31:0] error_bits
+    output reg [31:0] total_bits,
+    output reg [31:0] error_bits
 );
 
     function [L-1:0] step;
@@ -38,7 +38,7 @@ module ber_counter #(
         reg [L-1:0] s;
         begin
             s = seed;
-            for (k = 0; k < 2 * START_SYMBOL; k = k + 1)
+            for (k = 0; k < 2*START_SYMBOL; k = k + 1)
                 s = step(s);
             initial_state = s;
         end
@@ -52,7 +52,7 @@ module ber_counter #(
 
     reg [1:0] pidx;
     always @(posedge clk)
-        if (rst)           pidx <= 2'd0;
+        if (rst) pidx <= 2'd0;
         else if (rx_valid) pidx <= pidx + 1'b1;
     wire [1:0] pat_bits = {pat[{pidx, 1'b0}], pat[{pidx, 1'b1}]};
     wire [1:0] expected_bits = pat_en ? pat_bits : {state[0], after_one[0]};
@@ -64,7 +64,7 @@ module ber_counter #(
 
     always @(posedge clk) begin
         if (rst) begin
-            state      <= RESET_STATE;
+            state <= RESET_STATE;
             total_bits <= 32'd0;
             error_bits <= 32'd0;
         end else begin
