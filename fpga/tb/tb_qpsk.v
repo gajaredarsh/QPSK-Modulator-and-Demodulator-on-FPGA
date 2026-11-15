@@ -47,7 +47,7 @@ module tb_qpsk;
         .rst(rst),
         .in_valid(tx_valid),
         .s_tx(s_tx),
-        .level(4'd4),
+        .level(4'd12),
         .noise_off(1'b0),
         .out_valid(channel_valid),
         .r_rx(r_rx),
@@ -108,7 +108,7 @@ module tb_qpsk;
         wait (total_bits == 2 * N_COMPARE);
         @(negedge clk);
 
-        $display("Eb/N0 = 4 dB: errors=%0d, bits=%0d, BER=%f",
+        $display("Eb/N0 = 12 dB: errors=%0d, bits=%0d, BER=%f",
                  error_bits, total_bits,
                  $itor(error_bits) / $itor(total_bits));
 
@@ -148,7 +148,7 @@ packetizer #(.W(`RXC_ACC_BITS)) packet (
     .q_symbol(q_hat),
     .total_bits(total_bits),
     .error_bits(error_bits),
-    .noise_level(8'd4),
+    .noise_level(8'd12),
     .byte_data(uart_data),
     .byte_valid(uart_valid),
     .byte_ready(uart_ready)
