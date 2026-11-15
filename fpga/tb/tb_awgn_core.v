@@ -1,9 +1,8 @@
-// tb_awgn_core.v  (Part B)
-// Checks awgn_core against channel.awgn_int for five gains, using 16000 TX samples:
-// 500 QPSK symbols, then 8000 random full range 13 bit values (this makes the 12 bit
-// saturation happen at the high gains). It checks both r_rx and the 16 bit wide sum.
-// It also checks that out_valid comes exactly 6 clocks after in_valid, with random gaps.
-// Run from the tb folder, so that the ../vectors path works.
+// Test awgn_core against the Python model for five gain values.
+// Uses 16000 input samples for each gain.
+// The test checks the received output, wide sum, and 6-clock latency.
+// Random gaps are added between input samples.
+// Run from the tb folder so the ../vectors path works.
 `timescale 1ns/1ps
 `include "qpsk_params.vh"
 
@@ -31,9 +30,9 @@ module tb_awgn_core;
     reg [`NOISE_GAIN_BITS-1:0] gains_mem [0:NG-1];
 
     integer t, sent, got, base, errors, lat_errors, sat_hi, sat_lo, seed;
-    reg [LATENCY-1:0] vpipe;                      // in_valid delayed by 1..6 clocks
+    reg [LATENCY-1:0] vpipe;                      // Stores the last 6 in_valid values
 
-    // checker
+    // Check output values and latency
     always @(posedge clk) begin
         if (rst) vpipe <= 0;
         else     vpipe <= {vpipe[LATENCY-2:0], in_valid};
@@ -70,7 +69,7 @@ module tb_awgn_core;
             sent = 0;
             while (sent < M) begin
                 @(posedge clk);
-                if (($random(seed) & 3) != 0) begin       // about 75 % of the clocks carry a sample
+                if (($random(seed) & 3) != 0) begin       // Send a sample in about 75% of clock cycles
                     in_valid <= 1'b1;
                     s_tx     <= in_mem[sent];
                     sent = sent + 1;
