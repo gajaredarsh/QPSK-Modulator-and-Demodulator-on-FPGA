@@ -9,13 +9,13 @@ The project was developed with Vivado 2026.1 and requires Spartan-7 device suppo
 From the **repository root**, run:
 
 ```bash
-vivado -mode gui -source fpga/scripts/create_project.tcl
+vivado -source fpga/scripts/create_project.tcl
 ```
 
 If you are already **inside the `fpga/` folder**, run:
 
 ```bash
-vivado -mode gui -source scripts/create_project.tcl
+vivado -source scripts/create_project.tcl
 ```
 
 The Tcl script creates `~/vivado/qpsk/qpsk.xpr`, adds the RTL, testbenches, constraints, and memory initialization files, and selects the following tops:
