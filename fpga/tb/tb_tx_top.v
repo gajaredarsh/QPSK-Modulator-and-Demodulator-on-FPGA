@@ -1,15 +1,16 @@
-// Self-checking testbench: tx_top vs Python golden vectors (bit-exact).
-// Run from the directory holding golden_*.hex, lut_*.hex, qpsk_params.vh.
+// Checks tx_top against the Python reference values.
+// Run from the folder containing golden_*.hex, lut_*.hex, and qpsk_params.vh.
 `timescale 1ns/1ps
 `include "qpsk_params.vh"
 module tb_tx_top;
-    parameter CLK_DIV = 1;                       // clocks per sample_en tick
+    parameter CLK_DIV = 1;                       // Clocks per sample_en pulse
     localparam NS    = `TB_N_SYMBOLS;
     localparam NSAMP = NS * `SPS;
 
     reg clk = 0, rst = 1;
     always #5 clk = ~clk;
 
+    // Generate sample_en at the selected clock interval
     integer div_cnt = 0;
     wire sample_en = (div_cnt == CLK_DIV-1);
     always @(posedge clk) div_cnt <= rst ? 0 : (sample_en ? 0 : div_cnt + 1);
@@ -22,6 +23,8 @@ module tb_tx_top;
 
     reg [`MIXER_OUT_BITS-1:0] gold_s [0:NSAMP-1];
     reg [1:0]                 gold_b [0:NS-1];
+
+    // Load the expected samples and transmitted bits
     initial begin
         $readmemh("golden_s.hex", gold_s);
         $readmemh("golden_bits.hex", gold_b);
@@ -29,6 +32,7 @@ module tb_tx_top;
         rst <= 0;
     end
 
+    // Compare the DUT outputs with the reference values
     integer n = 0, k = 0, err_s = 0, err_b = 0;
     always @(posedge clk) if (!rst) begin
         if (s_stb && n < NSAMP) begin
@@ -54,5 +58,6 @@ module tb_tx_top;
         end
     end
 
+    // Stop the test if it takes too long
     initial begin #(10*CLK_DIV*NSAMP*2 + 1000); $display("FAIL: timeout (n=%0d k=%0d)", n, k); $finish; end
 endmodule
