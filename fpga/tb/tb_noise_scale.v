@@ -1,13 +1,13 @@
-// Tests noise_scale against the Python reference vectors for four gain values.
-// Gains: 0 (no noise), 2902 (6 dB), 5790 (0 dB), and 8191 (maximum gain).
-// Random gaps are added between input samples to test the pipeline.
+// Compares noise_scale with Python reference values at four gain levels.
+// Gains: 0 (no noise), 2902 (6 dB), 5790 (0 dB), and 8191 (maximum).
+// Random gaps between samples are used to test the pipeline.
 // Run from the tb folder so the ../vectors path works.
 `timescale 1ns/1ps
 `include "qpsk_params.vh"
 
 module tb_noise_scale;
     localparam NS = 4096;
-    localparam NRAW = 70000;                       // Number of raw noise samples
+    localparam NRAW = 70000;                       // Total raw noise samples
     localparam NG = 4;
 
     reg clk = 1'b0;
@@ -29,7 +29,7 @@ module tb_noise_scale;
     localparam LATENCY = 2;                       // Delay from raw_valid to noise_valid
     reg [LATENCY-1:0] vpipe;
 
-    // Check that noise_valid has the correct delay
+    // Checks the delay of noise_valid
     always @(posedge clk) begin
         if (rst) vpipe <= 0;
         else begin
@@ -38,7 +38,7 @@ module tb_noise_scale;
         end
     end
 
-    // Compare the output noise with the expected values
+    // Compares output noise with the expected values
     always @(posedge clk) begin
         if (!rst && noise_valid) begin
             if (noise !== exp_mem[base + got]) begin
@@ -61,7 +61,7 @@ module tb_noise_scale;
             rst <= 1'b1; raw_valid <= 1'b0;
             gain <= gains_mem[t];
             repeat (3) @(posedge clk);
-            got = 0; base = t * NS;                  // Reset is active, so outputs are not checked
+            got = 0; base = t * NS;                  // Outputs are not checked during reset
             rst <= 1'b0;
             sent = 0;
             while (sent < NS) begin
@@ -75,7 +75,7 @@ module tb_noise_scale;
             end
             @(posedge clk);
             raw_valid <= 1'b0;
-            repeat (10) @(posedge clk);              // Wait for all pending outputs
+            repeat (10) @(posedge clk);              // Wait for remaining outputs
             if (got != NS) begin
                 errors = errors + 1;
                 $display("gain %0d: got %0d outputs, expected %0d", gains_mem[t], got, NS);

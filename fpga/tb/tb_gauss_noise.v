@@ -1,6 +1,6 @@
-// Tests gauss_noise against the Python reference vectors using 70000 samples.
-// This checks the LFSR sequence, including its wraparound after 65535 samples.
-// Random gaps are added between step pulses to check that noise advances only on step.
+// Compares gauss_noise with Python reference values over 70000 samples.
+// Checks the LFSR sequence and its wraparound after 65535 samples.
+// Random gaps between step pulses check that noise changes only on step.
 // Run from the tb folder so the ../vectors path works.
 `timescale 1ns/1ps
 `include "qpsk_params.vh"
@@ -19,10 +19,10 @@ module tb_gauss_noise;
 
     reg [`NOISE_RAW_BITS-1:0] exp_mem [0:N-1];
     integer sent, got, errors, seed, lat_errors;
-    localparam LATENCY = 2;                       // Number of clocks from step to output
-    reg [LATENCY-1:0] vpipe;                      // Stores the delayed step signal
+    localparam LATENCY = 2;                       // Delay from step to output
+    reg [LATENCY-1:0] vpipe;                      // Stores delayed step signals
 
-    // Check that raw_valid has the correct delay
+    // Checks the delay of raw_valid
     always @(posedge clk) begin
         if (rst) vpipe <= 0;
         else begin
@@ -38,7 +38,7 @@ module tb_gauss_noise;
         rst <= 1'b0;
     end
 
-    // Generate step pulses with random gaps
+    // Sends step pulses with random gaps
     always @(posedge clk) begin
         if (rst)
             step <= 1'b0;
@@ -49,7 +49,7 @@ module tb_gauss_noise;
             step <= 1'b0;
     end
 
-    // Compare generated noise with the expected values
+    // Compares generated noise with the reference values
     always @(posedge clk) begin
         if (!rst && raw_valid) begin
             if (raw !== exp_mem[got]) begin

@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-// Top-level test of the user-pattern mode, LED output and seven-segment bank 1.
+// Tests user-pattern mode, LED output, and seven-segment bank 1.
 module tb_pattern;
     reg clk = 0;  always #5 clk = ~clk;
     reg        reset_btn = 1;
@@ -27,7 +27,7 @@ module tb_pattern;
     end
     endtask
 
-    // decode a 7-seg pattern (active-low segments) of the digit currently selected by D1_AN
+    // Decode the active-low seven-segment output for the selected digit
     reg [3:0] seen [0:3];
     reg [3:0] want;
     integer k;
@@ -43,7 +43,7 @@ module tb_pattern;
     integer n;
     initial begin
         patterns[0]=16'hA5; patterns[1]=16'hFF; patterns[2]=16'h00; patterns[3]=16'h3C; patterns[4]=16'h81;
-        // 1) noise off: every pattern must come back exactly, zero errors
+        // 1) With noise off, each pattern must appear exactly with no errors
         for (n = 0; n < 5; n = n + 1) begin
             run_pattern(patterns[n][7:0], 1'b1, 4'd12, 60000);
             if (led[7:0] !== patterns[n][7:0] || led[15:8] !== 8'h00 || dut.error_bits !== 0) begin
@@ -51,12 +51,12 @@ module tb_pattern;
                 fails = fails + 1;
             end else $display("PASS noise off pat=%h -> led=%h errors=%0d total=%0d", patterns[n][7:0], led[7:0], dut.error_bits, dut.total_bits);
         end
-        // 2) noisy channel at 0 dB: errors must appear and LED error mask must match the count of flips seen
+        // 2) At 0 dB, check that errors occur and the LED error mask matches the flipped bits
         run_pattern(8'hA5, 1'b0, 4'd0, 400000);
         $display("noise 0 dB: errors=%0d total=%0d BER=%f led=%h", dut.error_bits, dut.total_bits,
                  $itor(dut.error_bits)/$itor(dut.total_bits), led);
         if (dut.error_bits == 0) begin $display("FAIL: no errors at 0 dB"); fails = fails + 1; end
-        // 3) bank 1 decodes the error count (freeze the count first by switching the noise off)
+        // 3) Turn noise off and check that bank 1 displays the error count
         noise_off_switch = 1; repeat (3000) @(posedge clk);
         for (k = 0; k < 4; k = k + 1) begin
             want = ~(4'b0001 << k); wait (D1_AN == want); #1;
@@ -67,7 +67,7 @@ module tb_pattern;
             $display("FAIL: bank1 shows %0d but error_bits=%0d", seen[3]*1000 + seen[2]*100 + seen[1]*10 + seen[0], dut.error_bits);
             fails = fails + 1;
         end else $display("PASS: bank1 shows the error count");
-        // 4) bank 0 shows noise setting
+        // 4) Check that bank 0 displays the noise setting
         noise_switches = 4'd12; noise_off_switch = 0; repeat (200) @(posedge clk);
         for (k = 0; k < 4; k = k + 1) begin
             want = ~(4'b0001 << k); wait (D0_AN == want); #1;

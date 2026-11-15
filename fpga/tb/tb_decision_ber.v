@@ -27,6 +27,7 @@ module tb_decision_ber;
         .error_bits(error_bits)
     );
 
+    // Check the total and error counts
     task check_counts;
         input [31:0] expected_total;
         input [31:0] expected_errors;
@@ -40,6 +41,7 @@ module tb_decision_ber;
         end
     endtask
 
+    // Send one symbol and check its output bits and BER counts
     task send_symbol;
         input signed [W-1:0] i_value;
         input signed [W-1:0] q_value;
@@ -87,7 +89,7 @@ module tb_decision_ber;
         @(negedge clk);
         rst = 1'b0;
 
-        // Seed 7'h7F gives reference pairs 11, 11, 11, 10.
+        // Expected reference bit pairs are 11, 11, 11, and 10.
         send_symbol(MIN_IQ, -1, 2'b11, 2, 0);
         send_symbol(0,      -1, 2'b01, 4, 1);
         send_symbol(MAX_IQ,  0, 2'b00, 6, 3);

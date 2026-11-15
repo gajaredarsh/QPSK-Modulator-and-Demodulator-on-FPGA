@@ -2,6 +2,7 @@
 `include "qpsk_params.vh"
 `include "qpsk_rx_params.vh"
 
+// Tests the complete QPSK transmitter, channel, receiver, and BER calculation.
 module tb_qpsk;
     localparam integer N_COMPARE = 50_000;
     localparam [3:0] LEVEL_DB = 4'd12;
@@ -9,20 +10,25 @@ module tb_qpsk;
     reg rst = 1'b1;
     always #5 clk = ~clk;
 
+    // Transmitter output
     wire signed [`MIXER_OUT_BITS-1:0] s_tx;
     wire tx_valid;
 
+    // Received signal from the noisy channel
     wire signed [`RXC_X_BITS-1:0] r_rx;
     wire channel_valid;
 
+    // Receiver symbol estimates
     wire signed [`RXC_ACC_BITS-1:0] i_hat, q_hat;
     wire sym_valid;
 
+    // Decoded bits and BER counter outputs
     wire [1:0] rx_bits;
     wire bits_valid;
     wire [31:0] total_bits, error_bits;
     reg seen_first = 1'b0;
 
+    // Generate the QPSK transmitted signal
     tx_top tx (
         .clk(clk),
         .rst(rst),
@@ -35,18 +41,24 @@ module tb_qpsk;
         .pat(8'h00)
     );
 
+    // Add AWGN to the transmitted signal
     awgn_channel channel (
         .clk(clk),
         .rst(rst),
         .in_valid(tx_valid),
         .s_tx(s_tx),
+<<<<<<< HEAD
         .level(LEVEL_DB),
+=======
+        .level(4'd12),
+>>>>>>> 4f1d25400340bbbb790b68cb85fbf85925f53f9d
         .noise_off(1'b0),
         .out_valid(channel_valid),
         .r_rx(r_rx),
         .wide()
     );
 
+    // Process the received signal and estimate I and Q
     rx_frontend_top rx (
         .clk(clk),
         .rst(rst),
@@ -59,6 +71,7 @@ module tb_qpsk;
         .sym_valid(sym_valid)
     );
 
+    // Convert the estimated symbols into received bits
     symbol_decision #(.W(`RXC_ACC_BITS)) decision (
         .clk(clk),
         .rst(rst),
@@ -69,6 +82,7 @@ module tb_qpsk;
         .bits_valid(bits_valid)
     );
 
+    // Mark when the first valid received bits arrive
     always @(posedge clk) begin
         if (rst)
             seen_first <= 1'b0;
@@ -76,6 +90,7 @@ module tb_qpsk;
             seen_first <= 1'b1;
     end
 
+    // Count total bits and bit errors
     ber_counter #(.START_SYMBOL(0)) ber (
         .clk(clk),
         .rst(rst),
@@ -89,6 +104,7 @@ module tb_qpsk;
         .error_bits(error_bits)
     );
 
+    // Run the test and display the BER result
     initial begin
         repeat (5) @(negedge clk);
         rst = 1'b0;
@@ -96,7 +112,11 @@ module tb_qpsk;
         wait (total_bits == 2 * N_COMPARE);
         @(negedge clk);
 
+<<<<<<< HEAD
         $display(" errors=%0d, bits=%0d, BER=%f",
+=======
+        $display("Eb/N0 = 12 dB: errors=%0d, bits=%0d, BER=%f",
+>>>>>>> 4f1d25400340bbbb790b68cb85fbf85925f53f9d
                  error_bits, total_bits,
                  $itor(error_bits) / $itor(total_bits));
 
@@ -104,6 +124,7 @@ module tb_qpsk;
     end
     integer constellation_file;
 
+// Create a CSV file to store the received constellation points
 initial begin
     constellation_file = $fopen("constellation.csv", "w");
     if (constellation_file == 0) begin
@@ -113,6 +134,7 @@ initial begin
     $fwrite(constellation_file, "I,Q\n");
 end
 
+// Save each valid I/Q symbol to the CSV file
 always @(posedge clk) begin
     if (!rst && sym_valid)
         $fwrite(constellation_file, "%0d,%0d\n",
@@ -124,6 +146,7 @@ wire uart_valid;
 wire uart_ready;
 wire uart_tx_pin;
 
+// Send symbol and BER data to the UART packetizer
 packetizer #(.W(`RXC_ACC_BITS)) packet (
     .clk(clk),
     .rst(rst),
@@ -133,12 +156,17 @@ packetizer #(.W(`RXC_ACC_BITS)) packet (
     .q_symbol(q_hat),
     .total_bits(total_bits),
     .error_bits(error_bits),
+<<<<<<< HEAD
     .noise_level({4'b0000,LEVEL_DB}),
+=======
+    .noise_level(8'd12),
+>>>>>>> 4f1d25400340bbbb790b68cb85fbf85925f53f9d
     .byte_data(uart_data),
     .byte_valid(uart_valid),
     .byte_ready(uart_ready)
 );
 
+// Transmit packet data over UART
 uart_tx #(
     .CLK_HZ(100_000_000),
     .BAUD(115200)

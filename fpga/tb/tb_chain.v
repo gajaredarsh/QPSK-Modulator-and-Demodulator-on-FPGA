@@ -1,14 +1,9 @@
-// tb_chain.v  (Part C)  --  integration test: Part A tx_top -> Part B awgn_channel -> Part C rx_frontend_top.
-// Author: [FILL IN YOUR NAME] (Part C)  |  AI-assistance: drafted with Claude (Anthropic) for EE2000; cite per course AI-usage policy.
-//
-// Compares every symbol value (i_hat, q_hat) bit-exactly against the Python chain
-//   golden TX waveform -> channel.awgn_int -> rx_frontend (mixer, FIR) -> integrate_dump
-// and checks the hard decisions against the bits the transmitter really sent.
-//   noise_off = 1 : the decisions must be 100 % correct (all 511 symbols)
-//   noise_off = 0 : decisions are only counted (BER is printed), the bit-exact check is what must pass
-// CLK_DIV  = clocks between samples (1 = every clock, 100 = 1 Msample/s at 100 MHz).
-// Reports how many TX symbols are already started when RX symbol k comes out, which is the delay Part D needs for its
-// reference bits (it should delay by SYMBOLS, counted with sym_stb / sym_valid, not by clocks).
+// Integration test connecting Part A transmitter, Part B channel, and Part C receiver.
+// Compares receiver outputs with the Python reference values and checks transmitted bits.
+// With noise_off = 1, all 511 symbol decisions must be correct.
+// With noise_off = 0, bit errors are counted and BER is printed.
+// CLK_DIV controls the number of clocks between samples.
+// Also checks how many TX symbols are ahead when an RX symbol is ready.
 `timescale 1ns/1ps
 `include "qpsk_params.vh"
 `include "qpsk_rx_params.vh"
@@ -19,7 +14,7 @@ module tb_chain;
     parameter LEVEL     = 6;
     parameter ACC_I = "vectors/chain_acc_i_off.hex";
     parameter ACC_Q = "vectors/chain_acc_q_off.hex";
-    localparam NS = 511;                       // complete symbol windows in the 512-symbol golden waveform
+    localparam NS = 511;                       // Number of complete symbol windows
 
     reg clk = 1'b0;
     always #5 clk = ~clk;
@@ -29,21 +24,21 @@ module tb_chain;
     wire sample_en = (div_cnt == CLK_DIV-1);
     always @(posedge clk) div_cnt <= rst ? 0 : (sample_en ? 0 : div_cnt + 1);
 
-    // transmitter (Part A)
+    // Connect the transmitter
     wire signed [`MIXER_OUT_BITS-1:0] s_out;
     wire s_stb, sym_stb;
     wire [1:0] tx_bits;
     tx_top u_tx (.clk(clk), .rst(rst), .sample_en(sample_en), .s_out(s_out), .s_stb(s_stb),
                  .tx_bits(tx_bits), .sym_stb(sym_stb), .pat_en(1'b0), .pat(8'h00));
 
-    // channel (Part B)
+    // Connect the AWGN channel
     wire ch_valid;
     wire signed [`RX_BITS-1:0]  r_rx;
     wire signed [`SUM_BITS-1:0] wide;
     awgn_channel u_ch (.clk(clk), .rst(rst), .in_valid(s_stb), .s_tx(s_out), .level(LEVEL[3:0]),
                        .noise_off(NOISE_OFF[0]), .out_valid(ch_valid), .r_rx(r_rx), .wide(wide));
 
-    // receiver front end (Part C)
+    // Connect the receiver front end
     wire signed [`RXC_X_BITS-1:0]   xi, xq, y_i, y_q;
     wire signed [`RXC_ACC_BITS-1:0] i_hat, q_hat;
     wire x_valid, y_valid, sym_valid;
@@ -77,9 +72,9 @@ module tb_chain;
                 if (err_acc <= 5) $display("MISMATCH symbol %0d: i_hat %0d/%0d q_hat %0d/%0d", k_rx,
                     i_hat, $signed(ai_mem[k_rx]), q_hat, $signed(aq_mem[k_rx]));
             end
-            dec = {i_hat < 0, q_hat < 0};                      // bit = (value < 0), {b0 (I), b1 (Q)}
+            dec = {i_hat < 0, q_hat < 0};                      // Decide each bit using the sign of its value
             err_bits = err_bits + (dec[1] !== txb[k_rx][1]) + (dec[0] !== txb[k_rx][0]);
-            ahead = k_tx - k_rx - 1;                            // TX symbols already started beyond symbol k_rx
+            ahead = k_tx - k_rx - 1;                            // Number of TX symbols already ahead
             if (ahead < ahead_min) ahead_min = ahead;
             if (ahead > ahead_max) ahead_max = ahead;
             k_rx = k_rx + 1;
