@@ -1,23 +1,23 @@
 """
-gen_rx_vectors.py  --  Part C: Python golden model -> RTL header, FIR taps and test vectors.
+gen_rx_vectors.py -- Part C: Generate receiver test vectors.
 
-Usage (all three paths are folders you already have):
+Usage:
     python3 -I gen_rx_vectors.py --model <python_codes/fixed_point> --partb <part_b/python> \
-                                 --parta <partA_rtl>  [--out <part_c folder>]
+                                 --parta <partA_rtl> [--out <part_c folder>]
 
-What it writes
-    rtl/qpsk_rx_params.vh      `define RXC_* constants (widths, shifts, taps) taken from params.py + rx_frontend.py
-    vectors/fir_coeffs.hex     25 signed 12-bit taps (rx_frontend.quantize_coeffs)
-    vectors/rx_in_all.hex      5 x 16000 receiver input words (Part B channel outputs, 5 noise gains)
-    vectors/rx_{xi,xq}_all.hex expected mixer outputs      (12 bit)
-    vectors/rx_{yi,yq}_all.hex expected causal FIR outputs  (12 bit)
-    vectors/rx_acc_{i,q}_all.hex expected integrate-and-dump values (16 bit), timing offset = FIR delay
-    vectors/team_*.hex         the team's own d_yi / d_acc golden files + the receiver input that reproduces them
-    vectors/chain_*.hex        expected accumulators for the full TX -> channel -> RX chain (Part A + B + C)
+This script generates:
+    rtl/qpsk_rx_params.vh      Receiver parameters
+    vectors/fir_coeffs.hex    FIR filter coefficients
+    vectors/rx_in_all.hex     Receiver input samples
+    vectors/rx_{xi,xq}_all.hex Mixer outputs
+    vectors/rx_{yi,yq}_all.hex FIR filter outputs
+    vectors/rx_acc_{i,q}_all.hex Accumulator outputs
+    vectors/team_*.hex        Team's reference test vectors
+    vectors/chain_*.hex       Complete TX to RX test vectors
 
-Every expected value comes from the SAME functions the Python chain uses (rx_frontend.py, rx_backend_eval.py,
-channel.awgn_int), so "bit-exact against the Python model" is literally true.
+All expected outputs are generated using the Python models.
 """
+
 import argparse, os, shutil, sys
 
 import numpy as np
@@ -37,14 +37,14 @@ def main():
     os.makedirs(vec, exist_ok=True)
     os.makedirs(os.path.join(out, "rtl"), exist_ok=True)
 
-    # --- Part B's integer channel (it has its own params.py copy: load it first, then forget it) -----------
+    # Load the Part B channel model
     sys.path.insert(0, os.path.abspath(a.partb))
     import channel as chB
     for m in ("params", "fixedpoint", "channel"):
         sys.modules.pop(m, None)
     sys.path.remove(os.path.abspath(a.partb))
 
-    # --- the team's fixed-point receiver model -----------------------------------------------------------
+    # Load the receiver model
     sys.path.insert(0, os.path.abspath(a.model))
     import params, fixedpoint, tx_nco
     import rx_frontend as F
@@ -58,7 +58,7 @@ def main():
     OFF = F.group_delay_samples(H)
     fixedpoint.write_hex(os.path.join(vec, "fir_coeffs.hex"), H, F.COEF_BITS)
 
-    # --- 1. parameter header ------------------------------------------------------------------------------
+    # Create the receiver parameter header
     hdr = [("RXC_SPS", SPS), ("RXC_X_BITS", F.RX_IN_BITS), ("RXC_LO_BITS", params.DATAPATH_BITS),
            ("RXC_MIX_SHIFT", params.DATAPATH_BITS - 1), ("RXC_TAPS", len(H)), ("RXC_COEF_BITS", F.COEF_BITS),
            ("RXC_FIR_SHIFT", F.COEF_BITS - 1), ("RXC_ACC_BITS", D.ACC_BITS), ("RXC_OFFSET", OFF),
@@ -71,12 +71,14 @@ def main():
             f.write("`define %-18s %d\n" % (k, v))
         f.write("`endif\n")
 
-    c16, s16 = tx_nco.nco_fixed(SPS)          # one symbol of carrier = what the RX NCO repeats
+    c16, s16 = tx_nco.nco_fixed(SPS)
 
+    # Generate the local oscillator signals
     def lo(n):
         k = n // SPS + 1
         return np.tile(c16, k)[:n], np.tile(s16, k)[:n]
 
+    # Run the receiver processing steps
     def chain(r):
         cs, sn = lo(len(r))
         xi, xq = F.downconvert_fixed(r, cs, sn)
@@ -85,7 +87,7 @@ def main():
         ai, aq = D.integrate_dump(yi, yq, OFF)
         return xi, xq, yi, yq, ai, aq
 
-    # --- 2. Part B channel outputs, 5 noise gains ---------------------------------------------------------
+    # Generate receiver vectors for different noise gains
     NG, MS = 5, 16000
     r_all = fixedpoint.read_hex(os.path.join(a.partb, "..", "vectors", "core_r12_all.hex"), 12)
     assert len(r_all) == NG * MS
@@ -100,7 +102,7 @@ def main():
         fixedpoint.write_hex(os.path.join(vec, n + ".hex"), np.concatenate(c), w)
     print(f"[1] Part B channel vectors: {NG} sets x {MS} samples, {len(cols[4][0])} symbols each")
 
-    # --- 3. the team's own golden files (d_yi.hex ...) must be reproduced -------------------------------
+    # Check the team's existing golden output files
     gold = os.path.join(a.model, "d_outputs", "golden")
     bits = tx_nco.gen_bits(2 * 128)
     I, Q, s_fix, cos_i, sin_i = M.tx_fixed(bits)
@@ -119,7 +121,7 @@ def main():
     fixedpoint.write_hex(os.path.join(vec, "team_acc_q.hex"), aq, D.ACC_BITS)
     print(f"[2] reproduced the team golden d_yi/d_yq/d_acc_i exactly ({len(r_int)} samples, {len(ai)} symbols)")
 
-    # --- 4. full chain: Part A golden TX waveform -> Part B channel -> this receiver --------------------
+    # Test the complete TX to RX chain
     s_tx = fixedpoint.read_hex(os.path.join(a.parta, "generated", "golden_s.hex"), 13)
     for tag, kw in (("off", dict(gain=0)), ("L6", dict(ebn0_db=6)), ("L2", dict(ebn0_db=2))):
         r = chB.awgn_int(s_tx, **kw)
