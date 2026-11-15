@@ -1,16 +1,14 @@
-// tb_awgn_channel.v  (Part B)
-// Checks the top level channel block:
-//   1. the gain ROM against vectors/noise_gain_table.hex (exported by channel.export_noise_vectors)
-//   2. all 16 level settings (0..15 dB) against channel.awgn_int, 2000 samples each
-//   3. noise_off = 1, both against Python and against (s_tx + 4) >>> 3 computed right here
-// Run from the tb folder, so that the ../vectors path works.
+// tb_awgn_channel.v (Part B)
+// Tests the AWGN channel, gain ROM and noise_off option.
+// Run from the tb folder.
+
 `timescale 1ns/1ps
 `include "qpsk_params.vh"
 
 module tb_awgn_channel;
     localparam MC   = 2000;
-    localparam MIN  = 16000;                       // length of vectors/core_in.hex
-    localparam NSET = 17;                          // 16 levels + noise_off
+    localparam MIN  = 16000;                       // Number of input samples
+    localparam NSET = 17;                          // 16 levels and noise_off
 
     reg clk = 1'b0;
     always #5 clk = ~clk;
@@ -33,6 +31,7 @@ module tb_awgn_channel;
     integer t, l, sent, got, base, errors, rom_errors, off_errors, seed;
     reg signed [31:0] calc;
 
+    // Compare the received output with the expected value
     always @(posedge clk) begin
         if (!rst && out_valid) begin
             if (r_rx !== exp_r[base + got]) begin
@@ -54,7 +53,7 @@ module tb_awgn_channel;
         $readmemh("../vectors/noise_gain_table.hex", tbl_mem);
         errors = 0; rom_errors = 0; off_errors = 0; seed = 5; got = 0; base = 0;
 
-        // 1. the ROM
+        // Check the gain ROM values
         for (l = 0; l < `NOISE_LEVELS; l = l + 1) begin
             level = l;
             #1;
@@ -65,7 +64,7 @@ module tb_awgn_channel;
         end
         $display("  gain ROM: %0d entries checked", `NOISE_LEVELS);
 
-        // 2. and 3. the whole block
+        // Test all noise levels and noise_off
         for (t = 0; t < NSET; t = t + 1) begin
             rst <= 1'b1; in_valid <= 1'b0;
             if (t < `NOISE_LEVELS) begin level <= t; noise_off <= 1'b0; end
@@ -93,6 +92,7 @@ module tb_awgn_channel;
         end
         $display("  %0d level settings + noise_off checked, %0d samples each", `NOISE_LEVELS, MC);
 
+        // Print the final test result
         if (errors == 0 && rom_errors == 0 && off_errors == 0)
             $display("PASS tb_awgn_channel: ROM, all levels and noise_off match");
         else
@@ -100,6 +100,7 @@ module tb_awgn_channel;
         $finish;
     end
 
+    // Stop the test if it takes too long
     initial begin
         #100000000;
         $display("FAIL tb_awgn_channel: timeout");

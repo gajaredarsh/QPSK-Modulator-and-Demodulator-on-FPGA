@@ -1,8 +1,7 @@
-// tb_gauss_noise.v  (Part B)
-// Checks gauss_noise against vectors/noise_raw.hex (channel.lfsr_noise_raw, 70000 samples).
-// 70000 is more than one LFSR period (65535), so the wrap around is checked too.
-// The step pulses have random gaps (some back to back) to prove the noise only advances on step.
-// Run from the tb folder, so that the ../vectors path works.
+// Tests gauss_noise against the Python reference vectors using 70000 samples.
+// This checks the LFSR sequence, including its wraparound after 65535 samples.
+// Random gaps are added between step pulses to check that noise advances only on step.
+// Run from the tb folder so the ../vectors path works.
 `timescale 1ns/1ps
 `include "qpsk_params.vh"
 
@@ -10,7 +9,7 @@ module tb_gauss_noise;
     localparam N = 70000;
 
     reg clk = 1'b0;
-    always #5 clk = ~clk;                       // 100 MHz
+    always #5 clk = ~clk;                       // 100 MHz clock
     reg rst  = 1'b1;
     reg step = 1'b0;
     wire signed [`NOISE_RAW_BITS-1:0] raw;
@@ -20,10 +19,10 @@ module tb_gauss_noise;
 
     reg [`NOISE_RAW_BITS-1:0] exp_mem [0:N-1];
     integer sent, got, errors, seed, lat_errors;
-    localparam LATENCY = 2;                       // clocks from step to raw / raw_valid
-    reg [LATENCY-1:0] vpipe;                      // step delayed by 1..2 clocks
+    localparam LATENCY = 2;                       // Number of clocks from step to output
+    reg [LATENCY-1:0] vpipe;                      // Stores the delayed step signal
 
-    // valid timing: raw_valid must be exactly step delayed by LATENCY clocks
+    // Check that raw_valid has the correct delay
     always @(posedge clk) begin
         if (rst) vpipe <= 0;
         else begin
@@ -39,7 +38,7 @@ module tb_gauss_noise;
         rst <= 1'b0;
     end
 
-    // stimulus: one step pulse per sample, 3 clocks out of 4 on average
+    // Generate step pulses with random gaps
     always @(posedge clk) begin
         if (rst)
             step <= 1'b0;
@@ -50,7 +49,7 @@ module tb_gauss_noise;
             step <= 1'b0;
     end
 
-    // checker
+    // Compare generated noise with the expected values
     always @(posedge clk) begin
         if (!rst && raw_valid) begin
             if (raw !== exp_mem[got]) begin
